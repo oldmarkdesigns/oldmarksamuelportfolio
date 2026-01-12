@@ -2,14 +2,18 @@
 
 import Link from 'next/link'
 import Image from 'next/image'
+import { useScrollAnimation } from '@/hooks/useScrollAnimation'
 
 export default function AboutSection() {
+  const { ref: sectionRef, isVisible: sectionVisible } = useScrollAnimation({ threshold: 0.1, triggerOnce: true })
+  const { ref: contentRef, isVisible: contentVisible } = useScrollAnimation({ threshold: 0.1, triggerOnce: true, delay: 100 })
+
   return (
     <section id="about" className="py-12 md:py-16 bg-transparent relative scroll-mt-12">
       <div className="max-w-4xl mx-auto px-6 sm:px-8 lg:px-12">
-        <h2 className="text-xl md:text-2xl font-serif font-medium mb-8 text-white">About me</h2>
+        <h2 ref={sectionRef} className={`text-xl md:text-2xl font-serif font-medium mb-8 text-white transition-all duration-700 ${sectionVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>About me</h2>
         
-        <div className="flex flex-col md:flex-row gap-8 items-start">
+        <div ref={contentRef} className={`flex flex-col md:flex-row gap-8 items-start transition-all duration-700 ${contentVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
           {/* Profile Picture */}
           <div className="flex-shrink-0 w-full md:w-96">
             <div className="relative w-full rounded-xl overflow-hidden">

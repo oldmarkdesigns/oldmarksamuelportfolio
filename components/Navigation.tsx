@@ -32,11 +32,11 @@ export default function Navigation() {
     <nav className="fixed top-3 left-1/2 transform -translate-x-1/2 z-[9999] w-full max-w-4xl px-4">
       {/* Rounded navigation bar */}
       <div 
-        className={`${isScrolled ? 'backdrop-blur-3xl' : 'backdrop-blur-xl'} border rounded-full px-3 py-1.5 flex items-center justify-between transition-all duration-300`}
-        style={{
-          backgroundColor: theme === 'dark' ? 'rgba(10, 10, 10, 0.4)' : 'rgba(243, 244, 246, 0.35)',
-          borderColor: theme === 'dark' ? 'rgba(22, 101, 52, 0.2)' : 'rgba(209, 213, 219, 0.6)',
-        }}
+        className={`${isScrolled ? 'backdrop-blur-3xl' : 'backdrop-blur-xl'} border rounded-full px-3 py-1.5 flex items-center justify-between transition-all duration-500 ease-out ${
+          theme === 'dark' 
+            ? 'bg-[rgba(10,10,10,0.4)] border-[rgba(22,101,52,0.2)]' 
+            : 'bg-[rgba(243,244,246,0.35)] border-[rgba(209,213,219,0.6)]'
+        }`}
       >
         {/* Left side: Profile picture and name */}
         <a 
@@ -167,11 +167,11 @@ export default function Navigation() {
       {/* Mobile Menu */}
       {isMenuOpen && (
         <div 
-          className={`md:hidden mt-2 ${isScrolled ? 'backdrop-blur-3xl' : 'backdrop-blur-xl'} border rounded-2xl p-3 transition-all duration-300`}
-          style={{
-            backgroundColor: theme === 'dark' ? 'rgba(10, 10, 10, 0.4)' : 'rgba(243, 244, 246, 0.35)',
-            borderColor: theme === 'dark' ? 'rgba(22, 101, 52, 0.2)' : 'rgba(209, 213, 219, 0.6)',
-          }}
+          className={`md:hidden mt-2 ${isScrolled ? 'backdrop-blur-3xl' : 'backdrop-blur-xl'} border rounded-2xl p-3 transition-all duration-500 ease-out ${
+            theme === 'dark' 
+              ? 'bg-[rgba(10,10,10,0.4)] border-[rgba(22,101,52,0.2)]' 
+              : 'bg-[rgba(243,244,246,0.35)] border-[rgba(209,213,219,0.6)]'
+          }`}
         >
           {navItems.map((item) => (
             <a

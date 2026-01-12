@@ -55,12 +55,13 @@
 .light nav[class*="fixed"][class*="top-3"] > div,
 .light nav[class*="fixed"][class*="top-3"] [class*="rounded-full"] {
   background-color: rgba(255, 255, 255, 0.85) !important;
+  transition: background-color 0.4s ease, border-color 0.4s ease !important;
 }
 
 .light nav[class*="fixed"][class*="top-3"] [class*="backdrop-blur"] {
   backdrop-filter: blur(24px) !important;
   -webkit-backdrop-filter: blur(24px) !important;
-}
+  transition: backdrop-filter 0.4s ease, -webkit-backdrop-filter 0.4s ease !important;
 
 /* Remove background from work page side navigation in light mode */
 .light nav[class*="sticky"][class*="top-20"] {
@@ -428,4 +429,100 @@ a {
 
 .animate-smooth-bounce {
   animation: smooth-bounce 2s ease-in-out infinite;
+}
+
+/* Smooth transitions for theme changes - only for specific elements */
+nav[class*="fixed"][class*="top-3"] > div,
+nav[class*="fixed"][class*="top-3"] > div * {
+  transition: background-color 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
+              border-color 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+              color 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+              backdrop-filter 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+/* Page load animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.8s ease-out forwards;
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.8s ease-out forwards;
+}
+
+.animate-slide-in-left {
+  animation: slideInLeft 0.8s ease-out forwards;
+}
+
+.animate-slide-in-right {
+  animation: slideInRight 0.8s ease-out forwards;
+}
+
+/* Scroll animation classes */
+.scroll-animate {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.scroll-animate.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.scroll-animate-delay-1 {
+  transition-delay: 0.1s;
+}
+
+.scroll-animate-delay-2 {
+  transition-delay: 0.2s;
+}
+
+.scroll-animate-delay-3 {
+  transition-delay: 0.3s;
+}
+
+.scroll-animate-delay-4 {
+  transition-delay: 0.4s;
 }

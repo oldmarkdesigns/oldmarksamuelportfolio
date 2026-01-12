@@ -2,10 +2,12 @@
 
 import { useState, useEffect } from 'react'
 import { useTheme } from '@/contexts/ThemeContext'
+import { useScrollAnimation } from '@/hooks/useScrollAnimation'
 
 export default function Hero() {
   const { theme } = useTheme()
   const [isVisible, setIsVisible] = useState(true)
+  const { ref: scrollRef, isVisible: scrollVisible } = useScrollAnimation({ threshold: 0.1, triggerOnce: true })
 
   useEffect(() => {
     const handleScroll = () => {
@@ -21,9 +23,9 @@ export default function Hero() {
   }, [])
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16 md:pt-20">
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16 md:pt-20 animate-fade-in">
       {/* Content */}
-      <div className="relative z-10 max-w-4xl mx-auto px-6 sm:px-8 lg:px-12 py-12 md:py-20">
+      <div ref={scrollRef} className={`relative z-10 max-w-4xl mx-auto px-6 sm:px-8 lg:px-12 py-12 md:py-20 transition-all duration-700 ${scrollVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
         <h1 className={`text-5xl md:text-7xl lg:text-8xl font-bold mb-6 leading-tight tracking-tight text-center ${
           theme === 'light' ? 'text-gray-900' : 'text-white'
         }`}>

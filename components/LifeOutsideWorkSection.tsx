@@ -2,6 +2,7 @@
 
 import Image from 'next/image'
 import { useState, useEffect } from 'react'
+import { useScrollAnimation } from '@/hooks/useScrollAnimation'
 
 export default function LifeOutsideWorkSection() {
   const [albumArt, setAlbumArt] = useState<string | null>(null)
@@ -9,6 +10,8 @@ export default function LifeOutsideWorkSection() {
   const [hoveredInterest, setHoveredInterest] = useState<string | null>(null)
   const spotifyUrl = 'https://open.spotify.com/track/02J0ot9J6ASTAnj5oixMIE?si=SL1ELLpBQ42PHpG-Cr8qvw'
   const trackId = '02J0ot9J6ASTAnj5oixMIE'
+  const { ref: sectionRef, isVisible: sectionVisible } = useScrollAnimation({ threshold: 0.1, triggerOnce: true })
+  const { ref: contentRef, isVisible: contentVisible } = useScrollAnimation({ threshold: 0.1, triggerOnce: true, delay: 100 })
 
   useEffect(() => {
     const fetchAlbumArt = async () => {
@@ -37,9 +40,9 @@ export default function LifeOutsideWorkSection() {
       
       <section className="py-12 md:py-16 bg-transparent relative scroll-mt-12">
         <div className="max-w-4xl mx-auto px-6 sm:px-8 lg:px-12">
-          <h2 className="text-xl md:text-2xl font-serif font-medium mb-8 text-white">Life outside work</h2>
+          <h2 ref={sectionRef} className={`text-xl md:text-2xl font-serif font-medium mb-8 text-white transition-all duration-700 ${sectionVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>Life outside work</h2>
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
+          <div ref={contentRef} className={`grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch transition-all duration-700 ${contentVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
           {/* Music Card */}
           <div className="bg-gray-800/20 border border-gray-700/50 rounded-2xl p-6 flex flex-col">
             <div className="relative w-full aspect-[4/3] mb-3 rounded-xl overflow-hidden bg-gray-800">

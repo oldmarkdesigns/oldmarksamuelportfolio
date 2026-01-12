@@ -1,12 +1,17 @@
 'use client'
 
 import Link from 'next/link'
+import { useScrollAnimation } from '@/hooks/useScrollAnimation'
 
 export default function ExperienceEducationSection() {
+  const { ref: sectionRef, isVisible: sectionVisible } = useScrollAnimation({ threshold: 0.1, triggerOnce: true })
+  const { ref: contentRef, isVisible: contentVisible } = useScrollAnimation({ threshold: 0.1, triggerOnce: true, delay: 100 })
+
   return (
     <section className="py-12 md:py-16 bg-transparent relative scroll-mt-12">
       <div className="max-w-4xl mx-auto px-6 sm:px-8 lg:px-12">
-        <div className="space-y-12">
+        <div ref={sectionRef} className={`transition-all duration-700 ${sectionVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+        <div ref={contentRef} className={`space-y-12 transition-all duration-700 ${contentVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
           {/* Experience Section */}
           <div className="flex flex-col md:flex-row gap-8 md:gap-12">
             <div className="flex-shrink-0 md:w-32">
@@ -85,6 +90,7 @@ export default function ExperienceEducationSection() {
               </div>
             </div>
           </div>
+        </div>
         </div>
       </div>
     </section>

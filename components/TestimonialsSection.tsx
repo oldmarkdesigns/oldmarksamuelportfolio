@@ -3,15 +3,19 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { useTheme } from '@/contexts/ThemeContext'
+import { useScrollAnimation } from '@/hooks/useScrollAnimation'
 
 export default function TestimonialsSection() {
   const { theme } = useTheme()
+  const { ref: sectionRef, isVisible: sectionVisible } = useScrollAnimation({ threshold: 0.1, triggerOnce: true })
+  const { ref: contentRef, isVisible: contentVisible } = useScrollAnimation({ threshold: 0.1, triggerOnce: true, delay: 100 })
+
   return (
     <section className="py-12 md:py-16 bg-transparent relative scroll-mt-12">
       <div className="max-w-4xl mx-auto px-6 sm:px-8 lg:px-12">
-        <h2 className={`text-xl md:text-2xl font-serif font-medium mb-8 ${theme === 'light' ? 'text-gray-900' : 'text-white'}`}>A word from collaborators</h2>
+        <h2 ref={sectionRef} className={`text-xl md:text-2xl font-serif font-medium mb-8 transition-all duration-700 ${sectionVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'} ${theme === 'light' ? 'text-gray-900' : 'text-white'}`}>A word from collaborators</h2>
         
-        <div className={`rounded-2xl p-8 md:p-10 ${theme === 'light' ? 'bg-gray-100/50 border border-gray-300/50' : 'bg-gray-800/20 border border-gray-700/50'}`}>
+        <div ref={contentRef} className={`rounded-2xl p-8 md:p-10 transition-all duration-700 ${contentVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'} ${theme === 'light' ? 'bg-gray-100/50 border border-gray-300/50' : 'bg-gray-800/20 border border-gray-700/50'}`}>
           <blockquote className={`text-2xl md:text-3xl font-bold mb-6 leading-relaxed ${theme === 'light' ? 'text-gray-900' : 'text-white'}`}>
             "Samuel has an impressive ability to create value through both UX design and development. His efforts have elevated our brand and our products."
           </blockquote>
