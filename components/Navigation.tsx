@@ -1,13 +1,14 @@
 'use client'
 
 import Link from 'next/link'
-import { usePathname } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import { useState, useEffect } from 'react'
 import Image from 'next/image'
 import { useTheme } from '@/contexts/ThemeContext'
 
 export default function Navigation() {
   const pathname = usePathname()
+  const router = useRouter()
   const { theme, toggleTheme } = useTheme()
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
@@ -48,7 +49,14 @@ export default function Navigation() {
                 element.scrollIntoView({ behavior: 'smooth', block: 'start' })
               }
             } else {
-              window.location.href = '/#home'
+              router.push('/')
+              // Wait for navigation to complete, then scroll
+              setTimeout(() => {
+                const element = document.querySelector('#home')
+                if (element) {
+                  element.scrollIntoView({ behavior: 'smooth', block: 'start' })
+                }
+              }, 50)
             }
           }}
           className="flex items-center space-x-2 hover:opacity-80 transition-opacity flex-shrink-0 cursor-pointer"
@@ -79,7 +87,14 @@ export default function Navigation() {
                     element.scrollIntoView({ behavior: 'smooth', block: 'start' })
                   }
                 } else {
-                  window.location.href = `/${item.href}`
+                  router.push('/')
+                  // Wait for navigation to complete, then scroll to section
+                  setTimeout(() => {
+                    const element = document.querySelector(item.href)
+                    if (element) {
+                      element.scrollIntoView({ behavior: 'smooth', block: 'start' })
+                    }
+                  }, 50)
                 }
               }}
               className={`text-sm font-medium transition-colors whitespace-nowrap cursor-pointer ${
@@ -171,7 +186,14 @@ export default function Navigation() {
                     element.scrollIntoView({ behavior: 'smooth', block: 'start' })
                   }
                 } else {
-                  window.location.href = `/${item.href}`
+                  router.push('/')
+                  // Wait for navigation to complete, then scroll to section
+                  setTimeout(() => {
+                    const element = document.querySelector(item.href)
+                    if (element) {
+                      element.scrollIntoView({ behavior: 'smooth', block: 'start' })
+                    }
+                  }, 50)
                 }
               }}
               className={`block py-3 text-base font-medium transition-colors cursor-pointer ${
