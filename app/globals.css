@@ -62,6 +62,7 @@
   backdrop-filter: blur(24px) !important;
   -webkit-backdrop-filter: blur(24px) !important;
   transition: backdrop-filter 0.4s ease, -webkit-backdrop-filter 0.4s ease !important;
+}
 
 /* Remove background from work page side navigation in light mode */
 .light nav[class*="sticky"][class*="top-20"] {
