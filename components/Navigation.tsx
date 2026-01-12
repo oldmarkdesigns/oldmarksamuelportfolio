@@ -134,7 +134,7 @@ export default function Navigation() {
 
           {/* LinkedIn button */}
           <a
-            href="https://www.linkedin.com/in/samueloldmark"
+            href="https://www.linkedin.com/in/samuel-oldmark-31055a1a8/"
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center space-x-1.5 border border-gray-600 hover:border-gray-500 rounded-full px-3 py-1 transition-colors"

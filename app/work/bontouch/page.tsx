@@ -17,9 +17,12 @@ export default function BontouchPage() {
   const { theme } = useTheme()
   const { ref: mainRef, isVisible: mainVisible } = useScrollAnimation({ threshold: 0.1, triggerOnce: true })
   const { ref: overviewRef, isVisible: overviewVisible } = useScrollAnimation({ threshold: 0.1, triggerOnce: true, delay: 100 })
+  const { ref: appReviewsRef, isVisible: appReviewsVisible } = useScrollAnimation({ threshold: 0.1, triggerOnce: true, delay: 200 })
+  const { ref: onboardingRef, isVisible: onboardingVisible } = useScrollAnimation({ threshold: 0.1, triggerOnce: true, delay: 300 })
+  const { ref: designSystemRef, isVisible: designSystemVisible } = useScrollAnimation({ threshold: 0.1, triggerOnce: true, delay: 400 })
 
   return (
-    <main className="pt-16 md:pt-20 min-h-screen bg-transparent relative">
+    <main className="pt-16 md:pt-20 min-h-screen bg-transparent relative animate-fade-in">
       <div className="max-w-6xl mx-auto px-6 sm:px-8 lg:px-12 py-8 md:py-12">
         <div className="flex gap-12">
           {/* Left sidebar navigation */}
@@ -110,7 +113,7 @@ export default function BontouchPage() {
           </section>
 
           {/* App Reviews Section */}
-          <section id="app-reviews" className="scroll-mt-20 mb-16">
+          <section ref={appReviewsRef} id="app-reviews" className={`scroll-mt-20 mb-16 transition-all duration-700 ${appReviewsVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
             <h2 className="text-2xl md:text-3xl font-bold mb-6 text-white text-gray-900">App Reviews</h2>
             <div className="text-gray-300 text-gray-600 leading-relaxed space-y-4 mb-6">
               <p>
@@ -200,7 +203,7 @@ export default function BontouchPage() {
           </section>
 
           {/* Onboarding Section */}
-          <section id="onboarding" className="scroll-mt-20 mb-16">
+          <section ref={onboardingRef} id="onboarding" className={`scroll-mt-20 mb-16 transition-all duration-700 ${onboardingVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
             <h2 className="text-2xl md:text-3xl font-bold mb-6 text-white text-gray-900">App Onboarding Flow</h2>
             <div className="text-gray-300 text-gray-600 leading-relaxed space-y-4 mb-6">
               <p>
@@ -267,7 +270,7 @@ export default function BontouchPage() {
           </section>
 
           {/* Design System Section */}
-          <section id="design-system" className="scroll-mt-20 mb-16">
+          <section ref={designSystemRef} id="design-system" className={`scroll-mt-20 mb-16 transition-all duration-700 ${designSystemVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
             <h2 className="text-2xl md:text-3xl font-bold mb-6 text-white text-gray-900">Restructure and Improve Design System</h2>
             <div className="text-gray-300 text-gray-600 leading-relaxed space-y-4 mb-6">
               <p>

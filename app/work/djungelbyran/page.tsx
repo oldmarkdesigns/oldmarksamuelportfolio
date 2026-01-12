@@ -4,6 +4,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import WorkPageNav from '@/components/WorkPageNav'
 import { useTheme } from '@/contexts/ThemeContext'
+import { useScrollAnimation } from '@/hooks/useScrollAnimation'
 
 const sections = [
   { id: 'overview', label: 'Overview' },
@@ -14,15 +15,21 @@ const sections = [
 
 export default function DjungelbyranPage() {
   const { theme } = useTheme()
+  const { ref: mainRef, isVisible: mainVisible } = useScrollAnimation({ threshold: 0.1, triggerOnce: true })
+  const { ref: overviewRef, isVisible: overviewVisible } = useScrollAnimation({ threshold: 0.1, triggerOnce: true, delay: 100 })
+  const { ref: designProcessRef, isVisible: designProcessVisible } = useScrollAnimation({ threshold: 0.1, triggerOnce: true, delay: 200 })
+  const { ref: brandingRef, isVisible: brandingVisible } = useScrollAnimation({ threshold: 0.1, triggerOnce: true, delay: 300 })
+  const { ref: webDesignRef, isVisible: webDesignVisible } = useScrollAnimation({ threshold: 0.1, triggerOnce: true, delay: 400 })
+
   return (
-    <main className="pt-16 md:pt-20 min-h-screen bg-transparent relative">
+    <main className="pt-16 md:pt-20 min-h-screen bg-transparent relative animate-fade-in">
       <div className="max-w-6xl mx-auto px-6 sm:px-8 lg:px-12 py-8 md:py-12">
         <div className="flex gap-12">
           {/* Left sidebar navigation */}
           <WorkPageNav sections={sections} />
           
           {/* Main content */}
-          <div className="flex-1 min-w-0">
+          <div ref={mainRef} className={`flex-1 min-w-0 transition-all duration-700 ${mainVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
             <Link
               href="/#work"
               className={`inline-flex items-center gap-2 mb-8 transition-colors ${
@@ -35,7 +42,7 @@ export default function DjungelbyranPage() {
             </Link>
             
             {/* Overview Section */}
-            <section id="overview" className="scroll-mt-20 mb-16">
+            <section ref={overviewRef} id="overview" className={`scroll-mt-20 mb-16 transition-all duration-700 ${overviewVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
             <div className="mb-12">
               <p className="text-sm text-gray-400 text-gray-500 mb-4">About the project</p>
               <h1 className="text-3xl md:text-4xl font-bold mb-8 text-white text-gray-900 leading-tight">
@@ -79,7 +86,7 @@ export default function DjungelbyranPage() {
           </section>
 
           {/* Design Process Section */}
-          <section id="design-process" className="scroll-mt-20 mb-16">
+          <section ref={designProcessRef} id="design-process" className={`scroll-mt-20 mb-16 transition-all duration-700 ${designProcessVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
             <h2 className="text-2xl md:text-3xl font-bold mb-6 text-white text-gray-900">Design Process</h2>
             <div className="text-gray-300 text-gray-600 leading-relaxed space-y-4 mb-6">
               <p>
@@ -116,7 +123,7 @@ export default function DjungelbyranPage() {
           </section>
 
           {/* Branding Section */}
-          <section id="branding" className="scroll-mt-20 mb-16">
+          <section ref={brandingRef} id="branding" className={`scroll-mt-20 mb-16 transition-all duration-700 ${brandingVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
             <h2 className="text-2xl md:text-3xl font-bold mb-6 text-white text-gray-900">Branding</h2>
             
             <div className="mb-8">
@@ -214,7 +221,7 @@ export default function DjungelbyranPage() {
           </section>
 
           {/* Web Design Section */}
-          <section id="web-design" className="scroll-mt-20 mb-16">
+          <section ref={webDesignRef} id="web-design" className={`scroll-mt-20 mb-16 transition-all duration-700 ${webDesignVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
             <h2 className="text-2xl md:text-3xl font-bold mb-6 text-white text-gray-900">Web Design</h2>
             <div className="text-gray-300 text-gray-600 leading-relaxed mb-6">
               <p>

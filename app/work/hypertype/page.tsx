@@ -4,6 +4,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import WorkPageNav from '@/components/WorkPageNav'
 import { useTheme } from '@/contexts/ThemeContext'
+import { useScrollAnimation } from '@/hooks/useScrollAnimation'
 
 const sections = [
   { id: 'overview', label: 'Overview' },
@@ -16,15 +17,23 @@ const sections = [
 
 export default function HypertypePage() {
   const { theme } = useTheme()
+  const { ref: mainRef, isVisible: mainVisible } = useScrollAnimation({ threshold: 0.1, triggerOnce: true })
+  const { ref: overviewRef, isVisible: overviewVisible } = useScrollAnimation({ threshold: 0.1, triggerOnce: true, delay: 100 })
+  const { ref: dashboardRef, isVisible: dashboardVisible } = useScrollAnimation({ threshold: 0.1, triggerOnce: true, delay: 200 })
+  const { ref: getStartedRef, isVisible: getStartedVisible } = useScrollAnimation({ threshold: 0.1, triggerOnce: true, delay: 300 })
+  const { ref: feedBrainRef, isVisible: feedBrainVisible } = useScrollAnimation({ threshold: 0.1, triggerOnce: true, delay: 400 })
+  const { ref: helpCenterRef, isVisible: helpCenterVisible } = useScrollAnimation({ threshold: 0.1, triggerOnce: true, delay: 500 })
+  const { ref: subscriptionRef, isVisible: subscriptionVisible } = useScrollAnimation({ threshold: 0.1, triggerOnce: true, delay: 600 })
+
   return (
-    <main className="pt-16 md:pt-20 min-h-screen bg-transparent relative">
+    <main className="pt-16 md:pt-20 min-h-screen bg-transparent relative animate-fade-in">
       <div className="max-w-6xl mx-auto px-6 sm:px-8 lg:px-12 py-8 md:py-12">
         <div className="flex gap-12">
           {/* Left sidebar navigation */}
           <WorkPageNav sections={sections} />
           
           {/* Main content */}
-          <div className="flex-1 min-w-0">
+          <div ref={mainRef} className={`flex-1 min-w-0 transition-all duration-700 ${mainVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
             <Link
               href="/#work"
               className={`inline-flex items-center gap-2 mb-8 transition-colors ${
@@ -37,7 +46,7 @@ export default function HypertypePage() {
             </Link>
             
             {/* Overview Section */}
-            <section id="overview" className="scroll-mt-20 mb-16">
+            <section ref={overviewRef} id="overview" className={`scroll-mt-20 mb-16 transition-all duration-700 ${overviewVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
             <div className="mb-12">
               <p className="text-sm text-gray-400 text-gray-500 mb-4">About the project</p>
               <h1 className="text-3xl md:text-4xl font-bold mb-8 text-white text-gray-900 leading-tight">
@@ -87,7 +96,7 @@ export default function HypertypePage() {
           </section>
 
           {/* Dashboard Section */}
-          <section id="dashboard" className="scroll-mt-20 mb-16">
+          <section ref={dashboardRef} id="dashboard" className={`scroll-mt-20 mb-16 transition-all duration-700 ${dashboardVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
             <h2 className="text-2xl md:text-3xl font-bold mb-6 text-white text-gray-900">Redesigning the dashboard</h2>
             <div className="text-gray-300 text-gray-600 leading-relaxed space-y-4 mb-6">
               <p>
@@ -158,7 +167,7 @@ export default function HypertypePage() {
           </section>
 
           {/* Get Started Section */}
-          <section id="get-started" className="scroll-mt-20 mb-16">
+          <section ref={getStartedRef} id="get-started" className={`scroll-mt-20 mb-16 transition-all duration-700 ${getStartedVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
             <h2 className="text-2xl md:text-3xl font-bold mb-6 text-white text-gray-900">Get Started</h2>
             <div className="text-gray-300 text-gray-600 leading-relaxed mb-6">
               <p>
@@ -201,7 +210,7 @@ export default function HypertypePage() {
           </section>
 
           {/* Feed Brain Section */}
-          <section id="feed-brain" className="scroll-mt-20 mb-16">
+          <section ref={feedBrainRef} id="feed-brain" className={`scroll-mt-20 mb-16 transition-all duration-700 ${feedBrainVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
             <h2 className="text-2xl md:text-3xl font-bold mb-6 text-white text-gray-900">Feed Brain</h2>
             <div className="text-gray-300 text-gray-600 leading-relaxed mb-6">
               <p>
@@ -244,7 +253,7 @@ export default function HypertypePage() {
           </section>
 
           {/* Help Center Section */}
-          <section id="help-center" className="scroll-mt-20 mb-16">
+          <section ref={helpCenterRef} id="help-center" className={`scroll-mt-20 mb-16 transition-all duration-700 ${helpCenterVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
             <h2 className="text-2xl md:text-3xl font-bold mb-6 text-white text-gray-900">Help Center</h2>
             <div className="text-gray-300 text-gray-600 leading-relaxed mb-6">
               <p>
@@ -287,7 +296,7 @@ export default function HypertypePage() {
           </section>
 
           {/* Subscription Section */}
-          <section id="subscription" className="scroll-mt-20 mb-16">
+          <section ref={subscriptionRef} id="subscription" className={`scroll-mt-20 mb-16 transition-all duration-700 ${subscriptionVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
             <h2 className="text-2xl md:text-3xl font-bold mb-6 text-white text-gray-900">Subscription</h2>
             <div className="text-gray-300 text-gray-600 leading-relaxed mb-6">
               <p>

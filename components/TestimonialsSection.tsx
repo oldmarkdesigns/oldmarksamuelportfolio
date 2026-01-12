@@ -11,7 +11,7 @@ export default function TestimonialsSection() {
   const { ref: contentRef, isVisible: contentVisible } = useScrollAnimation({ threshold: 0.1, triggerOnce: true, delay: 100 })
 
   return (
-    <section className="py-12 md:py-16 bg-transparent relative scroll-mt-12">
+    <section className="hidden py-12 md:py-16 bg-transparent relative scroll-mt-12">
       <div className="max-w-4xl mx-auto px-6 sm:px-8 lg:px-12">
         <h2 ref={sectionRef} className={`text-xl md:text-2xl font-serif font-medium mb-8 transition-all duration-700 ${sectionVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'} ${theme === 'light' ? 'text-gray-900' : 'text-white'}`}>A word from collaborators</h2>
         

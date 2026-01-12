@@ -4,6 +4,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import WorkPageNav from '@/components/WorkPageNav'
 import { useTheme } from '@/contexts/ThemeContext'
+import { useScrollAnimation } from '@/hooks/useScrollAnimation'
 
 const sections = [
   { id: 'overview', label: 'Overview' },
@@ -15,15 +16,22 @@ const sections = [
 
 export default function UIGoodiesPage() {
   const { theme } = useTheme()
+  const { ref: mainRef, isVisible: mainVisible } = useScrollAnimation({ threshold: 0.1, triggerOnce: true })
+  const { ref: overviewRef, isVisible: overviewVisible } = useScrollAnimation({ threshold: 0.1, triggerOnce: true, delay: 100 })
+  const { ref: creditCardRef, isVisible: creditCardVisible } = useScrollAnimation({ threshold: 0.1, triggerOnce: true, delay: 200 })
+  const { ref: signUpRef, isVisible: signUpVisible } = useScrollAnimation({ threshold: 0.1, triggerOnce: true, delay: 300 })
+  const { ref: userProfileRef, isVisible: userProfileVisible } = useScrollAnimation({ threshold: 0.1, triggerOnce: true, delay: 400 })
+  const { ref: directMessageRef, isVisible: directMessageVisible } = useScrollAnimation({ threshold: 0.1, triggerOnce: true, delay: 500 })
+
   return (
-    <main className="pt-16 md:pt-20 min-h-screen bg-transparent relative">
+    <main className="pt-16 md:pt-20 min-h-screen bg-transparent relative animate-fade-in">
       <div className="max-w-6xl mx-auto px-6 sm:px-8 lg:px-12 py-8 md:py-12">
         <div className="flex gap-12">
           {/* Left sidebar navigation */}
           <WorkPageNav sections={sections} />
           
           {/* Main content */}
-          <div className="flex-1 min-w-0">
+          <div ref={mainRef} className={`flex-1 min-w-0 transition-all duration-700 ${mainVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
             <Link
               href="/#work"
               className={`inline-flex items-center gap-2 mb-8 transition-colors ${
@@ -36,7 +44,7 @@ export default function UIGoodiesPage() {
             </Link>
             
             {/* Overview Section */}
-            <section id="overview" className="scroll-mt-20 mb-16">
+            <section ref={overviewRef} id="overview" className={`scroll-mt-20 mb-16 transition-all duration-700 ${overviewVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
             <div className="mb-8">
               <h1 className="text-3xl md:text-4xl font-bold mb-4 text-white">Daily UI</h1>
               <p className="text-lg text-gray-300 mb-2">UI Design Challenges</p>
@@ -69,7 +77,7 @@ export default function UIGoodiesPage() {
           </section>
 
           {/* Credit Card Section */}
-          <section id="credit-card" className="scroll-mt-20 mb-16">
+          <section ref={creditCardRef} id="credit-card" className={`scroll-mt-20 mb-16 transition-all duration-700 ${creditCardVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
             <h2 className="text-2xl md:text-3xl font-bold mb-6 text-white">Credit Card</h2>
             <div className="text-gray-300 leading-relaxed mb-6">
               <p>
@@ -102,7 +110,7 @@ export default function UIGoodiesPage() {
           </section>
 
           {/* Sign Up Section */}
-          <section id="sign-up" className="scroll-mt-20 mb-16">
+          <section ref={signUpRef} id="sign-up" className={`scroll-mt-20 mb-16 transition-all duration-700 ${signUpVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
             <h2 className="text-2xl md:text-3xl font-bold mb-6 text-white">Sign Up</h2>
             <div className="text-gray-300 leading-relaxed mb-6">
               <p>
@@ -135,7 +143,7 @@ export default function UIGoodiesPage() {
           </section>
 
           {/* User Profile Section */}
-          <section id="user-profile" className="scroll-mt-20 mb-16">
+          <section ref={userProfileRef} id="user-profile" className={`scroll-mt-20 mb-16 transition-all duration-700 ${userProfileVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
             <h2 className="text-2xl md:text-3xl font-bold mb-6 text-white">User Profile</h2>
             <div className="text-gray-300 leading-relaxed mb-6">
               <p>
@@ -168,7 +176,7 @@ export default function UIGoodiesPage() {
           </section>
 
           {/* Direct Message Section */}
-          <section id="direct-message" className="scroll-mt-20 mb-16">
+          <section ref={directMessageRef} id="direct-message" className={`scroll-mt-20 mb-16 transition-all duration-700 ${directMessageVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
             <h2 className="text-2xl md:text-3xl font-bold mb-6 text-white">Direct Message</h2>
             <div className="text-gray-300 leading-relaxed mb-6">
               <p>
