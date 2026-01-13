@@ -122,8 +122,15 @@
 }
 
 /* Ensure all elements with border classes have visible borders in light mode */
-.light [class*="border"]:not([class*="border-0"]):not([class*="border-transparent"]) {
+.light [class*="border"]:not([class*="border-0"]):not([class*="border-transparent"]):not([class*="border-r-0"]):not([class*="border-b-0"]):not([class*="border-l-0"]) {
   border-width: 1px;
+}
+
+/* Ensure border-t only elements don't get other borders */
+.light [class*="border-t"][class*="border-r-0"][class*="border-b-0"][class*="border-l-0"] {
+  border-right-width: 0 !important;
+  border-bottom-width: 0 !important;
+  border-left-width: 0 !important;
 }
 
 /* Light mode hover states */

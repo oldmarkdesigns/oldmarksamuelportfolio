@@ -21,9 +21,9 @@ export default function Hero() {
   }, [])
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-12 md:pt-16">
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-8 md:pt-16">
       {/* Content */}
-      <div className="relative z-10 max-w-4xl mx-auto px-6 sm:px-8 lg:px-12 py-6 md:py-12">
+      <div className="relative z-10 max-w-4xl mx-auto px-6 sm:px-8 lg:px-12 py-4 md:py-12">
         <h1 className={`text-5xl md:text-7xl lg:text-8xl font-bold mb-4 md:mb-6 leading-tight tracking-tight text-center ${
           theme === 'light' ? 'text-gray-900' : 'text-white'
         }`}>

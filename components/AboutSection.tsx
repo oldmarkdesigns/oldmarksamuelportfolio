@@ -52,7 +52,7 @@ export default function AboutSection() {
           </div>
         </div>
         
-        <div className="mt-12 pt-8 border-t border-gray-800">
+        <div className="mt-12 pt-8 border-t border-gray-800 dark:border-gray-800 border-gray-300 border-r-0 border-b-0 border-l-0">
           <h3 className="text-2xl font-bold mb-6 text-white">Skills & Expertise</h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {/* UX Design Column */}
