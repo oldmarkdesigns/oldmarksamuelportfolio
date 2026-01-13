@@ -44,7 +44,7 @@ export default function AboutSection() {
             </p>
             
             <p className="text-base text-gray-300 leading-relaxed">
-              Currently, I'm working as a UX & UI Design Intern at My Medical Data, where I'm the 
+              Currently, I'm working as a Product Designer at My Medical Data, where I'm the 
               sole designer working on Hälsa+, a health-focused mobile app. When I'm not designing, 
               I enjoy participating in Daily UI challenges to explore new design solutions and keep 
               my skills sharp.

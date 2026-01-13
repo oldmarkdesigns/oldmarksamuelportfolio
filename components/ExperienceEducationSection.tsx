@@ -24,7 +24,7 @@ export default function ExperienceEducationSection() {
                   className="block mb-2"
                 >
                   <h4 className="text-lg md:text-xl font-bold text-white text-gray-900 hover:text-gray-300 text-gray-600 transition-colors">
-                    UX & UI Design Intern – My Medical Data | Hälsa+
+                    Product Designer – My Medical Data | Hälsa+
                   </h4>
                 </Link>
                 
@@ -33,7 +33,7 @@ export default function ExperienceEducationSection() {
                 </p>
                 
                 <div className="text-white text-gray-900 leading-relaxed whitespace-pre-line text-sm md:text-base">
-                  I am doing an internship at My Medical Data, where I am designing and planning a new mobile app called Hälsa+ focused on health. As the only designer on the team, my role is to provide UX and UI solutions while also acting as a bridge between development, design, and stakeholders.
+                  I am working as a product designer at My Medical Data, where I am designing and planning a new mobile app called Hälsa+ focused on health. As the only designer on the team, my role is to provide UX and UI solutions while also acting as a bridge between development, design, and stakeholders.
 
                   When I joined, there was already a demo app built from scratch, but it had room for both UX and UI improvements. This experience has been very insightful, and I have expanded my skills by taking on new tasks and challenges that I hadn't faced before.
                 </div>

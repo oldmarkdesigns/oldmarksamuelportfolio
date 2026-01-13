@@ -16,7 +16,7 @@ const allWork = [
   },
   {
     id: 'bontouch',
-    title: 'Bontouch',
+    title: 'Bontouch (Framna)',
     description: 'UI Design Internship working on product design and design systems for various client projects.',
     year: '2024',
     tags: ['UI Design', 'Design System', 'Product Design'],

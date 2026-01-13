@@ -44,7 +44,7 @@ export default function BontouchPage() {
             <div className="mb-12">
               <p className="text-sm text-gray-400 text-gray-500 mb-4">About the project</p>
               <h1 className="text-3xl md:text-4xl font-bold mb-8 text-white text-gray-900 leading-tight">
-                Product design internship at Bontouch, collaborating with a large state-owned company.
+                Bontouch (Framna)
               </h1>
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">

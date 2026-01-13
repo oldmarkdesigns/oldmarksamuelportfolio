@@ -96,7 +96,7 @@ export default function HypertypePage() {
           {/* Dashboard Section */}
           <section ref={dashboardRef} id="dashboard" className={`scroll-mt-20 mb-16 transition-all duration-700 ${dashboardVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
             <h2 className="text-2xl md:text-3xl font-bold mb-6 text-white text-gray-900">Redesigning the dashboard</h2>
-            <div className="text-gray-200 text-gray-700 leading-relaxed space-y-4 mb-6">
+            <div className="text-gray-600 dark:text-gray-200 leading-relaxed space-y-4 mb-6">
               <p>
                 I chose to design the welcome page for the dashboard because, after reviewing both options, I found that I had more ideas for improving the dashboard. As a first-time user of both flows, I noticed more areas for enhancement in the dashboard, making it the clear choice for restructuring.
               </p>
@@ -107,7 +107,7 @@ export default function HypertypePage() {
 
             <div className="mb-8">
               <h3 className="text-lg font-semibold text-white text-gray-900 mb-4">LoFi design</h3>
-              <div className="text-gray-200 text-gray-700 leading-relaxed space-y-4 mb-6">
+              <div className="text-gray-600 dark:text-gray-200 leading-relaxed space-y-4 mb-6">
                 <p>
                   I began by creating a low-fidelity sketch to visualize the layout of the dashboard. During this process, I carefully considered which elements should appear on the homepage, keeping the goal of increasing paid conversions in mind.
                 </p>
@@ -129,7 +129,7 @@ export default function HypertypePage() {
 
             <div className="mb-8">
               <h3 className="text-lg font-semibold text-white text-gray-900 mb-4">Designing all elements</h3>
-              <div className="text-gray-200 text-gray-700 leading-relaxed space-y-4 mb-6">
+              <div className="text-gray-600 dark:text-gray-200 leading-relaxed space-y-4 mb-6">
                 <p>
                   I began by creating a low-fidelity sketch to visualize the layout of the dashboard. During this process, I carefully considered which elements should appear on the homepage, keeping the goal of increasing paid conversions in mind.
                 </p>

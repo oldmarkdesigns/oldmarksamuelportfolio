@@ -34,7 +34,7 @@ export default function Navigation() {
       <div 
         className={`${isScrolled ? 'backdrop-blur-3xl' : 'backdrop-blur-xl'} border rounded-full px-3 py-1.5 flex items-center justify-between transition-all duration-500 ease-out ${
           theme === 'dark' 
-            ? 'bg-[rgba(10,10,10,0.4)] border-[rgba(22,101,52,0.2)]' 
+            ? 'bg-[rgba(10,10,10,0.4)] border-gray-700/30' 
             : 'bg-[rgba(243,244,246,0.35)] border-[rgba(209,213,219,0.6)]'
         }`}
       >
@@ -61,7 +61,7 @@ export default function Navigation() {
           }}
           className="flex items-center space-x-2 hover:opacity-80 transition-opacity flex-shrink-0 cursor-pointer"
         >
-          <div className="relative w-8 h-8 rounded-full overflow-hidden border border-green-800/30">
+          <div className="relative w-8 h-8 rounded-full overflow-hidden border border-gray-700/30">
             <Image
               src="/Portfolio Assets/ProfilePic.jpg"
               alt="Samuel Oldmark"
@@ -130,7 +130,7 @@ export default function Navigation() {
           </button>
 
           {/* Separator */}
-          <div className="h-4 w-px bg-green-800/30"></div>
+          <div className="h-4 w-px bg-gray-700/30"></div>
 
           {/* LinkedIn button */}
           <a
@@ -174,7 +174,7 @@ export default function Navigation() {
           <div 
             className={`md:hidden relative z-[9999] mt-2 ${isScrolled ? 'backdrop-blur-3xl' : 'backdrop-blur-xl'} border rounded-2xl p-3 transition-all duration-500 ease-out ${
               theme === 'dark' 
-                ? 'bg-[rgba(10,10,10,0.4)] border-[rgba(22,101,52,0.2)]' 
+                ? 'bg-[rgba(10,10,10,0.4)] border-gray-700/30' 
                 : 'bg-[rgba(243,244,246,0.35)] border-[rgba(209,213,219,0.6)]'
             }`}
             onClick={(e) => e.stopPropagation()}

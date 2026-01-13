@@ -23,7 +23,7 @@ export default function AboutPage() {
           <p className="text-lg text-gray-300 leading-relaxed mb-8">
             I've had the opportunity to work at Bontouch as a UI Design Intern, where I collaborated 
             with experienced designers and developers on real client projects. Currently, I'm working 
-            as a UX & UI Design Intern at My Medical Data, where I'm the sole designer working on 
+            as a Product Designer at My Medical Data, where I'm the sole designer working on 
             Hälsa+, a health-focused mobile app.
           </p>
           

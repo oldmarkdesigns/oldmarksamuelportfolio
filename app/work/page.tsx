@@ -11,7 +11,7 @@ const allWork = [
   },
   {
     id: 'bontouch',
-    title: 'Bontouch',
+    title: 'Bontouch (Framna)',
     description: 'UI Design Intern - Product design',
     coverImage: '/Portfolio Assets/Work/Bontouch/Assets/DesignSystem.png',
     href: '/work/bontouch',

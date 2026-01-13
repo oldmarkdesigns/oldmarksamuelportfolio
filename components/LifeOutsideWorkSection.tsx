@@ -186,9 +186,13 @@ export default function LifeOutsideWorkSection() {
                     className="object-cover rounded-xl"
                     sizes="(max-width: 768px) 50vw, 200px"
                   />
+                  {/* Dark overlay */}
+                  <div className={`absolute inset-0 bg-black/50 rounded-xl transition-opacity duration-500 ${
+                    hoveredInterest === 'tennis' ? 'md:opacity-0' : 'opacity-100'
+                  }`} />
                 </div>
                 <div className={`absolute inset-0 z-10 flex flex-col items-center justify-center transition-all duration-500 ${
-                  hoveredInterest === 'tennis' ? 'opacity-0' : 'opacity-100'
+                  hoveredInterest === 'tennis' ? 'md:opacity-0' : 'opacity-100'
                 }`}>
                   <div className="w-10 h-10 flex items-center justify-center rounded-lg mb-2">
                     <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -223,9 +227,13 @@ export default function LifeOutsideWorkSection() {
                     className="object-cover rounded-xl"
                     sizes="(max-width: 768px) 50vw, 200px"
                   />
+                  {/* Dark overlay */}
+                  <div className={`absolute inset-0 bg-black/50 rounded-xl transition-opacity duration-500 ${
+                    hoveredInterest === 'boating' ? 'md:opacity-0' : 'opacity-100'
+                  }`} />
                 </div>
                 <div className={`absolute inset-0 z-10 flex flex-col items-center justify-center transition-all duration-500 ${
-                  hoveredInterest === 'boating' ? 'opacity-0' : 'opacity-100'
+                  hoveredInterest === 'boating' ? 'md:opacity-0' : 'opacity-100'
                 }`}>
                   <div className="w-10 h-10 flex items-center justify-center rounded-lg mb-2">
                     <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -259,9 +267,13 @@ export default function LifeOutsideWorkSection() {
                     className="object-cover rounded-xl"
                     sizes="(max-width: 768px) 50vw, 200px"
                   />
+                  {/* Dark overlay */}
+                  <div className={`absolute inset-0 bg-black/50 rounded-xl transition-opacity duration-500 ${
+                    hoveredInterest === 'music' ? 'md:opacity-0' : 'opacity-100'
+                  }`} />
                 </div>
                 <div className={`absolute inset-0 z-10 flex flex-col items-center justify-center transition-all duration-500 ${
-                  hoveredInterest === 'music' ? 'opacity-0' : 'opacity-100'
+                  hoveredInterest === 'music' ? 'md:opacity-0' : 'opacity-100'
                 }`}>
                   <div className="w-10 h-10 flex items-center justify-center rounded-lg mb-2">
                     <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -294,9 +306,13 @@ export default function LifeOutsideWorkSection() {
                     className="object-cover rounded-xl"
                     sizes="(max-width: 768px) 50vw, 200px"
                   />
+                  {/* Dark overlay */}
+                  <div className={`absolute inset-0 bg-black/50 rounded-xl transition-opacity duration-500 ${
+                    hoveredInterest === 'friends' ? 'md:opacity-0' : 'opacity-100'
+                  }`} />
                 </div>
                 <div className={`absolute inset-0 z-10 flex flex-col items-center justify-center transition-all duration-500 ${
-                  hoveredInterest === 'friends' ? 'opacity-0' : 'opacity-100'
+                  hoveredInterest === 'friends' ? 'md:opacity-0' : 'opacity-100'
                 }`}>
                   <div className="w-10 h-10 flex items-center justify-center rounded-lg mb-2">
                     <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">

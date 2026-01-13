@@ -24,7 +24,7 @@ export default function Hero() {
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-6 md:pt-16">
       {/* Content */}
       <div className="relative z-10 max-w-4xl mx-auto px-6 sm:px-8 lg:px-12 py-2 md:py-12">
-        <h1 className={`text-5xl md:text-7xl lg:text-8xl font-bold mb-2 md:mb-6 leading-tight tracking-tight text-center ${
+        <h1 className={`text-6xl md:text-7xl lg:text-8xl font-bold mb-2 md:mb-6 leading-tight tracking-tight text-center ${
           theme === 'light' ? 'text-gray-900' : 'text-white'
         }`}>
           <div className="inline-block" style={{ marginLeft: '-8%' }}>CREATIVE</div>
@@ -50,7 +50,7 @@ export default function Hero() {
           </div>
         </div>
 
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-8 md:mb-0">
+        <div className="flex flex-row items-center justify-center gap-4 mb-8 md:mb-0">
           <span className="flex items-center gap-2 px-6 py-3 rounded-full text-sm font-medium text-white">
             <div 
               className="w-3 h-3 rounded-full"
@@ -89,7 +89,7 @@ export default function Hero() {
             element.scrollIntoView({ behavior: 'smooth', block: 'start' })
           }
         }}
-        className={`absolute bottom-4 md:bottom-4 left-1/2 transform -translate-x-1/2 flex flex-col items-center gap-1 md:gap-2 transition-opacity duration-500 cursor-pointer hover:opacity-80 ${
+        className={`absolute bottom-16 md:bottom-4 left-1/2 transform -translate-x-1/2 flex flex-col items-center gap-1 md:gap-2 transition-opacity duration-500 cursor-pointer hover:opacity-80 ${
           isVisible ? 'opacity-100' : 'opacity-0 pointer-events-none'
         }`}
         aria-label="Scroll to work section"
