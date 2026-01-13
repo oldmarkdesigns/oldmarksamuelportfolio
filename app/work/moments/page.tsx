@@ -14,20 +14,18 @@ const sections = [
 
 export default function MomentsPage() {
   const { theme } = useTheme()
-  const { ref: mainRef, isVisible: mainVisible } = useScrollAnimation({ threshold: 0.1, triggerOnce: true })
-  const { ref: overviewRef, isVisible: overviewVisible } = useScrollAnimation({ threshold: 0.1, triggerOnce: true, delay: 100 })
-  const { ref: pluginRef, isVisible: pluginVisible } = useScrollAnimation({ threshold: 0.1, triggerOnce: true, delay: 200 })
-  const { ref: pricingRef, isVisible: pricingVisible } = useScrollAnimation({ threshold: 0.1, triggerOnce: true, delay: 300 })
+  const { ref: pluginRef, isVisible: pluginVisible } = useScrollAnimation({ threshold: 0.1, triggerOnce: true, delay: 100 })
+  const { ref: pricingRef, isVisible: pricingVisible } = useScrollAnimation({ threshold: 0.1, triggerOnce: true, delay: 200 })
 
   return (
-    <main className="pt-16 md:pt-20 min-h-screen bg-transparent relative animate-fade-in">
+    <main className="pt-16 md:pt-20 min-h-screen bg-transparent relative">
       <div className="max-w-6xl mx-auto px-6 sm:px-8 lg:px-12 py-8 md:py-12">
-        <div className="flex gap-12">
+        <div className="flex flex-col md:flex-row gap-12">
           {/* Left sidebar navigation */}
           <WorkPageNav sections={sections} />
           
           {/* Main content */}
-          <div ref={mainRef} className={`flex-1 min-w-0 transition-all duration-700 ${mainVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+          <div className="flex-1 min-w-0">
             <Link
               href="/#work"
               className={`inline-flex items-center gap-2 mb-8 transition-colors ${
@@ -40,7 +38,7 @@ export default function MomentsPage() {
             </Link>
             
             {/* Overview Section */}
-            <section ref={overviewRef} id="overview" className={`scroll-mt-20 mb-16 transition-all duration-700 ${overviewVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+            <section id="overview" className="scroll-mt-20 mb-16">
             <div className="mb-12">
               <p className="text-sm text-gray-400 text-gray-500 mb-4">About the project</p>
               <h1 className="text-3xl md:text-4xl font-bold mb-8 text-white text-gray-900 leading-tight">
@@ -50,7 +48,7 @@ export default function MomentsPage() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
                 {/* Left column - Description */}
                 <div className="space-y-4">
-                  <div className="text-gray-300 text-gray-600 leading-relaxed">
+                  <div className="text-gray-600 dark:text-gray-200 leading-relaxed">
                     <p>
                       For this project, I conceptualized and designed an AI-powered playlist generator aimed at creating personalized music experiences. The idea originated from the need for curated playlists that adapt seamlessly to both the user's mood and specific environments. The app uses artificial intelligence to analyze user preferences, emotions, and situational factors, generating playlists that perfectly match the user's mood or setting.
                     </p>
@@ -77,7 +75,7 @@ export default function MomentsPage() {
                     <p className="mb-2">
                       <strong className="text-white text-gray-900">Problem:</strong>
                     </p>
-                    <p className="text-gray-300 text-gray-600 leading-relaxed">
+                    <p className="text-gray-600 dark:text-gray-200 leading-relaxed">
                       Current music streaming platforms offer pre-made playlists but often fail to tailor them accurately to individual moods or specific contexts, such as a dinner party, workout, or relaxing evening. Users need a more intuitive and personalized music solution that evolves with their emotions and environment.
                     </p>
                   </div>
@@ -85,7 +83,7 @@ export default function MomentsPage() {
                     <p className="mb-2">
                       <strong className="text-white text-gray-900">Solution:</strong>
                     </p>
-                    <p className="text-gray-300 text-gray-600 leading-relaxed">
+                    <p className="text-gray-600 dark:text-gray-200 leading-relaxed">
                       The concept leverages an AI model capable of interpreting user inputs (such as mood indicators, time of day, or activity) and generating playlists that are not only genre-appropriate but also dynamically adaptive to real-time settings. Whether it's calming tunes for a quiet evening or energetic tracks for a workout, the playlist generator ensures the right music for every occasion.
                     </p>
                   </div>
@@ -95,7 +93,7 @@ export default function MomentsPage() {
                     <p className="mb-2">
                       <strong className="text-white text-gray-900">Key Features:</strong>
                     </p>
-                    <ul className="list-disc list-inside space-y-2 text-gray-300 text-gray-600 ml-4 leading-relaxed">
+                    <ul className="list-disc list-inside space-y-2 text-gray-600 dark:text-gray-200 ml-4 leading-relaxed">
                       <li>Mood & Setting Inputs: Users can select or describe their current mood or the environment (e.g., "focused", "party", "relaxing") for the AI to create a custom playlist.</li>
                       <li>AI Learning: The system learns from user interactions, refining playlist suggestions over time for greater personalization.</li>
                       <li>Cross-Platform Integration: The concept includes easy integration with popular music platforms (e.g., Spotify, Apple Music) for seamless music playback.</li>
@@ -105,7 +103,7 @@ export default function MomentsPage() {
                     <p className="mb-2">
                       <strong className="text-white text-gray-900">Outcome:</strong>
                     </p>
-                    <p className="text-gray-300 text-gray-600 leading-relaxed">
+                    <p className="text-gray-600 dark:text-gray-200 leading-relaxed">
                       The AI-powered playlist generator offers users a more tailored and engaging music experience by blending AI's capabilities with the emotional power of music. This project demonstrates the potential of AI in elevating everyday experiences through intelligent design and user-centric thinking.
                     </p>
                   </div>
@@ -128,7 +126,7 @@ export default function MomentsPage() {
           {/* Plugin Section */}
           <section ref={pluginRef} id="plugin" className={`scroll-mt-20 mb-16 transition-all duration-700 ${pluginVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
             <h2 className="text-2xl md:text-3xl font-bold mb-6 text-white text-gray-900">Plugin</h2>
-            <div className="text-gray-300 text-gray-600 leading-relaxed mb-6">
+            <div className="text-gray-600 dark:text-gray-200 leading-relaxed mb-6">
               <p>
                 Designed a clean and functional plugin interface that integrates seamlessly with 
                 existing workflows while providing powerful features.
@@ -161,7 +159,7 @@ export default function MomentsPage() {
           {/* Pricing Section */}
           <section ref={pricingRef} id="pricing" className={`scroll-mt-20 mb-16 transition-all duration-700 ${pricingVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
             <h2 className="text-2xl md:text-3xl font-bold mb-6 text-white text-gray-900">Pricing</h2>
-            <div className="text-gray-300 text-gray-600 leading-relaxed mb-6">
+            <div className="text-gray-600 dark:text-gray-200 leading-relaxed mb-6">
               <p>
                 Created a pricing page that clearly communicates value propositions and encourages 
                 conversions through strategic design and clear information hierarchy.

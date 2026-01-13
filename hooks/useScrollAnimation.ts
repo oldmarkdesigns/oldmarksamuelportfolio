@@ -24,31 +24,58 @@ export function useScrollAnimation<T extends HTMLElement = HTMLDivElement>(optio
     const element = elementRef.current
     if (!element) return
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setTimeout(() => {
-              setIsVisible(true)
-            }, delay)
-            if (triggerOnce) {
-              observer.unobserve(entry.target)
-            }
-          } else if (!triggerOnce) {
-            setIsVisible(false)
-          }
-        })
-      },
-      {
-        threshold,
-        rootMargin,
-      }
-    )
+    let observer: IntersectionObserver | null = null
 
-    observer.observe(element)
+    // Check initial visibility immediately and after layout
+    const checkVisibility = () => {
+      const rect = element.getBoundingClientRect()
+      const viewportHeight = window.innerHeight || document.documentElement.clientHeight
+      // Check if element is in or near viewport (with large buffer)
+      const isInViewport = rect.top < viewportHeight + 1000 && rect.bottom > -1000
+      return isInViewport
+    }
+
+    // Check immediately
+    if (checkVisibility()) {
+      setIsVisible(true)
+      return // Don't set up observer if already visible
+    }
+
+    // Check after layout completes
+    const timeoutId = setTimeout(() => {
+      if (checkVisibility()) {
+        setIsVisible(true)
+        return
+      }
+
+      // Set up observer for elements not initially visible
+      observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              setTimeout(() => {
+                setIsVisible(true)
+              }, delay)
+              if (triggerOnce && observer) {
+                observer.unobserve(entry.target)
+              }
+            } else if (!triggerOnce) {
+              setIsVisible(false)
+            }
+          })
+        },
+        {
+          threshold,
+          rootMargin: '200px',
+        }
+      )
+
+      observer.observe(element)
+    }, 150)
 
     return () => {
-      if (element) {
+      clearTimeout(timeoutId)
+      if (observer && element) {
         observer.unobserve(element)
       }
     }

@@ -2,16 +2,14 @@
 
 import { useState, useEffect } from 'react'
 import { useTheme } from '@/contexts/ThemeContext'
-import { useScrollAnimation } from '@/hooks/useScrollAnimation'
 
 export default function Hero() {
   const { theme } = useTheme()
   const [isVisible, setIsVisible] = useState(true)
-  const { ref: scrollRef, isVisible: scrollVisible } = useScrollAnimation({ threshold: 0.1, triggerOnce: true })
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 50) {
+      if (window.scrollY > 0) {
         setIsVisible(false)
       } else {
         setIsVisible(true)
@@ -23,10 +21,10 @@ export default function Hero() {
   }, [])
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16 md:pt-20 animate-fade-in">
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-12 md:pt-16">
       {/* Content */}
-      <div ref={scrollRef} className={`relative z-10 max-w-4xl mx-auto px-6 sm:px-8 lg:px-12 py-12 md:py-20 transition-all duration-700 ${scrollVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-        <h1 className={`text-5xl md:text-7xl lg:text-8xl font-bold mb-6 leading-tight tracking-tight text-center ${
+      <div className="relative z-10 max-w-4xl mx-auto px-6 sm:px-8 lg:px-12 py-6 md:py-12">
+        <h1 className={`text-5xl md:text-7xl lg:text-8xl font-bold mb-4 md:mb-6 leading-tight tracking-tight text-center ${
           theme === 'light' ? 'text-gray-900' : 'text-white'
         }`}>
           <div className="inline-block" style={{ marginLeft: '-8%' }}>CREATIVE</div>
@@ -36,13 +34,13 @@ export default function Hero() {
           <div>DESIGNER</div>
         </h1>
         
-        <p className={`text-lg md:text-xl mb-6 max-w-2xl mx-auto leading-relaxed text-center ${
+        <p className={`text-lg md:text-xl mb-4 md:mb-6 max-w-2xl mx-auto leading-relaxed text-center ${
           theme === 'light' ? 'text-gray-600' : 'text-gray-300'
         }`}>
           Hello there, I'm Samuel - I design web and mobile apps that are user-friendly, beautiful & convert your target audience.
         </p>
 
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-6">
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-4 md:mb-6">
           <div className="flex items-center gap-2 text-gray-300">
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
@@ -91,7 +89,7 @@ export default function Hero() {
             element.scrollIntoView({ behavior: 'smooth', block: 'start' })
           }
         }}
-        className={`absolute bottom-4 left-1/2 transform -translate-x-1/2 flex flex-col items-center gap-2 transition-opacity duration-500 cursor-pointer hover:opacity-80 ${
+        className={`absolute bottom-2 md:bottom-4 left-1/2 transform -translate-x-1/2 flex flex-col items-center gap-1 md:gap-2 transition-opacity duration-500 cursor-pointer hover:opacity-80 ${
           isVisible ? 'opacity-100' : 'opacity-0 pointer-events-none'
         }`}
         aria-label="Scroll to work section"

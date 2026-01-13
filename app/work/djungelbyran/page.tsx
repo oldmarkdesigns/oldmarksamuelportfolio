@@ -15,21 +15,19 @@ const sections = [
 
 export default function DjungelbyranPage() {
   const { theme } = useTheme()
-  const { ref: mainRef, isVisible: mainVisible } = useScrollAnimation({ threshold: 0.1, triggerOnce: true })
-  const { ref: overviewRef, isVisible: overviewVisible } = useScrollAnimation({ threshold: 0.1, triggerOnce: true, delay: 100 })
-  const { ref: designProcessRef, isVisible: designProcessVisible } = useScrollAnimation({ threshold: 0.1, triggerOnce: true, delay: 200 })
-  const { ref: brandingRef, isVisible: brandingVisible } = useScrollAnimation({ threshold: 0.1, triggerOnce: true, delay: 300 })
-  const { ref: webDesignRef, isVisible: webDesignVisible } = useScrollAnimation({ threshold: 0.1, triggerOnce: true, delay: 400 })
+  const { ref: designProcessRef, isVisible: designProcessVisible } = useScrollAnimation({ threshold: 0.1, triggerOnce: true, delay: 100 })
+  const { ref: brandingRef, isVisible: brandingVisible } = useScrollAnimation({ threshold: 0.1, triggerOnce: true, delay: 200 })
+  const { ref: webDesignRef, isVisible: webDesignVisible } = useScrollAnimation({ threshold: 0.1, triggerOnce: true, delay: 300 })
 
   return (
-    <main className="pt-16 md:pt-20 min-h-screen bg-transparent relative animate-fade-in">
+    <main className="pt-16 md:pt-20 min-h-screen bg-transparent relative">
       <div className="max-w-6xl mx-auto px-6 sm:px-8 lg:px-12 py-8 md:py-12">
-        <div className="flex gap-12">
+        <div className="flex flex-col md:flex-row gap-12">
           {/* Left sidebar navigation */}
           <WorkPageNav sections={sections} />
           
           {/* Main content */}
-          <div ref={mainRef} className={`flex-1 min-w-0 transition-all duration-700 ${mainVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+          <div className="flex-1 min-w-0">
             <Link
               href="/#work"
               className={`inline-flex items-center gap-2 mb-8 transition-colors ${
@@ -42,7 +40,7 @@ export default function DjungelbyranPage() {
             </Link>
             
             {/* Overview Section */}
-            <section ref={overviewRef} id="overview" className={`scroll-mt-20 mb-16 transition-all duration-700 ${overviewVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+            <section id="overview" className="scroll-mt-20 mb-16">
             <div className="mb-12">
               <p className="text-sm text-gray-400 text-gray-500 mb-4">About the project</p>
               <h1 className="text-3xl md:text-4xl font-bold mb-8 text-white text-gray-900 leading-tight">
@@ -52,7 +50,7 @@ export default function DjungelbyranPage() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
                 {/* Left column - Description */}
                 <div className="space-y-4">
-                  <div className="text-gray-300 text-gray-600 leading-relaxed space-y-4">
+                  <div className="text-gray-600 dark:text-gray-200 leading-relaxed space-y-4">
                     <p>
                       I created a cohesive visual system that captures the essence of the brand, from typography and color palette to imagery and layout. This new identity was then implemented into the front-end development of their website, where I built a fully responsive, user-friendly site that reflects and enhances Djungelbyrån's updated look and feel.
                     </p>
@@ -88,7 +86,7 @@ export default function DjungelbyranPage() {
           {/* Design Process Section */}
           <section ref={designProcessRef} id="design-process" className={`scroll-mt-20 mb-16 transition-all duration-700 ${designProcessVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
             <h2 className="text-2xl md:text-3xl font-bold mb-6 text-white text-gray-900">Design Process</h2>
-            <div className="text-gray-300 text-gray-600 leading-relaxed space-y-4 mb-6">
+            <div className="text-gray-600 dark:text-gray-200 leading-relaxed space-y-4 mb-6">
               <p>
                 In designing the visual identity for Djungelbyrån, I worked closely with the agency's two founders, who had a clear vision of the message they wanted to convey to potential clients. Using the guidelines they provided, I began creating core brand elements, including the logo, color palette, font selection, buttons, and components for the website.
               </p>
@@ -104,21 +102,21 @@ export default function DjungelbyranPage() {
             </div>
             
             <div className="flex flex-wrap gap-3 mb-6">
-              <span className="px-3 py-1 text-xs font-medium text-gray-400 text-gray-500 bg-gray-800/50 bg-gray-200/70 rounded-full border border-gray-700/50 border-gray-300/70">Collaboration with stakeholders</span>
-              <span className="px-3 py-1 text-xs font-medium text-gray-400 text-gray-500 bg-gray-800/50 bg-gray-200/70 rounded-full border border-gray-700/50 border-gray-300/70">Design of visual language and brand identity</span>
-              <span className="px-3 py-1 text-xs font-medium text-gray-400 text-gray-500 bg-gray-800/50 bg-gray-200/70 rounded-full border border-gray-700/50 border-gray-300/70">Animation and interactive elements</span>
-              <span className="px-3 py-1 text-xs font-medium text-gray-400 text-gray-500 bg-gray-800/50 bg-gray-200/70 rounded-full border border-gray-700/50 border-gray-300/70">Frontend development</span>
-              <span className="px-3 py-1 text-xs font-medium text-gray-400 text-gray-500 bg-gray-800/50 bg-gray-200/70 rounded-full border border-gray-700/50 border-gray-300/70">Published website</span>
-              <span className="px-3 py-1 text-xs font-medium text-gray-400 text-gray-500 bg-gray-800/50 bg-gray-200/70 rounded-full border border-gray-700/50 border-gray-300/70">Figma</span>
-              <span className="px-3 py-1 text-xs font-medium text-gray-400 text-gray-500 bg-gray-800/50 bg-gray-200/70 rounded-full border border-gray-700/50 border-gray-300/70">UI Design</span>
-              <span className="px-3 py-1 text-xs font-medium text-gray-400 text-gray-500 bg-gray-800/50 bg-gray-200/70 rounded-full border border-gray-700/50 border-gray-300/70">UX Design</span>
-              <span className="px-3 py-1 text-xs font-medium text-gray-400 text-gray-500 bg-gray-800/50 bg-gray-200/70 rounded-full border border-gray-700/50 border-gray-300/70">Project Management</span>
-              <span className="px-3 py-1 text-xs font-medium text-gray-400 text-gray-500 bg-gray-800/50 bg-gray-200/70 rounded-full border border-gray-700/50 border-gray-300/70">Stakeholders Collaboration</span>
-              <span className="px-3 py-1 text-xs font-medium text-gray-400 text-gray-500 bg-gray-800/50 bg-gray-200/70 rounded-full border border-gray-700/50 border-gray-300/70">Frontend development</span>
-              <span className="px-3 py-1 text-xs font-medium text-gray-400 text-gray-500 bg-gray-800/50 bg-gray-200/70 rounded-full border border-gray-700/50 border-gray-300/70">Squarespace</span>
-              <span className="px-3 py-1 text-xs font-medium text-gray-400 text-gray-500 bg-gray-800/50 bg-gray-200/70 rounded-full border border-gray-700/50 border-gray-300/70">CSS</span>
-              <span className="px-3 py-1 text-xs font-medium text-gray-400 text-gray-500 bg-gray-800/50 bg-gray-200/70 rounded-full border border-gray-700/50 border-gray-300/70">HTML</span>
-              <span className="px-3 py-1 text-xs font-medium text-gray-400 text-gray-500 bg-gray-800/50 bg-gray-200/70 rounded-full border border-gray-700/50 border-gray-300/70">Javascript</span>
+              <span className="px-3 py-1 text-xs font-medium text-gray-500 dark:text-gray-400 bg-gray-200/70 dark:bg-transparent rounded-full border border-gray-300/70 dark:border-gray-700/50">Collaboration with stakeholders</span>
+              <span className="px-3 py-1 text-xs font-medium text-gray-500 dark:text-gray-400 bg-gray-200/70 dark:bg-transparent rounded-full border border-gray-300/70 dark:border-gray-700/50">Design of visual language and brand identity</span>
+              <span className="px-3 py-1 text-xs font-medium text-gray-500 dark:text-gray-400 bg-gray-200/70 dark:bg-transparent rounded-full border border-gray-300/70 dark:border-gray-700/50">Animation and interactive elements</span>
+              <span className="px-3 py-1 text-xs font-medium text-gray-500 dark:text-gray-400 bg-gray-200/70 dark:bg-transparent rounded-full border border-gray-300/70 dark:border-gray-700/50">Frontend development</span>
+              <span className="px-3 py-1 text-xs font-medium text-gray-500 dark:text-gray-400 bg-gray-200/70 dark:bg-transparent rounded-full border border-gray-300/70 dark:border-gray-700/50">Published website</span>
+              <span className="px-3 py-1 text-xs font-medium text-gray-500 dark:text-gray-400 bg-gray-200/70 dark:bg-transparent rounded-full border border-gray-300/70 dark:border-gray-700/50">Figma</span>
+              <span className="px-3 py-1 text-xs font-medium text-gray-500 dark:text-gray-400 bg-gray-200/70 dark:bg-transparent rounded-full border border-gray-300/70 dark:border-gray-700/50">UI Design</span>
+              <span className="px-3 py-1 text-xs font-medium text-gray-500 dark:text-gray-400 bg-gray-200/70 dark:bg-transparent rounded-full border border-gray-300/70 dark:border-gray-700/50">UX Design</span>
+              <span className="px-3 py-1 text-xs font-medium text-gray-500 dark:text-gray-400 bg-gray-200/70 dark:bg-transparent rounded-full border border-gray-300/70 dark:border-gray-700/50">Project Management</span>
+              <span className="px-3 py-1 text-xs font-medium text-gray-500 dark:text-gray-400 bg-gray-200/70 dark:bg-transparent rounded-full border border-gray-300/70 dark:border-gray-700/50">Stakeholders Collaboration</span>
+              <span className="px-3 py-1 text-xs font-medium text-gray-500 dark:text-gray-400 bg-gray-200/70 dark:bg-transparent rounded-full border border-gray-300/70 dark:border-gray-700/50">Frontend development</span>
+              <span className="px-3 py-1 text-xs font-medium text-gray-500 dark:text-gray-400 bg-gray-200/70 dark:bg-transparent rounded-full border border-gray-300/70 dark:border-gray-700/50">Squarespace</span>
+              <span className="px-3 py-1 text-xs font-medium text-gray-500 dark:text-gray-400 bg-gray-200/70 dark:bg-transparent rounded-full border border-gray-300/70 dark:border-gray-700/50">CSS</span>
+              <span className="px-3 py-1 text-xs font-medium text-gray-500 dark:text-gray-400 bg-gray-200/70 dark:bg-transparent rounded-full border border-gray-300/70 dark:border-gray-700/50">HTML</span>
+              <span className="px-3 py-1 text-xs font-medium text-gray-500 dark:text-gray-400 bg-gray-200/70 dark:bg-transparent rounded-full border border-gray-300/70 dark:border-gray-700/50">Javascript</span>
             </div>
           </section>
 
@@ -128,7 +126,7 @@ export default function DjungelbyranPage() {
             
             <div className="mb-8">
               <h3 className="text-lg font-semibold text-white text-gray-900 mb-4">Font selection</h3>
-              <div className="text-gray-300 text-gray-600 leading-relaxed space-y-4 mb-6">
+              <div className="text-gray-600 dark:text-gray-200 leading-relaxed space-y-4 mb-6">
                 <p>
                   As mentioned above, we discussed various font options for the website. We ultimately decided on a clean, professional typeface to maintain a polished look. Here are some examples we considered.
                 </p>
@@ -171,7 +169,7 @@ export default function DjungelbyranPage() {
 
             <div className="mb-8">
               <h3 className="text-lg font-semibold text-white text-gray-900 mb-4">Logo design</h3>
-              <div className="text-gray-300 text-gray-600 leading-relaxed space-y-4 mb-6">
+              <div className="text-gray-600 dark:text-gray-200 leading-relaxed space-y-4 mb-6">
                 <p>
                   When designing the logo, I aimed to create a visually striking and memorable piece that would stand out not only on the website but also in other contexts, such as advertising, social media, and printed materials. To achieve this, I chose a more experimental font that would give the logo a distinctive character, setting it apart from the clean, minimalist design of the website.
                 </p>
@@ -210,11 +208,11 @@ export default function DjungelbyranPage() {
               <div className="flex gap-6 items-center">
                 <div className="flex flex-col items-center gap-2">
                   <div className="w-24 h-24 rounded-lg" style={{ backgroundColor: '#E9AF64' }}></div>
-                  <p className="text-sm text-gray-400 text-gray-500">#E9AF64</p>
+                  <p className="text-sm text-gray-300 text-gray-600">#E9AF64</p>
                 </div>
                 <div className="flex flex-col items-center gap-2">
                   <div className="w-24 h-24 rounded-lg" style={{ backgroundColor: '#07191D' }}></div>
-                  <p className="text-sm text-gray-400 text-gray-500">#07191D</p>
+                  <p className="text-sm text-gray-300 text-gray-600">#07191D</p>
                 </div>
               </div>
             </div>
@@ -223,7 +221,7 @@ export default function DjungelbyranPage() {
           {/* Web Design Section */}
           <section ref={webDesignRef} id="web-design" className={`scroll-mt-20 mb-16 transition-all duration-700 ${webDesignVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
             <h2 className="text-2xl md:text-3xl font-bold mb-6 text-white text-gray-900">Web Design</h2>
-            <div className="text-gray-300 text-gray-600 leading-relaxed mb-6">
+            <div className="text-gray-200 text-gray-700 leading-relaxed mb-6">
               <p>
                 Designed a modern and responsive website that showcases the brand identity while 
                 providing an excellent user experience.

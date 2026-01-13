@@ -16,22 +16,20 @@ const sections = [
 
 export default function UIGoodiesPage() {
   const { theme } = useTheme()
-  const { ref: mainRef, isVisible: mainVisible } = useScrollAnimation({ threshold: 0.1, triggerOnce: true })
-  const { ref: overviewRef, isVisible: overviewVisible } = useScrollAnimation({ threshold: 0.1, triggerOnce: true, delay: 100 })
-  const { ref: creditCardRef, isVisible: creditCardVisible } = useScrollAnimation({ threshold: 0.1, triggerOnce: true, delay: 200 })
-  const { ref: signUpRef, isVisible: signUpVisible } = useScrollAnimation({ threshold: 0.1, triggerOnce: true, delay: 300 })
-  const { ref: userProfileRef, isVisible: userProfileVisible } = useScrollAnimation({ threshold: 0.1, triggerOnce: true, delay: 400 })
-  const { ref: directMessageRef, isVisible: directMessageVisible } = useScrollAnimation({ threshold: 0.1, triggerOnce: true, delay: 500 })
+  const { ref: creditCardRef, isVisible: creditCardVisible } = useScrollAnimation({ threshold: 0.1, triggerOnce: true, delay: 100 })
+  const { ref: signUpRef, isVisible: signUpVisible } = useScrollAnimation({ threshold: 0.1, triggerOnce: true, delay: 200 })
+  const { ref: userProfileRef, isVisible: userProfileVisible } = useScrollAnimation({ threshold: 0.1, triggerOnce: true, delay: 300 })
+  const { ref: directMessageRef, isVisible: directMessageVisible } = useScrollAnimation({ threshold: 0.1, triggerOnce: true, delay: 400 })
 
   return (
-    <main className="pt-16 md:pt-20 min-h-screen bg-transparent relative animate-fade-in">
+    <main className="pt-16 md:pt-20 min-h-screen bg-transparent relative">
       <div className="max-w-6xl mx-auto px-6 sm:px-8 lg:px-12 py-8 md:py-12">
-        <div className="flex gap-12">
+        <div className="flex flex-col md:flex-row gap-12">
           {/* Left sidebar navigation */}
           <WorkPageNav sections={sections} />
           
           {/* Main content */}
-          <div ref={mainRef} className={`flex-1 min-w-0 transition-all duration-700 ${mainVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+          <div className="flex-1 min-w-0">
             <Link
               href="/#work"
               className={`inline-flex items-center gap-2 mb-8 transition-colors ${
@@ -44,7 +42,7 @@ export default function UIGoodiesPage() {
             </Link>
             
             {/* Overview Section */}
-            <section ref={overviewRef} id="overview" className={`scroll-mt-20 mb-16 transition-all duration-700 ${overviewVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+            <section id="overview" className="scroll-mt-20 mb-16">
             <div className="mb-8">
               <h1 className="text-3xl md:text-4xl font-bold mb-4 text-white">Daily UI</h1>
               <p className="text-lg text-gray-300 mb-2">UI Design Challenges</p>

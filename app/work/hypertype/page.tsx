@@ -17,23 +17,21 @@ const sections = [
 
 export default function HypertypePage() {
   const { theme } = useTheme()
-  const { ref: mainRef, isVisible: mainVisible } = useScrollAnimation({ threshold: 0.1, triggerOnce: true })
-  const { ref: overviewRef, isVisible: overviewVisible } = useScrollAnimation({ threshold: 0.1, triggerOnce: true, delay: 100 })
-  const { ref: dashboardRef, isVisible: dashboardVisible } = useScrollAnimation({ threshold: 0.1, triggerOnce: true, delay: 200 })
-  const { ref: getStartedRef, isVisible: getStartedVisible } = useScrollAnimation({ threshold: 0.1, triggerOnce: true, delay: 300 })
-  const { ref: feedBrainRef, isVisible: feedBrainVisible } = useScrollAnimation({ threshold: 0.1, triggerOnce: true, delay: 400 })
-  const { ref: helpCenterRef, isVisible: helpCenterVisible } = useScrollAnimation({ threshold: 0.1, triggerOnce: true, delay: 500 })
-  const { ref: subscriptionRef, isVisible: subscriptionVisible } = useScrollAnimation({ threshold: 0.1, triggerOnce: true, delay: 600 })
+  const { ref: dashboardRef, isVisible: dashboardVisible } = useScrollAnimation({ threshold: 0.1, triggerOnce: true, delay: 100 })
+  const { ref: getStartedRef, isVisible: getStartedVisible } = useScrollAnimation({ threshold: 0.1, triggerOnce: true, delay: 200 })
+  const { ref: feedBrainRef, isVisible: feedBrainVisible } = useScrollAnimation({ threshold: 0.1, triggerOnce: true, delay: 300 })
+  const { ref: helpCenterRef, isVisible: helpCenterVisible } = useScrollAnimation({ threshold: 0.1, triggerOnce: true, delay: 400 })
+  const { ref: subscriptionRef, isVisible: subscriptionVisible } = useScrollAnimation({ threshold: 0.1, triggerOnce: true, delay: 500 })
 
   return (
-    <main className="pt-16 md:pt-20 min-h-screen bg-transparent relative animate-fade-in">
+    <main className="pt-16 md:pt-20 min-h-screen bg-transparent relative">
       <div className="max-w-6xl mx-auto px-6 sm:px-8 lg:px-12 py-8 md:py-12">
-        <div className="flex gap-12">
+        <div className="flex flex-col md:flex-row gap-12">
           {/* Left sidebar navigation */}
           <WorkPageNav sections={sections} />
           
           {/* Main content */}
-          <div ref={mainRef} className={`flex-1 min-w-0 transition-all duration-700 ${mainVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+          <div className="flex-1 min-w-0">
             <Link
               href="/#work"
               className={`inline-flex items-center gap-2 mb-8 transition-colors ${
@@ -46,7 +44,7 @@ export default function HypertypePage() {
             </Link>
             
             {/* Overview Section */}
-            <section ref={overviewRef} id="overview" className={`scroll-mt-20 mb-16 transition-all duration-700 ${overviewVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+            <section id="overview" className="scroll-mt-20 mb-16">
             <div className="mb-12">
               <p className="text-sm text-gray-400 text-gray-500 mb-4">About the project</p>
               <h1 className="text-3xl md:text-4xl font-bold mb-8 text-white text-gray-900 leading-tight">
@@ -56,7 +54,7 @@ export default function HypertypePage() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
                 {/* Left column - Description */}
                 <div className="space-y-4">
-                  <div className="text-gray-300 text-gray-600 leading-relaxed space-y-4">
+                  <div className="text-gray-600 dark:text-gray-200 leading-relaxed space-y-4">
                     <p>
                       I was given a design challenge to redesign the onboarding flow and dashboard welcome page of Hypertype.ai to increase paid conversions. I identified friction points in the user journey and proposed a more streamlined onboarding experience, along with a clearer, value-driven dashboard layout to guide users toward key features and upgrade actions.
                     </p>
@@ -98,7 +96,7 @@ export default function HypertypePage() {
           {/* Dashboard Section */}
           <section ref={dashboardRef} id="dashboard" className={`scroll-mt-20 mb-16 transition-all duration-700 ${dashboardVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
             <h2 className="text-2xl md:text-3xl font-bold mb-6 text-white text-gray-900">Redesigning the dashboard</h2>
-            <div className="text-gray-300 text-gray-600 leading-relaxed space-y-4 mb-6">
+            <div className="text-gray-200 text-gray-700 leading-relaxed space-y-4 mb-6">
               <p>
                 I chose to design the welcome page for the dashboard because, after reviewing both options, I found that I had more ideas for improving the dashboard. As a first-time user of both flows, I noticed more areas for enhancement in the dashboard, making it the clear choice for restructuring.
               </p>
@@ -109,7 +107,7 @@ export default function HypertypePage() {
 
             <div className="mb-8">
               <h3 className="text-lg font-semibold text-white text-gray-900 mb-4">LoFi design</h3>
-              <div className="text-gray-300 text-gray-600 leading-relaxed space-y-4 mb-6">
+              <div className="text-gray-200 text-gray-700 leading-relaxed space-y-4 mb-6">
                 <p>
                   I began by creating a low-fidelity sketch to visualize the layout of the dashboard. During this process, I carefully considered which elements should appear on the homepage, keeping the goal of increasing paid conversions in mind.
                 </p>
@@ -131,7 +129,7 @@ export default function HypertypePage() {
 
             <div className="mb-8">
               <h3 className="text-lg font-semibold text-white text-gray-900 mb-4">Designing all elements</h3>
-              <div className="text-gray-300 text-gray-600 leading-relaxed space-y-4 mb-6">
+              <div className="text-gray-200 text-gray-700 leading-relaxed space-y-4 mb-6">
                 <p>
                   I began by creating a low-fidelity sketch to visualize the layout of the dashboard. During this process, I carefully considered which elements should appear on the homepage, keeping the goal of increasing paid conversions in mind.
                 </p>
@@ -169,7 +167,7 @@ export default function HypertypePage() {
           {/* Get Started Section */}
           <section ref={getStartedRef} id="get-started" className={`scroll-mt-20 mb-16 transition-all duration-700 ${getStartedVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
             <h2 className="text-2xl md:text-3xl font-bold mb-6 text-white text-gray-900">Get Started</h2>
-            <div className="text-gray-300 text-gray-600 leading-relaxed mb-6">
+            <div className="text-gray-600 dark:text-gray-200 leading-relaxed mb-6">
               <p>
                 Designed an intuitive onboarding flow that helps users understand the AI assistant's 
                 capabilities and get started quickly.
@@ -212,7 +210,7 @@ export default function HypertypePage() {
           {/* Feed Brain Section */}
           <section ref={feedBrainRef} id="feed-brain" className={`scroll-mt-20 mb-16 transition-all duration-700 ${feedBrainVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
             <h2 className="text-2xl md:text-3xl font-bold mb-6 text-white text-gray-900">Feed Brain</h2>
-            <div className="text-gray-300 text-gray-600 leading-relaxed mb-6">
+            <div className="text-gray-600 dark:text-gray-200 leading-relaxed mb-6">
               <p>
                 Created a feature that allows users to train the AI by providing context and examples, 
                 making the assistant more personalized and effective.
@@ -255,7 +253,7 @@ export default function HypertypePage() {
           {/* Help Center Section */}
           <section ref={helpCenterRef} id="help-center" className={`scroll-mt-20 mb-16 transition-all duration-700 ${helpCenterVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
             <h2 className="text-2xl md:text-3xl font-bold mb-6 text-white text-gray-900">Help Center</h2>
-            <div className="text-gray-300 text-gray-600 leading-relaxed mb-6">
+            <div className="text-gray-600 dark:text-gray-200 leading-relaxed mb-6">
               <p>
                 Designed a comprehensive help center that provides users with easy access to 
                 documentation, tutorials, and support resources.
@@ -298,7 +296,7 @@ export default function HypertypePage() {
           {/* Subscription Section */}
           <section ref={subscriptionRef} id="subscription" className={`scroll-mt-20 mb-16 transition-all duration-700 ${subscriptionVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
             <h2 className="text-2xl md:text-3xl font-bold mb-6 text-white text-gray-900">Subscription</h2>
-            <div className="text-gray-300 text-gray-600 leading-relaxed mb-6">
+            <div className="text-gray-600 dark:text-gray-200 leading-relaxed mb-6">
               <p>
                 Designed subscription management features including plan selection, locked features, 
                 and account management.

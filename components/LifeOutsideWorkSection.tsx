@@ -6,7 +6,6 @@ import { useScrollAnimation } from '@/hooks/useScrollAnimation'
 
 export default function LifeOutsideWorkSection() {
   const [albumArt, setAlbumArt] = useState<string | null>(null)
-  const [isPhotoCardHovered, setIsPhotoCardHovered] = useState(false)
   const [hoveredInterest, setHoveredInterest] = useState<string | null>(null)
   const [isMobile, setIsMobile] = useState(false)
   const spotifyUrl = 'https://open.spotify.com/track/02J0ot9J6ASTAnj5oixMIE?si=SL1ELLpBQ42PHpG-Cr8qvw'
@@ -42,13 +41,6 @@ export default function LifeOutsideWorkSection() {
 
   return (
     <>
-      {/* Dark overlay when photo card is hovered - only on desktop */}
-      <div 
-        className={`hidden md:block fixed inset-0 bg-black/70 z-40 transition-opacity duration-500 pointer-events-none ${
-          isPhotoCardHovered ? 'opacity-100' : 'opacity-0'
-        }`}
-      />
-      
       <section className="py-12 md:py-16 bg-transparent relative scroll-mt-12">
         <div className="max-w-4xl mx-auto px-6 sm:px-8 lg:px-12">
           <h2 ref={sectionRef} className={`text-xl md:text-2xl font-serif font-medium mb-8 text-white transition-all duration-700 ${sectionVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>Life outside work</h2>
@@ -101,25 +93,19 @@ export default function LifeOutsideWorkSection() {
           
           {/* Photo Card */}
           <div 
-            className="bg-gray-800/20 border border-gray-700/50 rounded-2xl p-6 group relative overflow-visible flex flex-col"
-            onMouseEnter={() => {
-              if (!isMobile) {
-                setIsPhotoCardHovered(true)
-              }
-            }}
-            onMouseLeave={() => setIsPhotoCardHovered(false)}
+            className="bg-gray-800/20 border border-gray-700/50 rounded-2xl p-4 md:p-6 group relative overflow-hidden md:overflow-visible flex flex-col"
           >
-            <div className="relative w-full flex-1 min-h-0">
+            <div className="relative w-full flex-1 min-h-[250px] md:min-h-0">
               {/* Photo collage layout - fills full height */}
               <div className="absolute inset-0 flex flex-col gap-2 h-full">
                 {/* Midsummer - Full width top */}
-                <div className="relative flex-shrink-0 h-24 md:h-28 rounded-lg overflow-visible md:group-hover:z-[100] transition-all duration-500 md:group-hover:scale-[1.8] md:group-hover:-translate-y-16 md:group-hover:rotate-[-2deg]">
+                <div className="relative flex-shrink-0 h-24 md:h-28 rounded-lg overflow-hidden md:overflow-visible md:group-hover:z-[100] transition-all duration-500 md:group-hover:scale-[1.8] md:group-hover:-translate-y-16 md:group-hover:rotate-[-2deg]">
                   <div className="relative w-full h-full rounded-lg overflow-hidden shadow-2xl">
                     <Image
                       src="/Portfolio Assets/Outside Work/midsummers.JPG"
                       alt="Midsummer"
                       fill
-                      className="object-cover"
+                      className="object-cover brightness-100"
                       sizes="(max-width: 768px) 100vw, 400px"
                     />
                   </div>
@@ -130,26 +116,26 @@ export default function LifeOutsideWorkSection() {
                   {/* Left side - Surfing and Skiing stacked vertically, 50% width */}
                   <div className="w-1/2 flex flex-col gap-2">
                     {/* Surfing - Top half */}
-                    <div className="relative flex-1 rounded-lg overflow-visible md:group-hover:z-[100] transition-all duration-500 md:group-hover:scale-[1.8] md:group-hover:-translate-x-16 md:group-hover:-translate-y-8 md:group-hover:rotate-[5deg]">
+                    <div className="relative flex-1 rounded-lg overflow-hidden md:overflow-visible md:group-hover:z-[100] transition-all duration-500 md:group-hover:scale-[1.8] md:group-hover:-translate-x-16 md:group-hover:-translate-y-8 md:group-hover:rotate-[5deg]">
                       <div className="relative w-full h-full rounded-lg overflow-hidden shadow-2xl">
                         <Image
                           src="/Portfolio Assets/Outside Work/surfing.jpg"
                           alt="Surfing"
                           fill
-                          className="object-cover"
+                          className="object-cover brightness-100"
                           sizes="(max-width: 768px) 50vw, 200px"
                         />
                       </div>
                     </div>
                     
                     {/* Skiing - Bottom half */}
-                    <div className="relative flex-1 rounded-lg overflow-visible md:group-hover:z-[100] transition-all duration-500 md:group-hover:scale-[1.8] md:group-hover:-translate-x-16 md:group-hover:translate-y-8 md:group-hover:rotate-[-5deg]">
+                    <div className="relative flex-1 rounded-lg overflow-hidden md:overflow-visible md:group-hover:z-[100] transition-all duration-500 md:group-hover:scale-[1.8] md:group-hover:-translate-x-16 md:group-hover:translate-y-8 md:group-hover:rotate-[-5deg]">
                       <div className="relative w-full h-full rounded-lg overflow-hidden shadow-2xl">
                         <Image
                           src="/Portfolio Assets/Outside Work/skiing.JPG"
                           alt="Skiing"
                           fill
-                          className="object-cover"
+                          className="object-cover brightness-100"
                           sizes="(max-width: 768px) 50vw, 200px"
                         />
                       </div>
@@ -158,13 +144,13 @@ export default function LifeOutsideWorkSection() {
                   
                   {/* Right side - Boating, 50% width, full height */}
                   <div className="w-1/2">
-                    <div className="relative w-full h-full rounded-lg overflow-visible md:group-hover:z-[100] transition-all duration-500 md:group-hover:scale-[1.8] md:group-hover:translate-x-16 md:group-hover:rotate-[5deg]">
+                    <div className="relative w-full h-full rounded-lg overflow-hidden md:overflow-visible md:group-hover:z-[100] transition-all duration-500 md:group-hover:scale-[1.8] md:group-hover:translate-x-16 md:group-hover:rotate-[5deg]">
                       <div className="relative w-full h-full rounded-lg overflow-hidden shadow-2xl">
                         <Image
                           src="/Portfolio Assets/Outside Work/boating.JPG"
                           alt="Boating"
                           fill
-                          className="object-cover"
+                          className="object-cover brightness-100"
                           sizes="(max-width: 768px) 50vw, 200px"
                         />
                       </div>
@@ -190,8 +176,8 @@ export default function LifeOutsideWorkSection() {
               >
                 <div className={`relative w-full h-full overflow-hidden rounded-xl shadow-2xl transition-all duration-500 ${
                   hoveredInterest === 'tennis' 
-                    ? 'md:brightness-100 md:scale-[1.8] md:-translate-y-12 md:-translate-x-8 md:rotate-[-3deg] md:z-[100] brightness-75' 
-                    : 'brightness-50'
+                    ? 'md:scale-[1.8] md:-translate-y-12 md:-translate-x-8 md:rotate-[-3deg] md:z-[100]' 
+                    : ''
                 }`}>
                   <Image
                     src="/Portfolio Assets/Outside Work/tennis.JPG"
@@ -227,8 +213,8 @@ export default function LifeOutsideWorkSection() {
               >
                 <div className={`relative w-full h-full overflow-hidden rounded-xl shadow-2xl transition-all duration-500 ${
                   hoveredInterest === 'boating' 
-                    ? 'md:brightness-100 md:scale-[1.8] md:-translate-y-12 md:translate-x-8 md:rotate-[3deg] md:z-[100] brightness-75' 
-                    : 'brightness-50'
+                    ? 'md:scale-[1.8] md:-translate-y-12 md:translate-x-8 md:rotate-[3deg] md:z-[100]' 
+                    : ''
                 }`}>
                   <Image
                     src="/Portfolio Assets/Outside Work/boating.JPG"
@@ -263,8 +249,8 @@ export default function LifeOutsideWorkSection() {
               >
                 <div className={`relative w-full h-full overflow-hidden rounded-xl shadow-2xl transition-all duration-500 ${
                   hoveredInterest === 'music' 
-                    ? 'md:brightness-100 md:scale-[1.8] md:translate-y-12 md:-translate-x-8 md:rotate-[3deg] md:z-[100] brightness-75' 
-                    : 'brightness-50'
+                    ? 'md:scale-[1.8] md:translate-y-12 md:-translate-x-8 md:rotate-[3deg] md:z-[100]' 
+                    : ''
                 }`}>
                   <Image
                     src="/Portfolio Assets/Outside Work/music.jpg"
@@ -298,8 +284,8 @@ export default function LifeOutsideWorkSection() {
               >
                 <div className={`relative w-full h-full overflow-hidden rounded-xl shadow-2xl transition-all duration-500 ${
                   hoveredInterest === 'friends' 
-                    ? 'md:brightness-100 md:scale-[1.8] md:translate-y-12 md:translate-x-8 md:rotate-[-3deg] md:z-[100] brightness-75' 
-                    : 'brightness-50'
+                    ? 'md:scale-[1.8] md:translate-y-12 md:translate-x-8 md:rotate-[-3deg] md:z-[100]' 
+                    : ''
                 }`}>
                   <Image
                     src="/Portfolio Assets/Outside Work/friends.HEIC"

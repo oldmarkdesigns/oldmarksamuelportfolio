@@ -29,7 +29,7 @@ export default function Navigation() {
   ]
 
   return (
-    <nav className="fixed top-3 left-1/2 transform -translate-x-1/2 z-[9999] w-full max-w-4xl px-4">
+    <nav className="fixed top-3 left-1/2 transform -translate-x-1/2 z-[9999] w-full max-w-4xl px-4 animate-slide-down-from-top">
       {/* Rounded navigation bar */}
       <div 
         className={`${isScrolled ? 'backdrop-blur-3xl' : 'backdrop-blur-xl'} border rounded-full px-3 py-1.5 flex items-center justify-between transition-all duration-500 ease-out ${
