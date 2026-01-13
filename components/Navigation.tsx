@@ -168,11 +168,11 @@ export default function Navigation() {
       {isMenuOpen && (
         <>
           <div 
-            className="md:hidden fixed inset-0 bg-black/20 z-[9998]"
+            className="md:hidden fixed inset-0 bg-black/20 z-[10000]"
             onClick={() => setIsMenuOpen(false)}
           />
           <div 
-            className={`md:hidden relative z-[9999] mt-2 ${isScrolled ? 'backdrop-blur-3xl' : 'backdrop-blur-xl'} border rounded-2xl p-3 transition-all duration-500 ease-out ${
+            className={`md:hidden fixed top-16 left-1/2 transform -translate-x-1/2 w-full max-w-4xl px-4 z-[10001] ${isScrolled ? 'backdrop-blur-3xl' : 'backdrop-blur-xl'} border rounded-2xl p-3 transition-all duration-500 ease-out ${
               theme === 'dark' 
                 ? 'bg-[rgba(10,10,10,0.4)] border-gray-700/30' 
                 : 'bg-[rgba(243,244,246,0.35)] border-[rgba(209,213,219,0.6)]'
