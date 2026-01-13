@@ -7,9 +7,27 @@
   --foreground: #ededed;
 }
 
+html {
+  background-color: #0a0a0a;
+  min-height: 100vh;
+}
+
+html.light {
+  background-color: #fafafa;
+}
+
+body {
+  background-color: #0a0a0a;
+  min-height: 100vh;
+}
+
 .light {
   --background: #fafafa;
   --foreground: #1a1a1a;
+}
+
+.light body {
+  background-color: #fafafa;
 }
 
 /* Light mode overrides - comprehensive styles */

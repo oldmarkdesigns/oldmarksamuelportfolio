@@ -11,6 +11,10 @@ export const metadata: Metadata = {
     icon: '/Portfolio Assets/Symbols/Favicon 32x32 2.0.png',
     apple: '/Portfolio Assets/Symbols/Webclip 256x256 2.0.png',
   },
+  themeColor: [
+    { media: '(prefers-color-scheme: dark)', color: '#0a0a0a' },
+    { media: '(prefers-color-scheme: light)', color: '#fafafa' },
+  ],
 }
 
 export default function RootLayout({
@@ -27,6 +31,7 @@ export default function RootLayout({
               (function() {
                 try {
                   const theme = localStorage.getItem('theme') || 'dark';
+                  const bgColor = theme === 'dark' ? '#0a0a0a' : '#fafafa';
                   if (theme === 'dark') {
                     document.documentElement.classList.add('dark');
                     document.documentElement.classList.remove('light');
@@ -34,6 +39,17 @@ export default function RootLayout({
                     document.documentElement.classList.add('light');
                     document.documentElement.classList.remove('dark');
                   }
+                  document.documentElement.style.backgroundColor = bgColor;
+                  document.body.style.backgroundColor = bgColor;
+                  
+                  // Update theme-color meta tag
+                  let themeColorMeta = document.querySelector('meta[name="theme-color"]');
+                  if (!themeColorMeta) {
+                    themeColorMeta = document.createElement('meta');
+                    themeColorMeta.setAttribute('name', 'theme-color');
+                    document.head.appendChild(themeColorMeta);
+                  }
+                  themeColorMeta.setAttribute('content', bgColor);
                 } catch (e) {}
               })();
             `,

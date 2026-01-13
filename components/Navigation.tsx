@@ -149,7 +149,7 @@ export default function Navigation() {
           <button
             className="md:hidden p-1.5 text-gray-300 hover:text-white"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            aria-label="Toggle menu"
+            aria-label={isMenuOpen ? "Close menu" : "Toggle menu"}
           >
             {isMenuOpen ? (
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -177,6 +177,7 @@ export default function Navigation() {
                 ? 'bg-[rgba(10,10,10,0.4)] border-[rgba(22,101,52,0.2)]' 
                 : 'bg-[rgba(243,244,246,0.35)] border-[rgba(209,213,219,0.6)]'
             }`}
+            onClick={(e) => e.stopPropagation()}
           >
           {navItems.map((item) => (
             <a

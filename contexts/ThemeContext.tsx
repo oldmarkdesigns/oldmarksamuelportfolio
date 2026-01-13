@@ -53,6 +53,20 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     
     applyThemeClass(theme)
     localStorage.setItem('theme', theme)
+    
+    // Update html and body background colors
+    const bgColor = theme === 'dark' ? '#0a0a0a' : '#fafafa'
+    document.documentElement.style.backgroundColor = bgColor
+    document.body.style.backgroundColor = bgColor
+    
+    // Update theme-color meta tag for mobile browsers
+    let themeColorMeta = document.querySelector('meta[name="theme-color"]')
+    if (!themeColorMeta) {
+      themeColorMeta = document.createElement('meta')
+      themeColorMeta.setAttribute('name', 'theme-color')
+      document.head.appendChild(themeColorMeta)
+    }
+    themeColorMeta.setAttribute('content', bgColor)
   }, [theme])
 
   // Listen for storage changes (in case theme is changed in another tab)
@@ -82,6 +96,9 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     } else {
       // Ensure document class matches state
       applyThemeClass(theme)
+      // Set initial background colors
+      document.documentElement.style.backgroundColor = theme === 'dark' ? '#0a0a0a' : '#fafafa'
+      document.body.style.backgroundColor = theme === 'dark' ? '#0a0a0a' : '#fafafa'
     }
   }, [])
 
