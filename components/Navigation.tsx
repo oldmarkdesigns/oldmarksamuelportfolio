@@ -29,6 +29,7 @@ export default function Navigation() {
   ]
 
   return (
+    <>
     <nav className="fixed top-3 left-1/2 transform -translate-x-1/2 z-[9999] w-full max-w-4xl px-4 animate-slide-down-from-top">
       {/* Rounded navigation bar */}
       <div 
@@ -164,7 +165,8 @@ export default function Navigation() {
         </div>
       </div>
 
-      {/* Mobile Menu Overlay */}
+    </nav>
+      {/* Mobile Menu Overlay - Outside nav to ensure proper click handling */}
       {isMenuOpen && (
         <>
           <div 
@@ -214,7 +216,7 @@ export default function Navigation() {
           </div>
         </>
       )}
-    </nav>
+    </>
   )
 }
 

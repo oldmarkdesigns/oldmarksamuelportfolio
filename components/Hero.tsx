@@ -40,7 +40,7 @@ export default function Hero() {
           Hello there, I'm Samuel - I design web and mobile apps that are user-friendly, beautiful & convert your target audience.
         </p>
 
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-2 md:mb-6">
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-6 md:mb-6">
           <div className="flex items-center gap-2 text-gray-300">
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
@@ -50,7 +50,7 @@ export default function Hero() {
           </div>
         </div>
 
-        <div className="flex flex-row items-center justify-center gap-4 mb-8 md:mb-0">
+        <div className="flex flex-row items-center justify-center gap-2 md:gap-4 mb-8 md:mb-0">
           <span className="flex items-center gap-2 px-6 py-3 rounded-full text-sm font-medium text-white">
             <div 
               className="w-3 h-3 rounded-full"
@@ -89,7 +89,7 @@ export default function Hero() {
             element.scrollIntoView({ behavior: 'smooth', block: 'start' })
           }
         }}
-        className={`absolute bottom-16 md:bottom-4 left-1/2 transform -translate-x-1/2 flex flex-col items-center gap-1 md:gap-2 transition-opacity duration-500 cursor-pointer hover:opacity-80 ${
+        className={`absolute bottom-[88px] md:bottom-4 left-1/2 transform -translate-x-1/2 flex flex-col items-center gap-1 md:gap-2 transition-opacity duration-500 cursor-pointer hover:opacity-80 ${
           isVisible ? 'opacity-100' : 'opacity-0 pointer-events-none'
         }`}
         aria-label="Scroll to work section"
