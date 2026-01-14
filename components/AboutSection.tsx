@@ -64,9 +64,9 @@ export default function AboutSection() {
                   <Image
                     src="/Portfolio Assets/Tool Icons/figma.png"
                     alt="Figma"
-                    width={24}
-                    height={24}
-                    className="w-6 h-6 flex-shrink-0"
+                    width={20}
+                    height={20}
+                    className="w-5 h-5 flex-shrink-0"
                   />
                   <span className="text-white text-sm font-medium">Figma</span>
                 </div>
@@ -163,9 +163,9 @@ export default function AboutSection() {
                   <Image
                     src="/Portfolio Assets/Tool Icons/framer.png"
                     alt="Framer"
-                    width={24}
-                    height={24}
-                    className="w-6 h-6 flex-shrink-0"
+                    width={20}
+                    height={20}
+                    className="w-5 h-5 flex-shrink-0"
                   />
                   <span className="text-white text-sm font-medium">Framer</span>
                 </div>
@@ -175,9 +175,9 @@ export default function AboutSection() {
                   <Image
                     src="/Portfolio Assets/Tool Icons/webflow.png"
                     alt="Webflow"
-                    width={24}
-                    height={24}
-                    className="w-6 h-6 flex-shrink-0"
+                    width={20}
+                    height={20}
+                    className="w-5 h-5 flex-shrink-0"
                   />
                   <span className="text-white text-sm font-medium">Webflow</span>
                 </div>
@@ -187,9 +187,9 @@ export default function AboutSection() {
                   <Image
                     src="/Portfolio Assets/Tool Icons/wordpress.png"
                     alt="WordPress"
-                    width={24}
-                    height={24}
-                    className="w-6 h-6 flex-shrink-0"
+                    width={20}
+                    height={20}
+                    className="w-5 h-5 flex-shrink-0"
                   />
                   <span className="text-white text-sm font-medium">WordPress</span>
                 </div>
@@ -199,9 +199,9 @@ export default function AboutSection() {
                   <Image
                     src="/Portfolio Assets/Tool Icons/cursor.png"
                     alt="Cursor"
-                    width={24}
-                    height={24}
-                    className="w-6 h-6 flex-shrink-0"
+                    width={20}
+                    height={20}
+                    className="w-5 h-5 flex-shrink-0"
                   />
                   <span className="text-white text-sm font-medium">Cursor</span>
                 </div>
@@ -211,9 +211,9 @@ export default function AboutSection() {
                   <Image
                     src="/Portfolio Assets/Tool Icons/antigravity.png"
                     alt="Antigravity"
-                    width={24}
-                    height={24}
-                    className="w-6 h-6 flex-shrink-0"
+                    width={20}
+                    height={20}
+                    className="w-5 h-5 flex-shrink-0"
                   />
                   <span className="text-white text-sm font-medium">Antigravity</span>
                 </div>
