@@ -53,7 +53,7 @@ export default function AboutSection() {
         </div>
         
         <div className="mt-12 pt-8 border-t border-gray-800 dark:border-gray-800 border-gray-300 border-r-0 border-b-0 border-l-0">
-          <h3 className="text-2xl font-bold mb-6 text-white">Skills & Expertise</h3>
+          <h3 className="text-xl md:text-2xl font-serif font-medium mb-8 text-white">Skills & Expertise</h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {/* UX Design Column */}
             <div>
@@ -61,13 +61,13 @@ export default function AboutSection() {
               <div className="flex flex-col gap-3">
                 {/* Figma */}
                 <div className="flex items-center gap-3 px-4 py-2.5 border border-gray-700/50 rounded-lg">
-                  <svg className="w-5 h-5 flex-shrink-0" viewBox="0 0 200 300" fill="none">
-                    <path d="M50 300c27.614 0 50-22.386 50-50v-50H50c-27.614 0-50 22.386-50 50s22.386 50 50 50z" fill="#0ACF83"/>
-                    <path d="M0 150c0-27.614 22.386-50 50-50h50v100H50c-27.614 0-50-22.386-50-50z" fill="#A259FF"/>
-                    <path d="M0 50C0 22.386 22.386 0 50 0h50v100H50C22.386 100 0 77.614 0 50z" fill="#F24E1E"/>
-                    <path d="M100 0h50c27.614 0 50 22.386 50 50s-22.386 50-50 50h-50V0z" fill="#FF7262"/>
-                    <path d="M200 150c0 27.614-22.386 50-50 50s-50-22.386-50-50 22.386-50 50-50 50 22.386 50 50z" fill="#1ABCFE"/>
-                  </svg>
+                  <Image
+                    src="/Portfolio Assets/Tool Icons/figma.png"
+                    alt="Figma"
+                    width={24}
+                    height={24}
+                    className="w-6 h-6 flex-shrink-0"
+                  />
                   <span className="text-white text-sm font-medium">Figma</span>
                 </div>
                 
@@ -160,36 +160,197 @@ export default function AboutSection() {
               <div className="flex flex-col gap-3">
                 {/* Framer */}
                 <div className="flex items-center gap-3 px-4 py-2.5 border border-gray-700/50 rounded-lg">
-                  <svg className="w-5 h-5 flex-shrink-0 text-white" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M4 0l16 12-16 12V0z"/>
-                  </svg>
+                  <Image
+                    src="/Portfolio Assets/Tool Icons/framer.png"
+                    alt="Framer"
+                    width={24}
+                    height={24}
+                    className="w-6 h-6 flex-shrink-0"
+                  />
                   <span className="text-white text-sm font-medium">Framer</span>
                 </div>
                 
                 {/* Webflow */}
                 <div className="flex items-center gap-3 px-4 py-2.5 border border-gray-700/50 rounded-lg">
-                  <svg className="w-5 h-5 flex-shrink-0" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M17.503 0h-4.375L5.91 13.26l3.088 2.986 8.505-10.51v10.51h3.088V0h-3.088zm-11.26 15.71L2.9 18.696 0 15.71l3.343-2.986 2.9 2.986zm2.9-2.986l2.9 2.986 2.9-2.986-2.9-2.985-2.9 2.985zm11.26 0L24 15.71l-2.9 2.986-2.9-2.985 2.9-2.986 2.9 2.986z" fill="#4353FF"/>
-                  </svg>
+                  <Image
+                    src="/Portfolio Assets/Tool Icons/webflow.png"
+                    alt="Webflow"
+                    width={24}
+                    height={24}
+                    className="w-6 h-6 flex-shrink-0"
+                  />
                   <span className="text-white text-sm font-medium">Webflow</span>
-                </div>
-                
-                {/* Wix */}
-                <div className="flex items-center gap-3 px-4 py-2.5 border border-gray-700/50 rounded-lg">
-                  <svg className="w-5 h-5 flex-shrink-0 text-white" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M12.5 0L0 12.5 12.5 24 24 12.5 12.5 0zm0 2.5L21.5 12.5 12.5 21.5 2.5 12.5 12.5 2.5z"/>
-                    <path d="M12.5 6.5L6.5 12.5l6 6 6-6-6-6zm0 2.5l3.5 3.5-3.5 3.5-3.5-3.5 3.5-3.5z"/>
-                  </svg>
-                  <span className="text-white text-sm font-medium">Wix</span>
                 </div>
                 
                 {/* WordPress */}
                 <div className="flex items-center gap-3 px-4 py-2.5 border border-gray-700/50 rounded-lg">
-                  <svg className="w-5 h-5 flex-shrink-0" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M21.469 6.825c.84 1.537 1.318 3.3 1.318 5.175 0 3.979-2.156 7.456-5.363 9.325l3.295-9.527c.615-1.54.82-2.771.82-3.864 0-.405-.026-.78-.07-1.11m-7.981.105c.647-.03 1.234-.105 1.782-.105.405 0 .81.015 1.17.045-1.695 4.771-4.095 10.125-6.135 15.075-1.935-2.906-3.795-5.94-5.475-8.97 2.16-1.215 4.11-2.565 5.97-3.99-.54-.96-1.08-1.92-1.62-2.88-.495-.9-1.005-1.785-1.5-2.655.615-.27 1.23-.54 1.86-.78M8.961 3.9c-.405.765-.825 1.515-1.23 2.25-.045.075-.09.15-.12.24-1.875 3.45-3.63 6.945-5.355 10.5C.855 16.5.375 14.4.135 12.3c1.755-3.855 4.35-7.26 7.5-10.005.12-.12.24-.24.36-.345m3.12.15c.27.435.54.885.78 1.35.03.06.06.12.075.195.585 1.14 1.14 2.295 1.635 3.45-1.8 1.365-3.54 2.79-5.175 4.305-.09.075-.18.15-.27.21-.585.405-1.14.825-1.68 1.26 1.785-5.25 3.75-10.44 5.655-15.57.12-.405.24-.81.345-1.2.06-.21.12-.42.165-.63.06-.24.12-.48.165-.705.015-.09.03-.18.03-.255-.015-.03-.03-.06-.045-.09-.27-.465-.54-.915-.81-1.35m5.685.075c.585 1.755 1.14 3.525 1.635 5.31.015.06.03.135.045.195.015.24.03.48.045.72.015.405.03.825.03 1.26 0 .42-.015.84-.045 1.26-.015.135-.03.27-.06.405-.495 2.55-1.2 5.085-2.055 7.605 1.35-4.77 2.7-9.555 3.975-14.37.06-.315.105-.63.15-.945.03-.21.06-.42.075-.63.015-.12.03-.255.045-.375.03-.24.06-.495.075-.75.015-.135.03-.27.03-.405 0-.21-.015-.42-.03-.63-.015-.135-.03-.27-.045-.405-.27-1.14-.585-2.265-.93-3.39-.015-.06-.03-.12-.045-.18-.165-.615-.345-1.23-.54-1.83" fill="#21759B"/>
-                  </svg>
+                  <Image
+                    src="/Portfolio Assets/Tool Icons/wordpress.png"
+                    alt="WordPress"
+                    width={24}
+                    height={24}
+                    className="w-6 h-6 flex-shrink-0"
+                  />
                   <span className="text-white text-sm font-medium">WordPress</span>
                 </div>
+                
+                {/* Cursor */}
+                <div className="flex items-center gap-3 px-4 py-2.5 border border-gray-700/50 rounded-lg">
+                  <Image
+                    src="/Portfolio Assets/Tool Icons/cursor.png"
+                    alt="Cursor"
+                    width={24}
+                    height={24}
+                    className="w-6 h-6 flex-shrink-0"
+                  />
+                  <span className="text-white text-sm font-medium">Cursor</span>
+                </div>
+                
+                {/* Antigravity */}
+                <div className="flex items-center gap-3 px-4 py-2.5 border border-gray-700/50 rounded-lg">
+                  <Image
+                    src="/Portfolio Assets/Tool Icons/antigravity.png"
+                    alt="Antigravity"
+                    width={24}
+                    height={24}
+                    className="w-6 h-6 flex-shrink-0"
+                  />
+                  <span className="text-white text-sm font-medium">Antigravity</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          {/* AI Tools Section */}
+          <div className="mt-8">
+            <h4 className="font-semibold mb-6 text-white text-lg">AI Tools & How I Use Them</h4>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {/* AI for Ideation, Specifications & Visuals */}
+              <div className="px-4 py-4 border border-gray-700/50 rounded-lg">
+                <h5 className="font-semibold mb-4 text-white text-base">AI for Ideation, Specifications & Visuals</h5>
+                <div className="flex flex-col gap-3 mb-4">
+                  {/* Claude */}
+                  <div className="flex items-center gap-3 px-4 py-2.5 border border-gray-700/50 rounded-lg">
+                    <Image
+                      src="/Portfolio Assets/Tool Icons/claude.png"
+                      alt="Claude"
+                      width={20}
+                      height={20}
+                      className="w-5 h-5 flex-shrink-0"
+                    />
+                    <span className="text-white text-sm font-medium">Claude</span>
+                  </div>
+                  
+                  {/* ChatGPT */}
+                  <div className="flex items-center gap-3 px-4 py-2.5 border border-gray-700/50 rounded-lg">
+                    <Image
+                      src="/Portfolio Assets/Tool Icons/chatgpt.png"
+                      alt="ChatGPT"
+                      width={20}
+                      height={20}
+                      className="w-5 h-5 flex-shrink-0"
+                    />
+                    <span className="text-white text-sm font-medium">ChatGPT</span>
+                  </div>
+                  
+                  {/* Gemini */}
+                  <div className="flex items-center gap-3 px-4 py-2.5 border border-gray-700/50 rounded-lg">
+                    <Image
+                      src="/Portfolio Assets/Tool Icons/gemini.png"
+                      alt="Gemini"
+                      width={20}
+                      height={20}
+                      className="w-5 h-5 flex-shrink-0"
+                    />
+                    <span className="text-white text-sm font-medium">Gemini</span>
+                  </div>
+                </div>
+                <ul className="text-sm text-gray-300 space-y-1.5 list-disc list-inside">
+                  <li>Brainstorm UX concepts and interaction flows</li>
+                  <li>Write and refine product and technical specifications</li>
+                  <li>Generate and explore visual ideas and imagery during the design phase</li>
+                </ul>
+              </div>
+              
+              {/* AI for Rapid Prototyping & Development */}
+              <div className="px-4 py-4 border border-gray-700/50 rounded-lg">
+                <h5 className="font-semibold mb-4 text-white text-base">AI for Rapid Prototyping & Development</h5>
+                <div className="flex flex-col gap-3 mb-4">
+                  {/* Cursor */}
+                  <div className="flex items-center gap-3 px-4 py-2.5 border border-gray-700/50 rounded-lg">
+                    <Image
+                      src="/Portfolio Assets/Tool Icons/cursor.png"
+                      alt="Cursor"
+                      width={20}
+                      height={20}
+                      className="w-5 h-5 flex-shrink-0"
+                    />
+                    <span className="text-white text-sm font-medium">Cursor</span>
+                  </div>
+                  
+                  {/* Antigravity */}
+                  <div className="flex items-center gap-3 px-4 py-2.5 border border-gray-700/50 rounded-lg">
+                    <Image
+                      src="/Portfolio Assets/Tool Icons/antigravity.png"
+                      alt="Antigravity"
+                      width={20}
+                      height={20}
+                      className="w-5 h-5 flex-shrink-0"
+                    />
+                    <span className="text-white text-sm font-medium">Antigravity</span>
+                  </div>
+                </div>
+                <ul className="text-sm text-gray-300 space-y-1.5 list-disc list-inside">
+                  <li>Quickly build and iterate on web app prototypes</li>
+                  <li>Explore multiple implementation approaches efficiently</li>
+                  <li>Reduce time from concept to working prototype</li>
+                </ul>
+              </div>
+              
+              {/* AI for Documentation & Knowledge Management */}
+              <div className="px-4 py-4 border border-gray-700/50 rounded-lg">
+                <h5 className="font-semibold mb-4 text-white text-base">AI for Documentation & Knowledge Management</h5>
+                <div className="flex flex-col gap-3 mb-4">
+                  {/* Notion AI */}
+                  <div className="flex items-center gap-3 px-4 py-2.5 border border-gray-700/50 rounded-lg">
+                    <Image
+                      src="/Portfolio Assets/Tool Icons/notion.png"
+                      alt="Notion AI"
+                      width={20}
+                      height={20}
+                      className="w-5 h-5 flex-shrink-0"
+                    />
+                    <span className="text-white text-sm font-medium">Notion AI</span>
+                  </div>
+                </div>
+                <ul className="text-sm text-gray-300 space-y-1.5 list-disc list-inside">
+                  <li>Structuring project documentation and design systems</li>
+                  <li>Writing and summarizing technical notes</li>
+                  <li>Maintaining clear, searchable product knowledge</li>
+                </ul>
+              </div>
+              
+              {/* AI for Website Creation & Client Work */}
+              <div className="px-4 py-4 border border-gray-700/50 rounded-lg">
+                <h5 className="font-semibold mb-4 text-white text-base">AI for Website Creation & Client Work</h5>
+                <div className="flex flex-col gap-3 mb-4">
+                  {/* Webflow AI */}
+                  <div className="flex items-center gap-3 px-4 py-2.5 border border-gray-700/50 rounded-lg">
+                    <Image
+                      src="/Portfolio Assets/Tool Icons/webflow.png"
+                      alt="Webflow AI"
+                      width={20}
+                      height={20}
+                      className="w-5 h-5 flex-shrink-0"
+                    />
+                    <span className="text-white text-sm font-medium">Webflow AI</span>
+                  </div>
+                </div>
+                <ul className="text-sm text-gray-300 space-y-1.5 list-disc list-inside">
+                  <li>Generating layouts and sections from prompts</li>
+                  <li>Speeding up content creation and iteration</li>
+                  <li>Delivering high-quality, production-ready websites faster</li>
+                </ul>
               </div>
             </div>
           </div>

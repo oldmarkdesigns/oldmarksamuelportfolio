@@ -11,6 +11,7 @@ export default function Navigation() {
   const router = useRouter()
   const { theme, toggleTheme } = useTheme()
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [isMenuClosing, setIsMenuClosing] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
 
   useEffect(() => {
@@ -149,7 +150,17 @@ export default function Navigation() {
           {/* Mobile menu button */}
           <button
             className="md:hidden p-1.5 text-gray-300 hover:text-white"
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            onClick={() => {
+              if (isMenuOpen) {
+                setIsMenuClosing(true)
+                setTimeout(() => {
+                  setIsMenuOpen(false)
+                  setIsMenuClosing(false)
+                }, 300)
+              } else {
+                setIsMenuOpen(true)
+              }
+            }}
             aria-label={isMenuOpen ? "Close menu" : "Toggle menu"}
           >
             {isMenuOpen ? (
@@ -167,17 +178,29 @@ export default function Navigation() {
 
     </nav>
       {/* Mobile Menu Overlay - Outside nav to ensure proper click handling */}
-      {isMenuOpen && (
+      {(isMenuOpen || isMenuClosing) && (
         <>
           <div 
-            className="md:hidden fixed inset-0 bg-black/20 z-[10000]"
-            onClick={() => setIsMenuOpen(false)}
+            className={`md:hidden fixed inset-0 bg-black/20 z-[10000] transition-opacity duration-300 ${
+              isMenuClosing ? 'opacity-0' : 'opacity-100 animate-fade-in-overlay'
+            }`}
+            onClick={() => {
+              setIsMenuClosing(true)
+              setTimeout(() => {
+                setIsMenuOpen(false)
+                setIsMenuClosing(false)
+              }, 300)
+            }}
           />
           <div 
-            className={`md:hidden fixed top-16 left-1/2 transform -translate-x-1/2 w-full max-w-4xl px-4 z-[10001] ${isScrolled ? 'backdrop-blur-3xl' : 'backdrop-blur-xl'} border rounded-2xl p-3 transition-all duration-500 ease-out ${
+            className={`md:hidden fixed top-16 left-1/2 transform -translate-x-1/2 w-full max-w-4xl px-4 z-[10001] ${isScrolled ? 'backdrop-blur-3xl' : 'backdrop-blur-xl'} border rounded-2xl p-3 transition-all duration-300 ease-out ${
               theme === 'dark' 
                 ? 'bg-[rgba(10,10,10,0.4)] border-gray-700/30' 
                 : 'bg-[rgba(243,244,246,0.35)] border-[rgba(209,213,219,0.6)]'
+            } ${
+              isMenuClosing 
+                ? 'opacity-0 translate-y-[-20px]' 
+                : 'opacity-100 translate-y-0 animate-slide-down-menu'
             }`}
             onClick={(e) => e.stopPropagation()}
           >
@@ -187,22 +210,26 @@ export default function Navigation() {
               href={item.href}
               onClick={(e) => {
                 e.preventDefault()
-                setIsMenuOpen(false)
-                if (pathname === '/') {
-                  const element = document.querySelector(item.href)
-                  if (element) {
-                    element.scrollIntoView({ behavior: 'smooth', block: 'start' })
-                  }
-                } else {
-                  router.push('/')
-                  // Wait for navigation to complete, then scroll to section
-                  setTimeout(() => {
+                setIsMenuClosing(true)
+                setTimeout(() => {
+                  setIsMenuOpen(false)
+                  setIsMenuClosing(false)
+                  if (pathname === '/') {
                     const element = document.querySelector(item.href)
                     if (element) {
                       element.scrollIntoView({ behavior: 'smooth', block: 'start' })
                     }
-                  }, 50)
-                }
+                  } else {
+                    router.push('/')
+                    // Wait for navigation to complete, then scroll to section
+                    setTimeout(() => {
+                      const element = document.querySelector(item.href)
+                      if (element) {
+                        element.scrollIntoView({ behavior: 'smooth', block: 'start' })
+                      }
+                    }, 50)
+                  }
+                }, 300)
               }}
               className={`block py-3 text-base font-medium transition-colors cursor-pointer ${
                 pathname === item.href || (typeof window !== 'undefined' && window.location.hash === item.href)
