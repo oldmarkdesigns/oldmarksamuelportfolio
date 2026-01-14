@@ -7,10 +7,11 @@ import { useScrollAnimation } from '@/hooks/useScrollAnimation'
 const allWork = [
   {
     id: 'mymedicaldata',
-    title: 'MyMedicalData | Hälsa+',
+    title: 'Hälsa+',
     description: 'Designing and planning a new mobile app focused on health. As the only designer on the team, providing UX and UI solutions while bridging development, design, and stakeholders.',
     year: '2025',
     tags: ['UX Design', 'UI Design', 'Mobile App', 'Health'],
+    projectTag: 'Contract',
     coverImage: '/Portfolio Assets/Work/MMD/MMDCover.png',
     href: '/work/mymedicaldata',
   },
@@ -20,6 +21,7 @@ const allWork = [
     description: 'UI Design Internship working on product design and design systems for various client projects.',
     year: '2024',
     tags: ['UI Design', 'Design System', 'Product Design'],
+    projectTag: 'Internship',
     coverImage: '/Portfolio Assets/Work/Bontouch/Assets/DesignSystem.png',
     href: '/work/bontouch',
   },
@@ -29,6 +31,7 @@ const allWork = [
     description: 'Product design project focusing on creating an intuitive and beautiful user experience.',
     year: '2024',
     tags: ['Product Design', 'UX/UI', 'Web App'],
+    projectTag: 'Case',
     coverImage: '/Portfolio Assets/Work/Hypertype/Wallpaper 2.png',
     href: '/work/hypertype',
   },
@@ -38,6 +41,7 @@ const allWork = [
     description: 'Designing plugin interfaces and pricing pages with focus on clarity and conversion.',
     year: '2024',
     tags: ['Plugin Design', 'Pricing', 'UI Design'],
+    projectTag: 'Concept',
     coverImage: '/Portfolio Assets/Work/Moments/Plugin.png',
     href: '/work/moments',
   },
@@ -47,6 +51,7 @@ const allWork = [
     description: 'Brand identity and web design project creating a cohesive visual language.',
     year: '2024',
     tags: ['Branding', 'Web Design', 'Identity'],
+    projectTag: 'Contract',
     coverImage: '/Portfolio Assets/Work/Djungelbyran/Work Cover.png',
     href: '/work/djungelbyran',
   },
@@ -65,7 +70,15 @@ function WorkItem({ work, index }: { work: typeof allWork[0], index: number }) {
         href={work.href}
         className="group block"
       >
-              <div className="flex flex-col md:flex-row gap-6 items-stretch bg-gray-800/20 border border-gray-700/30 rounded-2xl p-6 hover:border-gray-600/50 transition-all">
+              <div className="flex flex-col md:flex-row gap-6 items-stretch bg-gray-800/20 border border-gray-700/30 rounded-2xl p-6 hover:border-gray-600/50 transition-all relative">
+                {/* Project Tag - Upper Right */}
+                {work.projectTag && (
+                  <div className="absolute top-6 right-6 z-10">
+                    <span className="px-3 py-1 text-xs font-medium text-gray-400 bg-gray-800/50 rounded-full border border-gray-700/50">
+                      {work.projectTag}
+                    </span>
+                  </div>
+                )}
                 {/* Image */}
                 <div className={`relative w-full md:w-1/3 md:h-full aspect-[4/3] md:aspect-auto min-h-[200px] overflow-hidden rounded-xl flex-shrink-0 ${work.id === 'bontouch' || work.id === 'moments' ? 'bg-gray-950' : 'bg-gray-900'}`}>
                   <Image

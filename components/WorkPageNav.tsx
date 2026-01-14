@@ -59,7 +59,7 @@ export default function WorkPageNav({ sections }: WorkPageNavProps) {
     // For other sections, use the normal scroll behavior
     const element = document.getElementById(sectionId)
     if (element) {
-      const offset = 80
+      const offset = 120 // Increased offset to account for navbar and prevent title from being hidden
       const elementPosition = element.getBoundingClientRect().top + window.pageYOffset
       window.scrollTo({
         top: elementPosition - offset,

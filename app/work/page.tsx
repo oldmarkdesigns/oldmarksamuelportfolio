@@ -4,8 +4,9 @@ import Link from 'next/link'
 const allWork = [
   {
     id: 'mymedicaldata',
-    title: 'MyMedicalData | Hälsa+',
+    title: 'Hälsa+',
     description: 'UX & UI Design Intern - Health app design',
+    projectTag: 'Contract',
     coverImage: '/Portfolio Assets/Work/MMD/MMDCover.png',
     href: '/work/mymedicaldata',
   },
@@ -13,6 +14,7 @@ const allWork = [
     id: 'bontouch',
     title: 'Bontouch (Framna)',
     description: 'UI Design Intern - Product design',
+    projectTag: 'Internship',
     coverImage: '/Portfolio Assets/Work/Bontouch/Assets/DesignSystem.png',
     href: '/work/bontouch',
   },
@@ -27,6 +29,7 @@ const allWork = [
     id: 'hypertype',
     title: 'Hypertype',
     description: 'Product design project',
+    projectTag: 'Case',
     coverImage: '/Portfolio Assets/Work/Hypertype/Hypertype Pre.png',
     href: '/work/hypertype',
   },
@@ -34,6 +37,7 @@ const allWork = [
     id: 'moments',
     title: 'Moments',
     description: 'Plugin and pricing design',
+    projectTag: 'Concept',
     coverImage: '/Portfolio Assets/Work/Moments/Landing.png',
     href: '/work/moments',
   },
@@ -41,6 +45,7 @@ const allWork = [
     id: 'djungelbyran',
     title: 'Djungelbyrån',
     description: 'Brand and web design',
+    projectTag: 'Contract',
     coverImage: '/Portfolio Assets/Work/Djungelbyran/Work Cover.png',
     href: '/work/djungelbyran',
   },
@@ -57,9 +62,17 @@ export default function WorkPage() {
             <Link
               key={work.id}
               href={work.href}
-              className="group block"
+              className="group block relative"
             >
               <div className="relative aspect-[4/3] overflow-hidden rounded-lg mb-4 bg-gray-900">
+                {/* Project Tag - Upper Right */}
+                {work.projectTag && (
+                  <div className="absolute top-3 right-3 z-10">
+                    <span className="px-3 py-1 text-xs font-medium text-gray-400 bg-gray-800/50 rounded-full border border-gray-700/50">
+                      {work.projectTag}
+                    </span>
+                  </div>
+                )}
                 <Image
                   src={work.coverImage}
                   alt={work.title}

@@ -8,9 +8,9 @@ import { useScrollAnimation } from '@/hooks/useScrollAnimation'
 
 const sections = [
   { id: 'overview', label: 'Overview' },
-  { id: 'ai-chat', label: 'AI Analysis Chat' },
   { id: 'onboarding', label: 'Onboarding' },
   { id: 'medical-id', label: 'Medical ID' },
+  { id: 'ai-chat', label: 'AI Analysis Chat' },
   { id: 'website', label: 'Building the website' },
 ]
 
