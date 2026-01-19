@@ -45,12 +45,27 @@ export default function ZanlugPropertiesPage() {
             <section id="overview" className="scroll-mt-20 mb-16">
             <div className="mb-12">
               <p className="text-sm text-gray-400 text-gray-500 mb-4">About the project</p>
-              <h1 className="text-3xl md:text-4xl font-bold mb-8 text-white text-gray-900 leading-tight">
+              <h1 className="text-3xl md:text-4xl font-bold mb-4 text-white text-gray-900 leading-tight">
                 Designing a luxury property showcase website for Zanlüg Properties
               </h1>
               
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
-                {/* Left column - Description */}
+              <div className="mb-8">
+                <a 
+                  href="https://zanlugproperties.com/" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className={`inline-block px-6 py-3 rounded-full text-sm font-medium transition-all duration-200 cursor-pointer ${
+                    theme === 'light'
+                      ? 'border border-gray-300 hover:border-gray-600 text-gray-900 hover:bg-gray-200/50 hover:text-gray-800'
+                      : 'border border-gray-600 hover:border-gray-500 text-white hover:bg-gray-700/20 hover:text-gray-200'
+                  }`}
+                >
+                  Visit website
+                </a>
+              </div>
+              
+              <div className="space-y-8">
+                {/* Description */}
                 <div className="space-y-4">
                   <div className="text-gray-600 dark:text-gray-200 leading-relaxed space-y-4">
                     <p>
@@ -62,33 +77,21 @@ export default function ZanlugPropertiesPage() {
                   </div>
                 </div>
                 
-                {/* Right column - Details */}
+                {/* Details */}
                 <div className="space-y-4">
-                  <div>
-                    <p className="text-sm text-gray-400 text-gray-500 mb-1">Role:</p>
-                    <p className="text-white text-gray-900">Web Design & UX/UI Design</p>
-                  </div>
-                  <div>
-                    <p className="text-sm text-gray-400 text-gray-500 mb-1">Company:</p>
-                    <p className="text-white text-gray-900">Zanlüg Properties</p>
-                  </div>
-                  <div>
-                    <p className="text-sm text-gray-400 text-gray-500 mb-1">Period:</p>
-                    <p className="text-white text-gray-900">2026</p>
-                  </div>
-                  <div className="pt-2">
-                    <a 
-                      href="https://zanlugproperties.com/" 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className={`inline-block px-6 py-3 rounded-full text-sm font-medium transition-all duration-200 cursor-pointer ${
-                        theme === 'light'
-                          ? 'border border-gray-300 hover:border-gray-600 text-gray-900 hover:bg-gray-200/50 hover:text-gray-800'
-                          : 'border border-gray-600 hover:border-gray-500 text-white hover:bg-gray-700/20 hover:text-gray-200'
-                      }`}
-                    >
-                      Visit website
-                    </a>
+                  <div className="flex flex-col md:flex-row gap-6 md:gap-8">
+                    <div className="flex-1">
+                      <p className="text-sm text-gray-400 text-gray-500 mb-1">Role:</p>
+                      <p className="text-white text-gray-900">Web Design & UX/UI Design</p>
+                    </div>
+                    <div className="flex-1">
+                      <p className="text-sm text-gray-400 text-gray-500 mb-1">Company:</p>
+                      <p className="text-white text-gray-900">Zanlüg Properties</p>
+                    </div>
+                    <div className="flex-1">
+                      <p className="text-sm text-gray-400 text-gray-500 mb-1">Period:</p>
+                      <p className="text-white text-gray-900">2026</p>
+                    </div>
                   </div>
                 </div>
               </div>

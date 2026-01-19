@@ -45,8 +45,8 @@ export default function MomentsPage() {
                 Designing for moments playlist generator, a concept made by me.
               </h1>
               
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
-                {/* Left column - Description */}
+              <div className="space-y-8">
+                {/* Description */}
                 <div className="space-y-4">
                   <div className="text-gray-600 dark:text-gray-200 leading-relaxed">
                     <p>
@@ -55,15 +55,17 @@ export default function MomentsPage() {
                   </div>
                 </div>
                 
-                {/* Right column - Details */}
+                {/* Details */}
                 <div className="space-y-4">
-                  <div>
-                    <p className="text-sm text-gray-400 text-gray-500 mb-1">Role:</p>
-                    <p className="text-white text-gray-900">UX/UI Design</p>
-                  </div>
-                  <div>
-                    <p className="text-sm text-gray-400 text-gray-500 mb-1">Period:</p>
-                    <p className="text-white text-gray-900">September 2024</p>
+                  <div className="flex flex-col md:flex-row gap-6 md:gap-8">
+                    <div className="flex-1">
+                      <p className="text-sm text-gray-400 text-gray-500 mb-1">Role:</p>
+                      <p className="text-white text-gray-900">UX/UI Design</p>
+                    </div>
+                    <div className="flex-1">
+                      <p className="text-sm text-gray-400 text-gray-500 mb-1">Period:</p>
+                      <p className="text-white text-gray-900">September 2024</p>
+                    </div>
                   </div>
                 </div>
               </div>
