@@ -88,6 +88,54 @@ export default function ExperienceEducationSection() {
                   • Agile work methods
                 </div>
               </div>
+              <div>
+                <h4 className="text-lg md:text-xl font-bold text-white text-gray-900 mb-2">
+                  Music Production & Business – Icon Collective
+                </h4>
+                
+                <p className="text-sm md:text-base mb-4" style={{ color: '#60A5FA' }}>
+                  Sep 2019 - Aug 2020
+                </p>
+                
+                <div className="text-white text-gray-900 leading-relaxed whitespace-pre-line text-sm md:text-base">
+                  Completed a one-year program in Music Production & Business at Icon Collective in Los Angeles, focusing on music production techniques, sound design, and the business aspects of the music industry.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Degree Certificates Section */}
+          <div className="flex flex-col md:flex-row gap-8 md:gap-12">
+            <div className="flex-shrink-0 md:w-32">
+              <h3 className="text-xl md:text-2xl font-serif font-medium text-white text-gray-900">Degree Certificates</h3>
+            </div>
+            <div className="flex-1 space-y-8">
+              <div>
+                <h4 className="text-lg md:text-xl font-bold text-white text-gray-900 mb-2">
+                  UX/UI Designer with Frontend Competence
+                </h4>
+                
+                <p className="text-sm md:text-base mb-1" style={{ color: '#60A5FA' }}>
+                  2024-06-26
+                </p>
+                
+                <p className="text-sm md:text-base text-white text-gray-900 mb-4">
+                  Chas Academy, Stockholm
+                </p>
+              </div>
+              <div>
+                <h4 className="text-lg md:text-xl font-bold text-white text-gray-900 mb-2">
+                  Music Production & Business
+                </h4>
+                
+                <p className="text-sm md:text-base mb-1" style={{ color: '#60A5FA' }}>
+                  2020-09-14
+                </p>
+                
+                <p className="text-sm md:text-base text-white text-gray-900 mb-4">
+                  Icon Collective, Los Angeles
+                </p>
+              </div>
             </div>
           </div>
         </div>

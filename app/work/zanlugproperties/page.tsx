@@ -96,7 +96,7 @@ export default function ZanlugPropertiesPage() {
 
             <div className="relative w-full max-w-3xl mx-auto max-h-[600px] overflow-hidden rounded-xl mb-12">
               <Image
-                src="/Portfolio Assets/Work/Zanlug Properties/zanlug-listing.png"
+                src="/Portfolio Assets/Work/Zanlug Properties/zanlug-work-thumbnail.png"
                 alt="Zanlüg Properties Cover"
                 width={1200}
                 height={800}
@@ -156,6 +156,17 @@ export default function ZanlugPropertiesPage() {
               <span className="px-3 py-1 text-xs font-medium text-gray-500 dark:text-gray-400 bg-gray-200/70 dark:bg-transparent rounded-full border border-gray-300/70 dark:border-gray-700/50">UI Design</span>
               <span className="px-3 py-1 text-xs font-medium text-gray-500 dark:text-gray-400 bg-gray-200/70 dark:bg-transparent rounded-full border border-gray-300/70 dark:border-gray-700/50">UX Design</span>
               <span className="px-3 py-1 text-xs font-medium text-gray-500 dark:text-gray-400 bg-gray-200/70 dark:bg-transparent rounded-full border border-gray-300/70 dark:border-gray-700/50">Visual Design</span>
+            </div>
+
+            <div className="relative w-full max-w-3xl mx-auto max-h-[600px] overflow-hidden rounded-xl">
+              <Image
+                src="/Portfolio Assets/Work/Zanlug Properties/zanlug-listing.png"
+                alt="Zanlüg Properties Listing"
+                width={1200}
+                height={800}
+                className="w-full h-auto object-contain rounded-xl"
+                sizes="(max-width: 768px) 100vw, 1200px"
+              />
             </div>
           </section>
 
