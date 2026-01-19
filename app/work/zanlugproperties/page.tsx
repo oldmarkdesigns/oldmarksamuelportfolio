@@ -54,13 +54,10 @@ export default function ZanlugPropertiesPage() {
                 <div className="space-y-4">
                   <div className="text-gray-600 dark:text-gray-200 leading-relaxed space-y-4">
                     <p>
-                      Zanlüg Properties needed a digital presence that would reflect the exclusivity and serenity of their luxury properties across Sweden and Turkey. The challenge was to create a website that would appeal to an international, high-end clientele while showcasing three distinct properties—each with its own unique character and location.
+                      Designed a luxury property showcase website for Zanlüg Properties, featuring three exclusive retreats across Sweden and Turkey. The project focused on creating an elegant, immersive digital experience that reflects the brand's serene and sophisticated identity.
                     </p>
                     <p>
-                      I worked closely with the client to understand their vision: a platform that would feel like a window into these serene retreats, where potential guests could imagine themselves in these carefully curated spaces. The design needed to balance elegance with functionality, ensuring that property information was easily accessible while maintaining the luxurious, almost meditative quality that defines the Zanlüg brand.
-                    </p>
-                    <p>
-                      The project involved creating a responsive website with multilingual support, focusing on immersive imagery, clear navigation, and an intuitive user experience that would guide visitors through each property's story.
+                      I developed a responsive website with multilingual support, emphasizing high-quality imagery and intuitive navigation to help international guests discover and connect with each unique property.
                     </p>
                   </div>
                 </div>
@@ -114,16 +111,13 @@ export default function ZanlugPropertiesPage() {
             <h2 className="text-2xl md:text-3xl font-bold mb-6 text-white text-gray-900">Design Strategy & User Thinking</h2>
             <div className="text-gray-600 dark:text-gray-200 leading-relaxed space-y-4 mb-6">
               <p>
-                When approaching this project, I recognized that the target audience—affluent travelers seeking exclusive retreats—would have specific expectations. They're not just booking accommodation; they're investing in an experience, a temporary escape from their daily lives. The website needed to communicate this value proposition immediately.
+                The target audience—affluent travelers seeking exclusive retreats—aren't just booking accommodation; they're investing in an experience. The website needed to communicate this value proposition immediately through visual storytelling and emotional connection.
               </p>
               <p>
-                My strategy focused on three core principles: visual storytelling, intuitive navigation, and emotional connection. I analyzed similar luxury property websites and noticed that the most successful ones used large, immersive imagery to transport visitors, minimal text to avoid overwhelming them, and clear calls-to-action that felt natural rather than pushy.
+                My strategy focused on three core principles: immersive imagery, intuitive navigation, and minimal text. I analyzed successful luxury property websites and found that large, hero-style images transport visitors while clear calls-to-action guide them naturally. The design accommodates both browsers and ready-to-inquire guests without forcing a linear path.
               </p>
               <p>
-                I also considered the user journey: visitors might discover the site through various channels, arrive with different levels of interest, and need different information at different stages. Some want to browse and dream, others are ready to inquire. The design needed to accommodate both mindsets without forcing a linear path.
-              </p>
-              <p>
-                The color palette and typography were chosen to evoke tranquility and sophistication—soft, muted tones that wouldn't compete with the property photography, and elegant typefaces that felt timeless rather than trendy. Every design decision was made with the goal of making visitors feel like they were already there, experiencing the serenity these properties offer.
+                The color palette and typography were chosen to evoke tranquility and sophistication—soft, muted tones that complement the property photography, and elegant typefaces that feel timeless. Every design decision aimed to make visitors feel like they were already experiencing these serene spaces.
               </p>
             </div>
             
@@ -144,16 +138,13 @@ export default function ZanlugPropertiesPage() {
             <h2 className="text-2xl md:text-3xl font-bold mb-6 text-white text-gray-900">Property Showcase Design</h2>
             <div className="text-gray-600 dark:text-gray-200 leading-relaxed space-y-4 mb-6">
               <p>
-                Each property—Älgö in the Stockholm archipelago, Gümüşlük in Bodrum, and Särvfjället in Härjedalen—has its own distinct character. The challenge was to create a consistent design language while allowing each property to shine individually.
+                Each property—Älgö in the Stockholm archipelago, Gümüşlük in Bodrum, and Särvfjället in Härjedalen—has its own distinct character. I created a consistent design language while allowing each property to shine individually.
               </p>
               <p>
-                I designed individual property pages that follow a similar structure but adapt to the unique qualities of each location. For Älgö, the design emphasizes the waterfront serenity and Nordic light. For Gümüşlük, it highlights the Mediterranean warmth and architectural beauty. For Särvfjället, it captures the mountain lodge's contemporary elegance and natural surroundings.
+                The property cards on the main page use large, hero-style images that immediately communicate the essence of each location. I implemented a clean, card-based layout that allows visitors to quickly scan and compare properties, with minimal text letting the photography tell the story.
               </p>
               <p>
-                The property cards on the main page use large, hero-style images that immediately communicate the essence of each location. I implemented a clean, card-based layout that allows visitors to quickly scan and compare properties, with clear visual hierarchy guiding them toward the "Read more" action. The imagery is the hero here—I kept text minimal and let the photography tell the story.
-              </p>
-              <p>
-                On individual property pages, I created a flow that starts with a striking hero image, followed by descriptive text that sets the mood, then additional imagery and details. The goal was to create a sense of discovery, as if visitors are slowly uncovering the property's secrets, building anticipation and emotional investment.
+                Individual property pages follow a flow that starts with a striking hero image, followed by descriptive text and additional imagery. The goal was to create a sense of discovery, building anticipation and emotional investment as visitors explore each unique property.
               </p>
             </div>
             
@@ -173,16 +164,10 @@ export default function ZanlugPropertiesPage() {
             <h2 className="text-2xl md:text-3xl font-bold mb-6 text-white text-gray-900">Brand Logo Design</h2>
             <div className="text-gray-600 dark:text-gray-200 leading-relaxed space-y-4 mb-6">
               <p>
-                The logo design for Zanlüg Properties was a crucial element in establishing the brand's identity. I worked closely with the client to create a mark that would capture the essence of their luxury properties—serenity, exclusivity, and a connection to nature.
+                The logo design was crucial in establishing Zanlüg Properties' brand identity. I worked closely with the client to create a mark that captures the essence of their luxury properties—serenity, exclusivity, and a connection to nature.
               </p>
               <p>
-                The design process involved exploring various concepts that reflected the brand's values. The final logo needed to work across different contexts—from the website header to business cards and property signage—while maintaining its elegance and recognizability.
-              </p>
-              <p>
-                Through multiple iterations and collaborative feedback sessions, we developed a logo that embodies the tranquil, sophisticated nature of Zanlüg Properties. The design balances simplicity with character, ensuring it feels both timeless and distinctive.
-              </p>
-              <p>
-                The logo serves as the visual anchor for the brand, appearing consistently across all touchpoints and reinforcing the premium experience that Zanlüg Properties offers to its guests.
+                Through multiple iterations and collaborative feedback, we developed a logo that embodies the tranquil, sophisticated nature of the brand. The design balances simplicity with character, ensuring it works across all contexts—from the website header to business cards and property signage—while feeling both timeless and distinctive.
               </p>
             </div>
             
@@ -212,16 +197,13 @@ export default function ZanlugPropertiesPage() {
             <h2 className="text-2xl md:text-3xl font-bold mb-6 text-white text-gray-900">Outcome</h2>
             <div className="text-gray-600 dark:text-gray-200 leading-relaxed space-y-4 mb-6">
               <p>
-                The website successfully launched and has been well-received by both the client and their international audience. The design achieves its goal of creating an immersive, luxurious experience that reflects the quality and exclusivity of Zanlüg Properties.
+                The website successfully launched and has been well-received by both the client and their international audience. The design creates an immersive, luxurious experience that reflects the quality and exclusivity of Zanlüg Properties.
               </p>
               <p>
                 The multilingual functionality has proven particularly valuable, allowing the brand to reach a broader international market. The intuitive navigation and clear property showcase have made it easy for potential guests to explore and compare properties, leading to increased inquiries and bookings.
               </p>
               <p>
-                The visual design, with its emphasis on high-quality imagery and minimal, elegant interface, has helped establish Zanlüg Properties as a premium brand in the luxury property rental market. The website now serves as a strong digital foundation that can grow with the brand as they add new properties and expand their offerings.
-              </p>
-              <p>
-                Working on this project reinforced the importance of understanding the emotional journey of users, not just their functional needs. By prioritizing visual storytelling and creating an experience that feels both luxurious and accessible, we created a website that doesn't just showcase properties—it invites visitors to imagine themselves in these serene spaces.
+                By prioritizing visual storytelling and creating an experience that feels both luxurious and accessible, we created a website that doesn't just showcase properties—it invites visitors to imagine themselves in these serene spaces.
               </p>
             </div>
             
