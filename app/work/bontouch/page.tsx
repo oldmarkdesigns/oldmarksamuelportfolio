@@ -97,7 +97,7 @@ export default function BontouchPage() {
 
             <div className="relative w-full max-w-3xl mx-auto max-h-[600px] overflow-hidden rounded-xl mb-12">
               <Image
-                src="/Portfolio Assets/Work/Bontouch/Assets/DesignSystem.png"
+                src="/Portfolio Assets/Work/Bontouch/Assets/Bontouch Background Cover.png"
                 alt="Bontouch Cover"
                 width={1200}
                 height={800}

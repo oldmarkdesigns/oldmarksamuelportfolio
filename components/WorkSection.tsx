@@ -22,7 +22,7 @@ const allWork = [
     year: '2024',
     tags: ['UI Design', 'Design System', 'Product Design'],
     projectTag: 'Internship',
-    coverImage: '/Portfolio Assets/Work/Bontouch/Assets/DesignSystem.png',
+    coverImage: '/Portfolio Assets/Work/Bontouch/Assets/Bontouch Background Cover.png',
     href: '/work/bontouch',
   },
   {

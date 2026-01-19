@@ -94,13 +94,13 @@ export default function ZanlugPropertiesPage() {
               </div>
             </div>
 
-            <div className="relative w-full max-w-3xl mx-auto max-h-[600px] overflow-hidden rounded-xl mb-12">
+            <div className="relative w-full max-w-3xl mx-auto h-[600px] overflow-hidden rounded-xl mb-12">
               <Image
                 src="/Portfolio Assets/Work/Zanlug Properties/zanlug-work-thumbnail.png"
                 alt="Zanlüg Properties Cover"
-                width={1200}
-                height={800}
-                className="w-full h-auto object-contain rounded-xl"
+                fill
+                className="object-cover rounded-xl"
+                style={{ objectPosition: 'center 40%' }}
                 sizes="(max-width: 768px) 100vw, 1200px"
               />
             </div>
