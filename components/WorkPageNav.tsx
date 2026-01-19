@@ -57,9 +57,10 @@ export default function WorkPageNav({ sections }: WorkPageNavProps) {
     }
     
     // For other sections, use the normal scroll behavior
+    // Offset should match where Overview naturally appears (80px from top, matching scroll-mt-20 and sidebar top-20)
     const element = document.getElementById(sectionId)
     if (element) {
-      const offset = 120 // Increased offset to account for navbar and prevent title from being hidden
+      const offset = 80 // Matches scroll-mt-20 (80px) to align sections at same position as Overview
       const elementPosition = element.getBoundingClientRect().top + window.pageYOffset
       window.scrollTo({
         top: elementPosition - offset,

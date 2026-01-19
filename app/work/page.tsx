@@ -19,6 +19,14 @@ const allWork = [
     href: '/work/bontouch',
   },
   {
+    id: 'zanlugproperties',
+    title: 'Zanlüg Properties',
+    description: 'Luxury property website design',
+    projectTag: 'Contract',
+    coverImage: '/Portfolio Assets/Work/Zanlug Properties/zanlug-work-thumbnail.png',
+    href: '/work/zanlugproperties',
+  },
+  {
     id: 'uigoodies',
     title: 'UI Goodies',
     description: 'Daily UI Design Challenges',

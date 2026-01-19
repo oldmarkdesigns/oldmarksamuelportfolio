@@ -1,0 +1,262 @@
+'use client'
+
+import Image from 'next/image'
+import Link from 'next/link'
+import WorkPageNav from '@/components/WorkPageNav'
+import { useTheme } from '@/contexts/ThemeContext'
+import { useScrollAnimation } from '@/hooks/useScrollAnimation'
+
+const sections = [
+  { id: 'overview', label: 'Overview' },
+  { id: 'design-strategy', label: 'Design Strategy' },
+  { id: 'property-showcase', label: 'Property Showcase' },
+  { id: 'brand-logo', label: 'Brand Logo Design' },
+  { id: 'outcome', label: 'Outcome' },
+]
+
+export default function ZanlugPropertiesPage() {
+  const { theme } = useTheme()
+  const { ref: designStrategyRef, isVisible: designStrategyVisible } = useScrollAnimation({ threshold: 0.1, triggerOnce: true, delay: 100 })
+  const { ref: propertyShowcaseRef, isVisible: propertyShowcaseVisible } = useScrollAnimation({ threshold: 0.1, triggerOnce: true, delay: 200 })
+  const { ref: brandLogoRef, isVisible: brandLogoVisible } = useScrollAnimation({ threshold: 0.1, triggerOnce: true, delay: 300 })
+  const { ref: outcomeRef, isVisible: outcomeVisible } = useScrollAnimation({ threshold: 0.1, triggerOnce: true, delay: 400 })
+
+  return (
+    <main className="pt-16 md:pt-20 min-h-screen bg-transparent relative">
+      <div className="max-w-6xl mx-auto px-6 sm:px-8 lg:px-12 py-8 md:py-12">
+        <div className="flex flex-col md:flex-row gap-12">
+          {/* Left sidebar navigation */}
+          <WorkPageNav sections={sections} />
+          
+          {/* Main content */}
+          <div className="flex-1 min-w-0">
+            <Link
+              href="/#work"
+              className={`inline-flex items-center gap-2 mb-8 transition-colors ${
+                theme === 'light'
+                  ? 'text-gray-500 hover:text-gray-900'
+                  : 'text-gray-400 hover:text-white'
+              }`}
+            >
+              ← Back to Work
+            </Link>
+            
+            {/* Overview Section */}
+            <section id="overview" className="scroll-mt-20 mb-16">
+            <div className="mb-12">
+              <p className="text-sm text-gray-400 text-gray-500 mb-4">About the project</p>
+              <h1 className="text-3xl md:text-4xl font-bold mb-8 text-white text-gray-900 leading-tight">
+                Designing a luxury property showcase website for Zanlüg Properties
+              </h1>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
+                {/* Left column - Description */}
+                <div className="space-y-4">
+                  <div className="text-gray-600 dark:text-gray-200 leading-relaxed space-y-4">
+                    <p>
+                      Zanlüg Properties needed a digital presence that would reflect the exclusivity and serenity of their luxury properties across Sweden and Turkey. The challenge was to create a website that would appeal to an international, high-end clientele while showcasing three distinct properties—each with its own unique character and location.
+                    </p>
+                    <p>
+                      I worked closely with the client to understand their vision: a platform that would feel like a window into these serene retreats, where potential guests could imagine themselves in these carefully curated spaces. The design needed to balance elegance with functionality, ensuring that property information was easily accessible while maintaining the luxurious, almost meditative quality that defines the Zanlüg brand.
+                    </p>
+                    <p>
+                      The project involved creating a responsive website with multilingual support, focusing on immersive imagery, clear navigation, and an intuitive user experience that would guide visitors through each property's story.
+                    </p>
+                  </div>
+                </div>
+                
+                {/* Right column - Details */}
+                <div className="space-y-4">
+                  <div>
+                    <p className="text-sm text-gray-400 text-gray-500 mb-1">Role:</p>
+                    <p className="text-white text-gray-900">Web Design & UX/UI Design</p>
+                  </div>
+                  <div>
+                    <p className="text-sm text-gray-400 text-gray-500 mb-1">Company:</p>
+                    <p className="text-white text-gray-900">Zanlüg Properties</p>
+                  </div>
+                  <div>
+                    <p className="text-sm text-gray-400 text-gray-500 mb-1">Period:</p>
+                    <p className="text-white text-gray-900">2026</p>
+                  </div>
+                  <div className="pt-2">
+                    <a 
+                      href="https://zanlugproperties.com/" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className={`inline-block px-6 py-3 rounded-full text-sm font-medium transition-all duration-200 cursor-pointer ${
+                        theme === 'light'
+                          ? 'border border-gray-300 hover:border-gray-600 text-gray-900 hover:bg-gray-200/50 hover:text-gray-800'
+                          : 'border border-gray-600 hover:border-gray-500 text-white hover:bg-gray-700/20 hover:text-gray-200'
+                      }`}
+                    >
+                      Visit website
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="relative w-full max-w-3xl mx-auto max-h-[600px] overflow-hidden rounded-xl mb-12">
+              <Image
+                src="/Portfolio Assets/Work/Zanlug Properties/zanlug-listing.png"
+                alt="Zanlüg Properties Cover"
+                width={1200}
+                height={800}
+                className="w-full h-auto object-contain rounded-xl"
+                sizes="(max-width: 768px) 100vw, 1200px"
+              />
+            </div>
+          </section>
+
+          {/* Design Strategy Section */}
+          <section ref={designStrategyRef} id="design-strategy" className={`scroll-mt-20 mb-16 transition-all duration-700 ${designStrategyVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+            <h2 className="text-2xl md:text-3xl font-bold mb-6 text-white text-gray-900">Design Strategy & User Thinking</h2>
+            <div className="text-gray-600 dark:text-gray-200 leading-relaxed space-y-4 mb-6">
+              <p>
+                When approaching this project, I recognized that the target audience—affluent travelers seeking exclusive retreats—would have specific expectations. They're not just booking accommodation; they're investing in an experience, a temporary escape from their daily lives. The website needed to communicate this value proposition immediately.
+              </p>
+              <p>
+                My strategy focused on three core principles: visual storytelling, intuitive navigation, and emotional connection. I analyzed similar luxury property websites and noticed that the most successful ones used large, immersive imagery to transport visitors, minimal text to avoid overwhelming them, and clear calls-to-action that felt natural rather than pushy.
+              </p>
+              <p>
+                I also considered the user journey: visitors might discover the site through various channels, arrive with different levels of interest, and need different information at different stages. Some want to browse and dream, others are ready to inquire. The design needed to accommodate both mindsets without forcing a linear path.
+              </p>
+              <p>
+                The color palette and typography were chosen to evoke tranquility and sophistication—soft, muted tones that wouldn't compete with the property photography, and elegant typefaces that felt timeless rather than trendy. Every design decision was made with the goal of making visitors feel like they were already there, experiencing the serenity these properties offer.
+              </p>
+            </div>
+            
+            <div className="flex flex-wrap gap-3 mb-6">
+              <span className="px-3 py-1 text-xs font-medium text-gray-500 dark:text-gray-400 bg-gray-200/70 dark:bg-transparent rounded-full border border-gray-300/70 dark:border-gray-700/50">User research and benchmarking</span>
+              <span className="px-3 py-1 text-xs font-medium text-gray-500 dark:text-gray-400 bg-gray-200/70 dark:bg-transparent rounded-full border border-gray-300/70 dark:border-gray-700/50">Design strategy and user journey mapping</span>
+              <span className="px-3 py-1 text-xs font-medium text-gray-500 dark:text-gray-400 bg-gray-200/70 dark:bg-transparent rounded-full border border-gray-300/70 dark:border-gray-700/50">Visual identity and brand alignment</span>
+              <span className="px-3 py-1 text-xs font-medium text-gray-500 dark:text-gray-400 bg-gray-200/70 dark:bg-transparent rounded-full border border-gray-300/70 dark:border-gray-700/50">Figma</span>
+              <span className="px-3 py-1 text-xs font-medium text-gray-500 dark:text-gray-400 bg-gray-200/70 dark:bg-transparent rounded-full border border-gray-300/70 dark:border-gray-700/50">UI Design</span>
+              <span className="px-3 py-1 text-xs font-medium text-gray-500 dark:text-gray-400 bg-gray-200/70 dark:bg-transparent rounded-full border border-gray-300/70 dark:border-gray-700/50">UX Design</span>
+              <span className="px-3 py-1 text-xs font-medium text-gray-500 dark:text-gray-400 bg-gray-200/70 dark:bg-transparent rounded-full border border-gray-300/70 dark:border-gray-700/50">Project Management</span>
+              <span className="px-3 py-1 text-xs font-medium text-gray-500 dark:text-gray-400 bg-gray-200/70 dark:bg-transparent rounded-full border border-gray-300/70 dark:border-gray-700/50">Stakeholder Collaboration</span>
+            </div>
+          </section>
+
+          {/* Property Showcase Section */}
+          <section ref={propertyShowcaseRef} id="property-showcase" className={`scroll-mt-20 mb-16 transition-all duration-700 ${propertyShowcaseVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+            <h2 className="text-2xl md:text-3xl font-bold mb-6 text-white text-gray-900">Property Showcase Design</h2>
+            <div className="text-gray-600 dark:text-gray-200 leading-relaxed space-y-4 mb-6">
+              <p>
+                Each property—Älgö in the Stockholm archipelago, Gümüşlük in Bodrum, and Särvfjället in Härjedalen—has its own distinct character. The challenge was to create a consistent design language while allowing each property to shine individually.
+              </p>
+              <p>
+                I designed individual property pages that follow a similar structure but adapt to the unique qualities of each location. For Älgö, the design emphasizes the waterfront serenity and Nordic light. For Gümüşlük, it highlights the Mediterranean warmth and architectural beauty. For Särvfjället, it captures the mountain lodge's contemporary elegance and natural surroundings.
+              </p>
+              <p>
+                The property cards on the main page use large, hero-style images that immediately communicate the essence of each location. I implemented a clean, card-based layout that allows visitors to quickly scan and compare properties, with clear visual hierarchy guiding them toward the "Read more" action. The imagery is the hero here—I kept text minimal and let the photography tell the story.
+              </p>
+              <p>
+                On individual property pages, I created a flow that starts with a striking hero image, followed by descriptive text that sets the mood, then additional imagery and details. The goal was to create a sense of discovery, as if visitors are slowly uncovering the property's secrets, building anticipation and emotional investment.
+              </p>
+            </div>
+            
+            <div className="flex flex-wrap gap-3 mb-6">
+              <span className="px-3 py-1 text-xs font-medium text-gray-500 dark:text-gray-400 bg-gray-200/70 dark:bg-transparent rounded-full border border-gray-300/70 dark:border-gray-700/50">Property page design</span>
+              <span className="px-3 py-1 text-xs font-medium text-gray-500 dark:text-gray-400 bg-gray-200/70 dark:bg-transparent rounded-full border border-gray-300/70 dark:border-gray-700/50">Image curation and layout</span>
+              <span className="px-3 py-1 text-xs font-medium text-gray-500 dark:text-gray-400 bg-gray-200/70 dark:bg-transparent rounded-full border border-gray-300/70 dark:border-gray-700/50">Content hierarchy and information architecture</span>
+              <span className="px-3 py-1 text-xs font-medium text-gray-500 dark:text-gray-400 bg-gray-200/70 dark:bg-transparent rounded-full border border-gray-300/70 dark:border-gray-700/50">Figma</span>
+              <span className="px-3 py-1 text-xs font-medium text-gray-500 dark:text-gray-400 bg-gray-200/70 dark:bg-transparent rounded-full border border-gray-300/70 dark:border-gray-700/50">UI Design</span>
+              <span className="px-3 py-1 text-xs font-medium text-gray-500 dark:text-gray-400 bg-gray-200/70 dark:bg-transparent rounded-full border border-gray-300/70 dark:border-gray-700/50">UX Design</span>
+              <span className="px-3 py-1 text-xs font-medium text-gray-500 dark:text-gray-400 bg-gray-200/70 dark:bg-transparent rounded-full border border-gray-300/70 dark:border-gray-700/50">Visual Design</span>
+            </div>
+          </section>
+
+          {/* Brand Logo Design Section */}
+          <section ref={brandLogoRef} id="brand-logo" className={`scroll-mt-20 mb-16 transition-all duration-700 ${brandLogoVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+            <h2 className="text-2xl md:text-3xl font-bold mb-6 text-white text-gray-900">Brand Logo Design</h2>
+            <div className="text-gray-600 dark:text-gray-200 leading-relaxed space-y-4 mb-6">
+              <p>
+                The logo design for Zanlüg Properties was a crucial element in establishing the brand's identity. I worked closely with the client to create a mark that would capture the essence of their luxury properties—serenity, exclusivity, and a connection to nature.
+              </p>
+              <p>
+                The design process involved exploring various concepts that reflected the brand's values. The final logo needed to work across different contexts—from the website header to business cards and property signage—while maintaining its elegance and recognizability.
+              </p>
+              <p>
+                Through multiple iterations and collaborative feedback sessions, we developed a logo that embodies the tranquil, sophisticated nature of Zanlüg Properties. The design balances simplicity with character, ensuring it feels both timeless and distinctive.
+              </p>
+              <p>
+                The logo serves as the visual anchor for the brand, appearing consistently across all touchpoints and reinforcing the premium experience that Zanlüg Properties offers to its guests.
+              </p>
+            </div>
+            
+            <div className="flex flex-wrap gap-3 mb-6">
+              <span className="px-3 py-1 text-xs font-medium text-gray-500 dark:text-gray-400 bg-gray-200/70 dark:bg-transparent rounded-full border border-gray-300/70 dark:border-gray-700/50">Logo design and ideation</span>
+              <span className="px-3 py-1 text-xs font-medium text-gray-500 dark:text-gray-400 bg-gray-200/70 dark:bg-transparent rounded-full border border-gray-300/70 dark:border-gray-700/50">Brand identity development</span>
+              <span className="px-3 py-1 text-xs font-medium text-gray-500 dark:text-gray-400 bg-gray-200/70 dark:bg-transparent rounded-full border border-gray-300/70 dark:border-gray-700/50">Client collaboration</span>
+              <span className="px-3 py-1 text-xs font-medium text-gray-500 dark:text-gray-400 bg-gray-200/70 dark:bg-transparent rounded-full border border-gray-300/70 dark:border-gray-700/50">Figma</span>
+              <span className="px-3 py-1 text-xs font-medium text-gray-500 dark:text-gray-400 bg-gray-200/70 dark:bg-transparent rounded-full border border-gray-300/70 dark:border-gray-700/50">Illustrator</span>
+              <span className="px-3 py-1 text-xs font-medium text-gray-500 dark:text-gray-400 bg-gray-200/70 dark:bg-transparent rounded-full border border-gray-300/70 dark:border-gray-700/50">Brand Design</span>
+            </div>
+
+            <div className="relative w-full max-w-2xl mx-auto max-h-[600px] overflow-hidden rounded-xl">
+              <Image
+                src="/Portfolio Assets/Work/Zanlug Properties/zanlug-logo.png"
+                alt="Zanlüg Properties Logo"
+                width={800}
+                height={600}
+                className="w-full h-auto object-contain rounded-xl"
+                sizes="(max-width: 768px) 100vw, 800px"
+              />
+            </div>
+          </section>
+
+          {/* Outcome Section */}
+          <section ref={outcomeRef} id="outcome" className={`scroll-mt-20 mb-16 transition-all duration-700 ${outcomeVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+            <h2 className="text-2xl md:text-3xl font-bold mb-6 text-white text-gray-900">Outcome</h2>
+            <div className="text-gray-600 dark:text-gray-200 leading-relaxed space-y-4 mb-6">
+              <p>
+                The website successfully launched and has been well-received by both the client and their international audience. The design achieves its goal of creating an immersive, luxurious experience that reflects the quality and exclusivity of Zanlüg Properties.
+              </p>
+              <p>
+                The multilingual functionality has proven particularly valuable, allowing the brand to reach a broader international market. The intuitive navigation and clear property showcase have made it easy for potential guests to explore and compare properties, leading to increased inquiries and bookings.
+              </p>
+              <p>
+                The visual design, with its emphasis on high-quality imagery and minimal, elegant interface, has helped establish Zanlüg Properties as a premium brand in the luxury property rental market. The website now serves as a strong digital foundation that can grow with the brand as they add new properties and expand their offerings.
+              </p>
+              <p>
+                Working on this project reinforced the importance of understanding the emotional journey of users, not just their functional needs. By prioritizing visual storytelling and creating an experience that feels both luxurious and accessible, we created a website that doesn't just showcase properties—it invites visitors to imagine themselves in these serene spaces.
+              </p>
+            </div>
+            
+            <div className="flex flex-wrap gap-3 mb-6">
+              <span className="px-3 py-1 text-xs font-medium text-gray-500 dark:text-gray-400 bg-gray-200/70 dark:bg-transparent rounded-full border border-gray-300/70 dark:border-gray-700/50">Published website</span>
+              <span className="px-3 py-1 text-xs font-medium text-gray-500 dark:text-gray-400 bg-gray-200/70 dark:bg-transparent rounded-full border border-gray-300/70 dark:border-gray-700/50">Responsive design</span>
+              <span className="px-3 py-1 text-xs font-medium text-gray-500 dark:text-gray-400 bg-gray-200/70 dark:bg-transparent rounded-full border border-gray-300/70 dark:border-gray-700/50">Multilingual support</span>
+              <span className="px-3 py-1 text-xs font-medium text-gray-500 dark:text-gray-400 bg-gray-200/70 dark:bg-transparent rounded-full border border-gray-300/70 dark:border-gray-700/50">Client collaboration</span>
+              <span className="px-3 py-1 text-xs font-medium text-gray-500 dark:text-gray-400 bg-gray-200/70 dark:bg-transparent rounded-full border border-gray-300/70 dark:border-gray-700/50">Project Management</span>
+            </div>
+
+            <div className="relative w-full max-w-3xl mx-auto max-h-[900px] overflow-hidden rounded-xl group">
+              <a 
+                href="https://zanlugproperties.com/" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="block relative"
+              >
+                <Image
+                  src="/Portfolio Assets/Work/Zanlug Properties/zanlug-website-thumbnail.png"
+                  alt="Zanlüg Properties Website"
+                  width={1200}
+                  height={800}
+                  className="w-full h-auto object-contain rounded-xl transition-opacity group-hover:opacity-80"
+                  sizes="(max-width: 768px) 100vw, 1200px"
+                />
+                <div className="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity rounded-xl">
+                  <span className="text-white font-medium px-4 py-2 border border-white/30 rounded-lg">Visit website</span>
+                </div>
+              </a>
+            </div>
+          </section>
+          </div>
+        </div>
+      </div>
+    </main>
+  )
+}

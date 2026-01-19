@@ -65,7 +65,7 @@ export default function DjungelbyranPage() {
                   </div>
                   <div>
                     <p className="text-sm text-gray-400 text-gray-500 mb-1">Period:</p>
-                    <p className="text-white text-gray-900">2024</p>
+                    <p className="text-white text-gray-900">2022</p>
                   </div>
                 </div>
               </div>
