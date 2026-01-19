@@ -28,39 +28,38 @@ export default function BontouchPage() {
           
           {/* Main content */}
           <div className="flex-1 min-w-0">
-            <Link
-              href="/#work"
-              className={`inline-flex items-center gap-2 mb-8 transition-colors ${
-                theme === 'light'
-                  ? 'text-gray-500 hover:text-gray-900'
-                  : 'text-gray-400 hover:text-white'
-              }`}
-            >
-              ← Back to Work
-            </Link>
+            <div className="flex items-start justify-between mb-8 md:pt-2">
+              <Link
+                href="/#work"
+                className={`inline-flex items-center gap-2 transition-colors ${
+                  theme === 'light'
+                    ? 'text-gray-500 hover:text-gray-900'
+                    : 'text-gray-400 hover:text-white'
+                }`}
+              >
+                ← Back to Work
+              </Link>
+              <a 
+                href="https://www.bontouch.com" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className={`inline-block px-6 py-3 rounded-full text-sm font-medium transition-all duration-200 cursor-pointer ${
+                  theme === 'light'
+                    ? 'border border-gray-300 hover:border-gray-600 text-gray-900 hover:bg-gray-200/50 hover:text-gray-800'
+                    : 'border border-gray-600 hover:border-gray-500 text-white hover:bg-gray-700/20 hover:text-gray-200'
+                }`}
+              >
+                Visit website
+              </a>
+            </div>
             
             {/* Overview Section */}
             <section id="overview" className="scroll-mt-20 mb-16">
             <div className="mb-12">
               <p className="text-sm text-gray-400 text-gray-500 mb-4">About the project</p>
-              <h1 className="text-3xl md:text-4xl font-bold mb-4 text-white text-gray-900 leading-tight">
+              <h1 className="text-3xl md:text-4xl font-bold mb-8 text-white text-gray-900 leading-tight">
                 Bontouch (Framna)
               </h1>
-              
-              <div className="mb-8">
-                <a 
-                  href="https://www.bontouch.com" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className={`inline-block px-6 py-3 rounded-full text-sm font-medium transition-all duration-200 cursor-pointer ${
-                    theme === 'light'
-                      ? 'border border-gray-300 hover:border-gray-600 text-gray-900 hover:bg-gray-200/50 hover:text-gray-800'
-                      : 'border border-gray-600 hover:border-gray-500 text-white hover:bg-gray-700/20 hover:text-gray-200'
-                  }`}
-                >
-                  Visit website
-                </a>
-              </div>
               
               <div className="space-y-8">
                 {/* Description */}
