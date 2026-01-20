@@ -149,7 +149,7 @@ export default function BontouchPage() {
               </div>
             </div>
 
-            <div className="relative w-full max-w-2xl mx-auto max-h-[500px] overflow-hidden rounded-xl mb-6">
+            <div className="relative w-full max-w-2xl mx-auto overflow-hidden rounded-xl mb-6">
               <Image
                 src="/Portfolio Assets/Work/Bontouch/Assets/App Rating.png"
                 alt="App Rating"
@@ -158,44 +158,6 @@ export default function BontouchPage() {
                 className="w-full h-auto object-contain rounded-xl"
                 sizes="(max-width: 768px) 100vw, 800px"
               />
-            </div>
-            <div className="grid grid-cols-2 gap-4 max-w-2xl mx-auto">
-              <div className="relative w-full aspect-square overflow-hidden rounded-xl">
-                <Image
-                  src="/Portfolio Assets/Work/Bontouch/Assets/IMG_5109.PNG"
-                  alt="Bontouch Work 1"
-                  fill
-                  className="object-contain"
-                  sizes="(max-width: 768px) 50vw, 400px"
-                />
-              </div>
-              <div className="relative w-full aspect-square overflow-hidden rounded-xl">
-                <Image
-                  src="/Portfolio Assets/Work/Bontouch/Assets/IMG_5110.PNG"
-                  alt="Bontouch Work 2"
-                  fill
-                  className="object-contain"
-                  sizes="(max-width: 768px) 50vw, 400px"
-                />
-              </div>
-              <div className="relative w-full aspect-square overflow-hidden rounded-xl">
-                <Image
-                  src="/Portfolio Assets/Work/Bontouch/Assets/IMG_5111.PNG"
-                  alt="Bontouch Work 3"
-                  fill
-                  className="object-contain"
-                  sizes="(max-width: 768px) 50vw, 400px"
-                />
-              </div>
-              <div className="relative w-full aspect-square overflow-hidden rounded-xl">
-                <Image
-                  src="/Portfolio Assets/Work/Bontouch/Assets/IMG_5134.PNG"
-                  alt="Bontouch Work 4"
-                  fill
-                  className="object-contain"
-                  sizes="(max-width: 768px) 50vw, 400px"
-                />
-              </div>
             </div>
           </section>
 
@@ -254,7 +216,7 @@ export default function BontouchPage() {
               </div>
             </div>
 
-            <div className="relative w-full max-w-2xl mx-auto max-h-[500px] overflow-hidden rounded-xl">
+            <div className="relative w-full max-w-2xl mx-auto overflow-hidden rounded-xl mb-6">
               <Image
                 src="/Portfolio Assets/Work/Bontouch/Assets/Onboarding.png"
                 alt="Onboarding"
@@ -263,6 +225,44 @@ export default function BontouchPage() {
                 className="w-full h-auto object-contain rounded-xl"
                 sizes="(max-width: 768px) 100vw, 800px"
               />
+            </div>
+            <div className="grid grid-cols-2 gap-4 max-w-2xl mx-auto">
+              <div className="relative w-full aspect-square overflow-hidden rounded-xl">
+                <Image
+                  src="/Portfolio Assets/Work/Bontouch/Assets/IMG_5109.PNG"
+                  alt="Bontouch Work 1"
+                  fill
+                  className="object-contain"
+                  sizes="(max-width: 768px) 50vw, 400px"
+                />
+              </div>
+              <div className="relative w-full aspect-square overflow-hidden rounded-xl">
+                <Image
+                  src="/Portfolio Assets/Work/Bontouch/Assets/IMG_5110.PNG"
+                  alt="Bontouch Work 2"
+                  fill
+                  className="object-contain"
+                  sizes="(max-width: 768px) 50vw, 400px"
+                />
+              </div>
+              <div className="relative w-full aspect-square overflow-hidden rounded-xl">
+                <Image
+                  src="/Portfolio Assets/Work/Bontouch/Assets/IMG_5111.PNG"
+                  alt="Bontouch Work 3"
+                  fill
+                  className="object-contain"
+                  sizes="(max-width: 768px) 50vw, 400px"
+                />
+              </div>
+              <div className="relative w-full aspect-square overflow-hidden rounded-xl">
+                <Image
+                  src="/Portfolio Assets/Work/Bontouch/Assets/IMG_5134.PNG"
+                  alt="Bontouch Work 4"
+                  fill
+                  className="object-contain"
+                  sizes="(max-width: 768px) 50vw, 400px"
+                />
+              </div>
             </div>
           </section>
 

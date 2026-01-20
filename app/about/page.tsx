@@ -28,9 +28,9 @@ export default function AboutPage() {
           </p>
           
           <p className="text-lg text-gray-300 leading-relaxed mb-8">
-            When I'm not designing, I enjoy participating in Daily UI challenges to explore new 
-            design solutions and keep my skills sharp. I believe in continuous learning and pushing 
-            the boundaries of what's possible in digital design.
+            When I'm not designing, I love staying active through tennis, spending time on the water 
+            boating, and exploring my creative side through music production. Most importantly, I cherish 
+            the time I get to spend with friends and family, which keeps me grounded and inspired.
           </p>
           
           <div className="mt-12 pt-8 border-t border-gray-800">

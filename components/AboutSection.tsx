@@ -46,8 +46,9 @@ export default function AboutSection() {
             <p className="text-base text-gray-300 leading-relaxed">
               Currently, I'm working as a Product Designer at My Medical Data, where I'm the 
               sole designer working on Hälsa+, a health-focused mobile app. When I'm not designing, 
-              I enjoy participating in Daily UI challenges to explore new design solutions and keep 
-              my skills sharp.
+              I love staying active through tennis, spending time on the water boating, and exploring 
+              my creative side through music production. Most importantly, I cherish the time I get 
+              to spend with friends and family, which keeps me grounded and inspired.
             </p>
           </div>
         </div>
