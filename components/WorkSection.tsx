@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { useState } from 'react'
+import { useTheme } from '@/contexts/ThemeContext'
 import { useScrollAnimation } from '@/hooks/useScrollAnimation'
 
 const allWork = [
@@ -142,6 +143,7 @@ function WorkItem({ work, index }: { work: typeof allWork[0], index: number }) {
 
 export default function WorkSection() {
   const { ref: sectionRef, isVisible: sectionVisible } = useScrollAnimation({ threshold: 0.1, triggerOnce: true })
+  const { theme } = useTheme()
   const [showAllWork, setShowAllWork] = useState(false)
 
   const featuredWork = allWork.filter((work) => work.id === 'mymedicaldata' || work.id === 'bontouch')
@@ -180,7 +182,11 @@ export default function WorkSection() {
             <button
               type="button"
               onClick={() => setShowAllWork((prev) => !prev)}
-              className="mx-auto flex items-center gap-2 rounded-full border border-gray-700/60 bg-gray-900/60 px-4 py-2 text-sm font-medium text-gray-200 hover:border-gray-500 hover:bg-gray-900 transition-colors"
+              className={`mx-auto flex items-center gap-2 rounded-full px-6 py-3 text-sm font-medium transition-all duration-200 cursor-pointer ${
+                theme === 'light'
+                  ? 'border border-gray-300 hover:border-gray-600 text-gray-900 hover:bg-gray-200/50 hover:text-gray-800'
+                  : 'border border-gray-600 hover:border-gray-500 text-white hover:bg-gray-700/20 hover:text-gray-200'
+              }`}
             >
               <span>{showAllWork ? 'Show less work' : 'Show all work'}</span>
               <svg

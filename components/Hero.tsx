@@ -23,7 +23,7 @@ export default function Hero() {
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-6 md:pt-16">
       {/* Content */}
-      <div className="relative z-10 max-w-4xl mx-auto px-6 sm:px-8 lg:px-12 py-2 md:py-12 -mt-12 md:mt-0">
+      <div className="relative z-10 max-w-4xl mx-auto px-6 sm:px-8 lg:px-12 py-2 md:py-12 -mt-24 md:mt-0">
         <h1 className={`text-6xl md:text-7xl lg:text-8xl font-bold mb-2 md:mb-6 leading-tight tracking-tight text-center ${
           theme === 'light' ? 'text-gray-900' : 'text-white'
         }`}>
@@ -89,7 +89,7 @@ export default function Hero() {
             element.scrollIntoView({ behavior: 'smooth', block: 'start' })
           }
         }}
-        className={`absolute bottom-[88px] md:bottom-4 left-1/2 transform -translate-x-1/2 flex flex-col items-center gap-1 md:gap-2 transition-opacity duration-500 cursor-pointer hover:opacity-80 ${
+        className={`absolute bottom-[136px] md:bottom-4 left-1/2 transform -translate-x-1/2 flex flex-col items-center gap-1 md:gap-2 transition-opacity duration-500 cursor-pointer hover:opacity-80 ${
           isVisible ? 'opacity-100' : 'opacity-0 pointer-events-none'
         }`}
         aria-label="Scroll to work section"
