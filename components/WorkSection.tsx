@@ -48,6 +48,16 @@ const allWork = [
     href: '/work/hypertype',
   },
   {
+    id: 'mono',
+    title: 'Mono',
+    description: 'Designing and building an AI-assisted design-system workflow from setup to editable token architecture.',
+    year: '2026',
+    tags: ['Product Design', 'UX/UI', 'SaaS'],
+    projectTag: 'Concept',
+    coverImage: '/Portfolio Assets/Work/Mono/designtokens.png',
+    href: '/work/mono',
+  },
+  {
     id: 'moments',
     title: 'Moments',
     description: 'Designing plugin interfaces and pricing pages with focus on clarity and conversion.',
@@ -102,7 +112,9 @@ function WorkItem({ work, index }: { work: typeof allWork[0], index: number }) {
           {/* Image */}
           <div
             className={`relative w-full aspect-[16/10] min-h-[160px] overflow-hidden rounded-xl ${
-              work.id === 'bontouch' || work.id === 'moments' ? 'bg-gray-950' : 'bg-gray-900'
+              work.id === 'bontouch' || work.id === 'moments' || work.id === 'mono'
+                ? 'bg-gray-950'
+                : 'bg-gray-900'
             }`}
           >
             <Image
@@ -151,8 +163,14 @@ export default function WorkSection() {
   const { theme } = useTheme()
   const [showAllWork, setShowAllWork] = useState(false)
 
-  const featuredWork = allWork.filter((work) => work.id === 'mymedicaldata' || work.id === 'bontouch')
-  const moreWork = allWork.filter((work) => work.id !== 'mymedicaldata' && work.id !== 'bontouch')
+  const visibleWork = allWork.filter(
+    (work) =>
+      work.id !== 'zanlugproperties' &&
+      work.id !== 'moments' &&
+      work.id !== 'djungelbyran'
+  )
+  const featuredWork = visibleWork.slice(0, 2)
+  const moreWork = visibleWork.slice(2)
 
   return (
     <section id="work" className="py-12 md:py-16 bg-transparent relative scroll-mt-12">
@@ -166,12 +184,12 @@ export default function WorkSection() {
           ))}
         </div>
 
-        {/* Additional work (collapsible with smooth animation) */}
+        {/* Additional work (collapsible) */}
         {moreWork.length > 0 && (
           <div
             className={`mt-4 md:mt-5 grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5 overflow-hidden transition-all duration-500 ${
               showAllWork
-                ? 'max-h-[2000px] opacity-100 translate-y-0'
+                ? 'max-h-[1200px] opacity-100 translate-y-0'
                 : 'max-h-0 opacity-0 -translate-y-2 pointer-events-none'
             }`}
           >
@@ -181,7 +199,7 @@ export default function WorkSection() {
           </div>
         )}
 
-        {/* Toggle for additional work (always below all cards) */}
+        {/* Toggle */}
         {moreWork.length > 0 && (
           <div className="mt-6">
             <button
@@ -193,7 +211,7 @@ export default function WorkSection() {
                   : 'border border-gray-600 hover:border-gray-500 text-white hover:bg-gray-700/20 hover:text-gray-200'
               }`}
             >
-              <span>{showAllWork ? 'Show less work' : 'Show all work'}</span>
+              <span>{showAllWork ? 'Show less work' : 'Show more work'}</span>
               <svg
                 className={`h-4 w-4 transform transition-transform ${showAllWork ? 'rotate-180' : ''}`}
                 fill="none"
@@ -209,4 +227,3 @@ export default function WorkSection() {
     </section>
   )
 }
-

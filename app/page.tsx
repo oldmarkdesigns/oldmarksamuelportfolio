@@ -5,10 +5,12 @@ import TestimonialsSection from '@/components/TestimonialsSection'
 import LifeOutsideWorkSection from '@/components/LifeOutsideWorkSection'
 import ExperienceEducationSection from '@/components/ExperienceEducationSection'
 import ContactSection from '@/components/ContactSection'
+import ResumeDownloadButton from '@/components/ResumeDownloadButton'
 
 export default function Home() {
   return (
     <main className="bg-transparent relative">
+      <ResumeDownloadButton />
       <section id="home">
         <Hero />
       </section>
@@ -21,4 +23,3 @@ export default function Home() {
     </main>
   )
 }
-

@@ -13,43 +13,87 @@ export default function AboutSection() {
       <div className="max-w-4xl mx-auto px-6 sm:px-8 lg:px-12">
         <h2 ref={sectionRef} className={`text-xl md:text-2xl font-serif font-medium mb-8 text-white transition-all duration-700 ${sectionVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>About me</h2>
         
-        <div ref={contentRef} className={`flex flex-col md:flex-row gap-8 items-start transition-all duration-700 ${contentVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-          {/* Profile Picture */}
-          <div className="flex-shrink-0 w-full md:w-96">
-            <div className="relative w-full rounded-xl overflow-hidden">
-              <Image
-                src="/Portfolio Assets/ProfilePicLarge.png"
-                alt="Samuel Oldmark"
-                width={400}
-                height={600}
-                className="object-cover w-full h-auto"
-                sizes="(max-width: 768px) 100vw, 384px"
-              />
+        <div ref={contentRef} className={`transition-all duration-700 ${contentVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+          <div className="about-intro-card relative overflow-hidden rounded-2xl p-4 sm:p-5 md:p-6">
+            <div className="relative grid grid-cols-1 lg:grid-cols-[minmax(280px,360px)_minmax(0,1fr)] gap-6 lg:gap-8 items-start">
+              <div className="space-y-3">
+                <div className="about-profile-frame relative overflow-hidden rounded-xl">
+                  <Image
+                    src="/Portfolio Assets/ProfilePicLarge.png"
+                    alt="Samuel Oldmark"
+                    width={400}
+                    height={600}
+                    className="object-cover w-full h-auto"
+                    sizes="(max-width: 768px) 100vw, 384px"
+                  />
+                  <div className="about-profile-meta pointer-events-none absolute inset-x-0 bottom-0 p-4">
+                    <p className="about-profile-name text-sm font-medium">Product Designer</p>
+                    <p className="about-profile-location text-xs mt-0.5">Stockholm, Sweden</p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="min-w-0">
+                <p className="about-kicker text-xs uppercase tracking-[0.18em] mb-3">Who I am</p>
+                <h3 className="about-headline text-2xl md:text-3xl font-serif font-medium leading-tight mb-4">
+                  I design calm, high-trust experiences for complex products.
+                </h3>
+                <p className="about-summary text-base leading-relaxed mb-5">
+                  I focus on turning high-stakes product complexity into clear decisions, clear interfaces, and shipped outcomes.
+                </p>
+
+                <div className="flex flex-wrap gap-2 mb-4">
+                  <span className="about-chip px-3 py-1 rounded-full text-xs font-medium">
+                    Trust-critical products
+                  </span>
+                  <span className="about-chip px-3 py-1 rounded-full text-xs font-medium">
+                    UX + UI + Frontend
+                  </span>
+                  <span className="about-chip px-3 py-1 rounded-full text-xs font-medium">
+                    Open to new role
+                  </span>
+                </div>
+
+                <div className="flex flex-col gap-3 mb-1">
+                  <div className="about-value-card rounded-lg px-3.5 py-3">
+                    <p className="about-value-label text-xs uppercase tracking-wide mb-1">Core strength</p>
+                    <p className="about-value-text text-sm">Problem framing to shipped UI</p>
+                  </div>
+                  <div className="about-value-card rounded-lg px-3.5 py-3">
+                    <p className="about-value-label text-xs uppercase tracking-wide mb-1">Working style</p>
+                    <p className="about-value-text text-sm">Fast decisions, strong rationale</p>
+                  </div>
+                  <div className="about-value-card rounded-lg px-3.5 py-3">
+                    <p className="about-value-label text-xs uppercase tracking-wide mb-1">Design edge</p>
+                    <p className="about-value-text text-sm [text-wrap:pretty]">
+                      React / TypeScript / Tailwind
+                    </p>
+                  </div>
+                </div>
+              </div>
             </div>
-          </div>
-          
-          {/* Text Content */}
-          <div className="flex-1 prose prose-lg max-w-none">
-            <p className="text-base text-gray-300 leading-relaxed mb-6">
-              Hello there! I'm Samuel, a creative product designer based in Stockholm, Sweden. 
-              I'm passionate about designing web and mobile apps that are not only beautiful but 
-              also user-friendly and effective at converting target audiences.
-            </p>
-            
-            <p className="text-base text-gray-300 leading-relaxed mb-6">
-              My journey in design started at Chas Academy, where I completed a two-year program 
-              in UX/UI Design with Frontend Competence. This unique combination of design and 
-              development skills has helped me become a well-rounded product designer who understands 
-              both the creative and technical aspects of digital products.
-            </p>
-            
-            <p className="text-base text-gray-300 leading-relaxed">
-              Currently, I'm working as a Product Designer at My Medical Data, where I'm the 
-              sole designer working on Hälsa+, a health-focused mobile app. When I'm not designing, 
-              I love staying active through tennis, spending time on the water boating, and exploring 
-              my creative side through music production. Most importantly, I cherish the time I get 
-              to spend with friends and family, which keeps me grounded and inspired.
-            </p>
+
+            <div className="about-story relative mt-6 pt-6 space-y-4">
+              <p className="about-story-text text-base leading-relaxed [text-wrap:pretty]">
+                I&apos;m Samuel Oldmark, a product designer based in Stockholm focused on digital
+                products where trust, clarity, and usability directly impact business results. I
+                design end-to-end experiences across web and mobile, from problem framing and user
+                flows to interface design and shipped implementation.
+              </p>
+
+              <p className="about-story-text text-base leading-relaxed [text-wrap:pretty]">
+                At My Medical Data, I&apos;m the sole product designer behind key parts of the
+                Halsa+ experience, including onboarding, emergency medical access, AI guidance, and
+                high-impact product surfaces. That ownership has shaped how I work: prioritize what
+                matters, make defensible decisions fast, and stay close to engineers so ideas become
+                real product outcomes.
+              </p>
+
+              <p className="about-story-text text-base leading-relaxed [text-wrap:pretty]">
+                I&apos;m currently looking for a product design role where I can lead meaningful
+                product work, raise design quality, and help a strong team ship better outcomes.
+              </p>
+            </div>
           </div>
         </div>
         
@@ -227,7 +271,7 @@ export default function AboutSection() {
             <h4 className="font-semibold mb-6 text-white text-lg">AI Tools & How I Use Them</h4>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {/* AI for Ideation, Specifications & Visuals */}
-              <div className="px-4 py-4 border border-gray-700/50 rounded-lg">
+              <div className="px-4 py-4 border border-gray-700/50 rounded-lg md:order-3">
                 <h5 className="font-semibold mb-4 text-white text-base">AI for Ideation, Specifications & Visuals</h5>
                 <div className="flex flex-col gap-3 mb-4">
                   {/* Claude */}
@@ -274,7 +318,7 @@ export default function AboutSection() {
               </div>
               
               {/* AI for Rapid Prototyping & Development */}
-              <div className="px-4 py-4 border border-gray-700/50 rounded-lg">
+              <div className="px-4 py-4 border border-gray-700/50 rounded-lg md:order-1">
                 <h5 className="font-semibold mb-4 text-white text-base">AI for Rapid Prototyping & Development</h5>
                 <div className="flex flex-col gap-3 mb-4">
                   {/* Cursor */}
@@ -289,16 +333,16 @@ export default function AboutSection() {
                     <span className="text-white text-sm font-medium">Cursor</span>
                   </div>
                   
-                  {/* Antigravity */}
+                  {/* Codex */}
                   <div className="flex items-center gap-3 px-4 py-2.5 border border-gray-700/50 rounded-lg">
                     <Image
-                      src="/Portfolio Assets/Tool Icons/antigravity.png"
-                      alt="Antigravity"
+                      src="/Portfolio Assets/Tool Icons/codex.png"
+                      alt="Codex"
                       width={20}
                       height={20}
                       className="w-5 h-5 flex-shrink-0"
                     />
-                    <span className="text-white text-sm font-medium">Antigravity</span>
+                    <span className="text-white text-sm font-medium">Codex</span>
                   </div>
                 </div>
                 <ul className="text-sm text-gray-300 space-y-1.5 list-disc list-inside">
@@ -306,10 +350,30 @@ export default function AboutSection() {
                   <li>Explore multiple implementation approaches efficiently</li>
                   <li>Reduce time from concept to working prototype</li>
                 </ul>
+                <div className="mt-5">
+                  <p className="project-example-label">Project example</p>
+                  <a
+                    href="https://mono-puce-one.vercel.app/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="project-example-btn"
+                  >
+                    <span className="project-example-btn-icon" aria-hidden>
+                      <Image
+                        src="/Portfolio Assets/Tool Icons/codex.png"
+                        alt=""
+                        width={18}
+                        height={18}
+                        className="w-[18px] h-[18px] flex-shrink-0"
+                      />
+                    </span>
+                    <span>View Codex project</span>
+                  </a>
+                </div>
               </div>
               
               {/* AI for Documentation & Knowledge Management */}
-              <div className="px-4 py-4 border border-gray-700/50 rounded-lg">
+              <div className="px-4 py-4 border border-gray-700/50 rounded-lg md:order-4">
                 <h5 className="font-semibold mb-4 text-white text-base">AI for Documentation & Knowledge Management</h5>
                 <div className="flex flex-col gap-3 mb-4">
                   {/* Notion AI */}
@@ -332,7 +396,7 @@ export default function AboutSection() {
               </div>
               
               {/* AI for Website Creation & Client Work */}
-              <div className="px-4 py-4 border border-gray-700/50 rounded-lg">
+              <div className="px-4 py-4 border border-gray-700/50 rounded-lg md:order-2">
                 <h5 className="font-semibold mb-4 text-white text-base">AI for Website Creation & Client Work</h5>
                 <div className="flex flex-col gap-3 mb-4">
                   {/* Webflow AI */}
@@ -352,6 +416,26 @@ export default function AboutSection() {
                   <li>Speeding up content creation and iteration</li>
                   <li>Delivering high-quality, production-ready websites faster</li>
                 </ul>
+                <div className="mt-5">
+                  <p className="project-example-label">Project example</p>
+                  <a
+                    href="https://www.mymedicaldata.se/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="project-example-btn"
+                  >
+                    <span className="project-example-btn-icon" aria-hidden>
+                      <Image
+                        src="/Portfolio Assets/Tool Icons/webflow.png"
+                        alt=""
+                        width={18}
+                        height={18}
+                        className="w-[18px] h-[18px] flex-shrink-0"
+                      />
+                    </span>
+                    <span>View Webflow project</span>
+                  </a>
+                </div>
               </div>
             </div>
           </div>

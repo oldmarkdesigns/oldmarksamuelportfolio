@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import './globals.css'
 import Navigation from '@/components/Navigation'
 import Background from '@/components/Background'
+import TriangleCursor from '@/components/TriangleCursor'
 import { ThemeProvider } from '@/contexts/ThemeContext'
 
 export const metadata: Metadata = {
@@ -57,6 +58,7 @@ export default function RootLayout({
         />
         <ThemeProvider>
           <Background />
+          <TriangleCursor />
           <Navigation />
           {children}
         </ThemeProvider>
@@ -64,4 +66,3 @@ export default function RootLayout({
     </html>
   )
 }
-

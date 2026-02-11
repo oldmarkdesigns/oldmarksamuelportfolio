@@ -102,6 +102,7 @@ export default function ZanlugPropertiesPage() {
                 alt="Zanlüg Properties Cover"
                 fill
                 className="object-cover rounded-xl"
+                data-lightbox-ignore="true"
                 style={{ objectPosition: 'center 40%' }}
                 sizes="(max-width: 768px) 100vw, 1200px"
               />

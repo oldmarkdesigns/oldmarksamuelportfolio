@@ -120,6 +120,7 @@ export default function MomentsPage() {
                 width={1200}
                 height={800}
                 className="w-full h-auto object-contain rounded-xl"
+                data-lightbox-ignore="true"
                 sizes="(max-width: 768px) 100vw, 1200px"
               />
             </div>

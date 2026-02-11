@@ -1,335 +1,169 @@
-'use client'
+import CaseStudyPage, { CaseStudyData } from '@/components/CaseStudyPage'
 
-import Image from 'next/image'
-import Link from 'next/link'
-import WorkPageNav from '@/components/WorkPageNav'
-import { useTheme } from '@/contexts/ThemeContext'
-import { useScrollAnimation } from '@/hooks/useScrollAnimation'
-
-const sections = [
-  { id: 'overview', label: 'Overview' },
-  { id: 'dashboard', label: 'Dashboard' },
-  { id: 'get-started', label: 'Get Started' },
-  { id: 'feed-brain', label: 'Feed Brain' },
-  { id: 'help-center', label: 'Help Center' },
-  { id: 'subscription', label: 'Subscription' },
-]
+const hypertypeCaseStudy: CaseStudyData = {
+  title: 'Hypertype',
+  tagline:
+    'Reframing onboarding and dashboard activation to clarify value faster and create stronger upgrade intent for free users.',
+  backHref: '/#work',
+  heroImage: {
+    src: '/Portfolio Assets/Work/Hypertype/Wallpaper 2.png',
+    alt: 'Hypertype AFTER redesign banner showing the updated dashboard experience.',
+    width: 1200,
+    height: 800,
+  },
+  heroCaption: 'AFTER: redesigned dashboard entry experience focused on activation clarity and upgrade intent.',
+  snapshot: {
+    role: 'Product Designer (UX/UI) - design challenge',
+    timeline: 'November 2024',
+    team: 'Solo designer with simulated product constraints',
+    problem:
+      'The initial onboarding and welcome dashboard did not clearly communicate value progression, making it harder to guide free users toward paid plans.',
+    measurableOutcomes: [
+      '1 end-to-end redesigned dashboard welcome concept produced in a single challenge cycle.',
+      '5 connected product surfaces redesigned to support activation and upgrade cues (Dashboard, Get Started, Feed Brain, Help Center, Subscription).',
+      'No production A/B test data was available; outcomes are framed as delivery and UX-conversion proxy evidence.',
+    ],
+  },
+  summary: [
+    'This project was a conversion-focused redesign challenge for Hypertype.ai. I chose to redesign the dashboard welcome experience and connected flows where users evaluate value early in the product journey.',
+    'The goal was to reduce ambiguity, improve progression clarity, and create clearer upgrade signals without relying on aggressive paywall patterns.',
+  ],
+  problemStatement:
+    'As a first-time user, the initial dashboard and question flow felt under-explained. Key actions were present, but users were not clearly shown why each step mattered or how they moved toward product value and paid-plan relevance.',
+  constraints: [
+    'Design challenge context meant no direct access to production analytics or live experiments.',
+    'Needed to prioritize conversion intent while keeping trust and comprehension high.',
+    'Work had to be delivered quickly with realistic scope and coherent interaction logic.',
+  ],
+  ownership: {
+    owned: [
+      'Problem framing and flow prioritization for activation-to-upgrade moments.',
+      'Low-fidelity and high-fidelity UX/UI design across key surfaces.',
+      'Feature hierarchy and lock-state patterns to communicate premium value.',
+    ],
+    shared: [
+      'Assumptions based on comparable SaaS onboarding patterns and conversion heuristics.',
+      'Tradeoff framing between engagement prompts and cognitive load.',
+      'Hypothesis design for what should be tested first in production.',
+    ],
+    outOfScope: [
+      'Implementation and engineering instrumentation for production analytics.',
+      'Live experimentation setup and billing funnel integration.',
+      'Retention outcomes beyond initial activation and upgrade intent.',
+    ],
+  },
+  decisions: [
+    {
+      title: 'Add a clearer transition into first-time questions',
+      decision:
+        'I added contextual framing before users entered the question flow, so they understood purpose and expected outcome upfront.',
+      why:
+        'The original sequence moved users directly into prompts without enough orientation, increasing confusion risk.',
+      result:
+        'The redesigned flow better supports comprehension and progression clarity, which is a conversion proxy for early activation quality.',
+    },
+    {
+      title: 'Use locked-feature visibility as a value signal',
+      decision:
+        'I intentionally exposed premium-locked elements in the dashboard to communicate capability depth without interrupting core free usage.',
+      why:
+        'Users need to see premium value in-context before considering an upgrade decision.',
+      result:
+        'Upgrade pathways are now embedded in usage context rather than isolated in pricing-only moments (proxy improvement).',
+    },
+    {
+      title: 'Design connected support flows instead of a single-page redesign',
+      decision:
+        'I extended the redesign into Get Started, Feed Brain, Help Center, and Subscription surfaces to preserve consistency across the full activation arc.',
+      why:
+        'Conversion friction usually appears across transitions, not only on a single screen.',
+      result:
+        'The concept now presents a consistent value narrative from onboarding through plan evaluation.',
+    },
+  ],
+  beforeAfter: {
+    title: 'Dashboard progression before/after',
+    description:
+      'The redesign shifts from generic entry into a clearer activation sequence with explicit value cues and premium intent scaffolding.',
+    before: {
+      src: '/Portfolio Assets/Work/Hypertype/Lofi.png',
+      alt: 'Low-fidelity dashboard concept showing early layout exploration.',
+      width: 800,
+      height: 600,
+      caption: 'Before: low-fidelity structure with initial information architecture.',
+    },
+    after: {
+      src: '/Portfolio Assets/Work/Hypertype/Wallpaper 2.png',
+      alt: 'Final high-fidelity dashboard concept with clear progression and value emphasis.',
+      width: 1200,
+      height: 800,
+      caption: 'After: high-fidelity flow with clearer progression and premium cues.',
+    },
+    annotations: [
+      'Added clearer progression framing before core user actions.',
+      'Premium/locked states now communicate value without hijacking primary tasks.',
+      'Visual hierarchy emphasizes what to do next and why it matters.',
+    ],
+  },
+  supportingVisuals: [
+    {
+      src: '/Portfolio Assets/Work/Hypertype/Get Started Hifi.png',
+      alt: 'Get Started high-fidelity onboarding screen redesign.',
+      width: 800,
+      height: 600,
+      caption: 'Get Started: reduced friction and clearer first action guidance.',
+    },
+    {
+      src: '/Portfolio Assets/Work/Hypertype/Feed Brain.png',
+      alt: 'Feed Brain interaction design showing personalization setup.',
+      width: 800,
+      height: 600,
+      caption: 'Feed Brain: clearer context for setup tasks tied to future value.',
+    },
+    {
+      src: '/Portfolio Assets/Work/Hypertype/Help Center Design.png',
+      alt: 'Help Center redesign focused on findability and support clarity.',
+      width: 800,
+      height: 600,
+      caption: 'Help Center: support surfaces aligned with activation journey.',
+    },
+  ],
+  outcomes: {
+    intro:
+      'Because this was a design challenge rather than a live release, outcomes focus on delivered scope and conversion-readiness proxies.',
+    metrics: [
+      {
+        type: 'Measured',
+        value: '5 surfaces',
+        label: 'Redesigned in one coherent conversion narrative',
+        context:
+          'Dashboard, Get Started, Feed Brain, Help Center, and Subscription were redesigned in November 2024.',
+      },
+      {
+        type: 'Measured',
+        value: '1 end-to-end concept',
+        label: 'Challenge-ready handoff package delivered',
+        context:
+          'Included low-fi exploration, high-fi solution, and supporting flow screens for activation and upgrade intent.',
+      },
+      {
+        type: 'Proxy',
+        value: 'Higher intent clarity',
+        label: 'Upgrade rationale becomes visible in product context',
+        context:
+          'Design uses in-context premium signaling and clearer progression framing to improve upgrade decision readiness.',
+      },
+    ],
+    note:
+      'Note: No production funnel or experiment data was available in this challenge setting, so conversion impact is intentionally framed as proxy evidence.',
+  },
+  nextImprovements: [
+    'Run first-session funnel instrumentation to quantify where users drop before seeing premium value.',
+    'Test two lock-state strategies with A/B experiments (contextual tease vs milestone reveal).',
+    'Add lightweight in-product education moments tied to real user tasks rather than static onboarding text.',
+  ],
+}
 
 export default function HypertypePage() {
-  const { theme } = useTheme()
-  const { ref: dashboardRef, isVisible: dashboardVisible } = useScrollAnimation({ threshold: 0.1, triggerOnce: true, delay: 100 })
-  const { ref: getStartedRef, isVisible: getStartedVisible } = useScrollAnimation({ threshold: 0.1, triggerOnce: true, delay: 200 })
-  const { ref: feedBrainRef, isVisible: feedBrainVisible } = useScrollAnimation({ threshold: 0.1, triggerOnce: true, delay: 300 })
-  const { ref: helpCenterRef, isVisible: helpCenterVisible } = useScrollAnimation({ threshold: 0.1, triggerOnce: true, delay: 400 })
-  const { ref: subscriptionRef, isVisible: subscriptionVisible } = useScrollAnimation({ threshold: 0.1, triggerOnce: true, delay: 500 })
-
-  return (
-    <main className="pt-16 md:pt-20 min-h-screen bg-transparent relative">
-      <div className="max-w-6xl mx-auto px-6 sm:px-8 lg:px-12 py-8 md:py-12">
-        <div className="flex flex-col md:flex-row gap-12">
-          {/* Left sidebar navigation */}
-          <WorkPageNav sections={sections} />
-          
-          {/* Main content */}
-          <div className="flex-1 min-w-0">
-            <Link
-              href="/#work"
-              className={`inline-flex items-center gap-2 mb-8 transition-colors ${
-                theme === 'light'
-                  ? 'text-gray-500 hover:text-gray-900'
-                  : 'text-gray-400 hover:text-white'
-              }`}
-            >
-              ← Back to Work
-            </Link>
-            
-            {/* Overview Section */}
-            <section id="overview" className="scroll-mt-20 mb-16">
-            <div className="mb-12">
-              <p className="text-sm text-gray-400 text-gray-500 mb-4">About the project</p>
-              <h1 className="text-3xl md:text-4xl font-bold mb-8 text-white text-gray-900 leading-tight">
-                Redesigned Hypertype.ai's onboarding and dashboard to boost paid conversions.
-              </h1>
-              
-              <div className="space-y-8">
-                {/* Description */}
-                <div className="space-y-4">
-                  <div className="text-gray-600 dark:text-gray-200 leading-relaxed space-y-4">
-                    <p>
-                      I was given a design challenge to redesign the onboarding flow and dashboard welcome page of Hypertype.ai to increase paid conversions. I identified friction points in the user journey and proposed a more streamlined onboarding experience, along with a clearer, value-driven dashboard layout to guide users toward key features and upgrade actions.
-                    </p>
-                    <p>
-                      Using Figma, we would like you to redesign the onboarding flow or dashboard welcome page of Hypertype.ai with the aim of increasing paid conversions. Create the redesigned onboarding flow or dashboard welcome page.
-                    </p>
-                    <p>
-                      Expected Outcome: The redesigned onboarding or dashboard welcome page should be intuitive, engaging, and optimized for converting free users into paid customers.
-                    </p>
-                  </div>
-                </div>
-                
-                {/* Details */}
-                <div className="space-y-4">
-                  <div className="flex flex-col md:flex-row gap-6 md:gap-8">
-                    <div className="flex-1">
-                      <p className="text-sm text-gray-400 text-gray-500 mb-1">Role:</p>
-                      <p className="text-white text-gray-900">UX/UI Design</p>
-                    </div>
-                    <div className="flex-1">
-                      <p className="text-sm text-gray-400 text-gray-500 mb-1">Period:</p>
-                      <p className="text-white text-gray-900">November 2024</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="relative w-full max-w-3xl mx-auto max-h-[600px] overflow-hidden rounded-xl mb-12">
-              <Image
-                src="/Portfolio Assets/Work/Hypertype/Hypertype Pre.png"
-                alt="Hypertype Preview"
-                width={1200}
-                height={800}
-                className="w-full h-auto object-contain rounded-xl"
-                sizes="(max-width: 768px) 100vw, 1200px"
-              />
-            </div>
-          </section>
-
-          {/* Dashboard Section */}
-          <section ref={dashboardRef} id="dashboard" className={`scroll-mt-20 mb-16 transition-all duration-700 ${dashboardVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-            <h2 className="text-2xl md:text-3xl font-bold mb-6 text-white text-gray-900">Redesigning the dashboard</h2>
-            <div className="text-gray-600 dark:text-gray-200 leading-relaxed space-y-4 mb-6">
-              <p>
-                I chose to design the welcome page for the dashboard because, after reviewing both options, I found that I had more ideas for improving the dashboard. As a first-time user of both flows, I noticed more areas for enhancement in the dashboard, making it the clear choice for restructuring.
-              </p>
-              <p>
-                My first impression of the dashboard's welcome page was that, in terms of user experience, the purpose of the initial questions was unclear. While I appreciate the idea of immersing users directly into the service, I saw an opportunity to improve the flow by providing context for these questions. This led me to design a segue into the questionnaire on the user dashboard, giving users a clearer sense of direction.
-              </p>
-            </div>
-
-            <div className="mb-8">
-              <h3 className="text-lg font-semibold text-white text-gray-900 mb-4">LoFi design</h3>
-              <div className="text-gray-600 dark:text-gray-200 leading-relaxed space-y-4 mb-6">
-                <p>
-                  I began by creating a low-fidelity sketch to visualize the layout of the dashboard. During this process, I carefully considered which elements should appear on the homepage, keeping the goal of increasing paid conversions in mind.
-                </p>
-                <p>
-                  One feature I specifically designed was a locked element to spark curiosity and encourage users to explore the benefits of the paid version.
-                </p>
-              </div>
-              <div className="relative w-full max-w-2xl mx-auto max-h-[500px] overflow-hidden rounded-xl mb-6">
-                <Image
-                  src="/Portfolio Assets/Work/Hypertype/Lofi.png"
-                  alt="Low Fidelity"
-                  width={800}
-                  height={600}
-                  className="w-full h-auto object-contain rounded-xl"
-                  sizes="(max-width: 768px) 100vw, 800px"
-                />
-              </div>
-            </div>
-
-            <div className="mb-8">
-              <h3 className="text-lg font-semibold text-white text-gray-900 mb-4">Designing all elements</h3>
-              <div className="text-gray-600 dark:text-gray-200 leading-relaxed space-y-4 mb-6">
-                <p>
-                  I began by creating a low-fidelity sketch to visualize the layout of the dashboard. During this process, I carefully considered which elements should appear on the homepage, keeping the goal of increasing paid conversions in mind.
-                </p>
-                <p>
-                  One feature I specifically designed was a locked element to spark curiosity and encourage users to explore the benefits of the paid version.
-                </p>
-              </div>
-              <div className="relative w-full max-w-2xl mx-auto max-h-[500px] overflow-hidden rounded-xl mb-6">
-                <Image
-                  src="/Portfolio Assets/Work/Hypertype/Hifi.png"
-                  alt="High Fidelity"
-                  width={800}
-                  height={600}
-                  className="w-full h-auto object-contain rounded-xl"
-                  sizes="(max-width: 768px) 100vw, 800px"
-                />
-              </div>
-            </div>
-
-            <div>
-              <h3 className="text-lg font-semibold text-white text-gray-900 mb-4">Final high fidelity design</h3>
-              <div className="relative w-full max-w-3xl mx-auto max-h-[600px] overflow-hidden rounded-xl">
-                <Image
-                  src="/Portfolio Assets/Work/Hypertype/Wallpaper 2.png"
-                  alt="Final High Fidelity Design"
-                  width={1200}
-                  height={800}
-                  className="w-full h-auto object-contain rounded-xl"
-                  sizes="(max-width: 768px) 100vw, 1200px"
-                />
-              </div>
-            </div>
-          </section>
-
-          {/* Get Started Section */}
-          <section ref={getStartedRef} id="get-started" className={`scroll-mt-20 mb-16 transition-all duration-700 ${getStartedVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-            <h2 className="text-2xl md:text-3xl font-bold mb-6 text-white text-gray-900">Get Started</h2>
-            <div className="text-gray-600 dark:text-gray-200 leading-relaxed mb-6">
-              <p>
-                Designed an intuitive onboarding flow that helps users understand the AI assistant's 
-                capabilities and get started quickly.
-              </p>
-            </div>
-            <div className="space-y-6">
-              <div className="relative w-full max-w-2xl mx-auto max-h-[500px] overflow-hidden rounded-xl">
-                <Image
-                  src="/Portfolio Assets/Work/Hypertype/Get Started Hifi.png"
-                  alt="Get Started High Fidelity"
-                  width={800}
-                  height={600}
-                  className="w-full h-auto object-contain rounded-xl"
-                  sizes="(max-width: 768px) 100vw, 800px"
-                />
-              </div>
-              <div className="relative w-full max-w-2xl mx-auto max-h-[500px] overflow-hidden rounded-xl">
-                <Image
-                  src="/Portfolio Assets/Work/Hypertype/Get Started Flow.png"
-                  alt="Get Started Flow"
-                  width={800}
-                  height={600}
-                  className="w-full h-auto object-contain rounded-xl"
-                  sizes="(max-width: 768px) 100vw, 800px"
-                />
-              </div>
-              <div className="relative w-full max-w-2xl mx-auto max-h-[500px] overflow-hidden rounded-xl">
-                <Image
-                  src="/Portfolio Assets/Work/Hypertype/Get Started Info.png"
-                  alt="Get Started Info"
-                  width={800}
-                  height={600}
-                  className="w-full h-auto object-contain rounded-xl"
-                  sizes="(max-width: 768px) 100vw, 800px"
-                />
-              </div>
-            </div>
-          </section>
-
-          {/* Feed Brain Section */}
-          <section ref={feedBrainRef} id="feed-brain" className={`scroll-mt-20 mb-16 transition-all duration-700 ${feedBrainVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-            <h2 className="text-2xl md:text-3xl font-bold mb-6 text-white text-gray-900">Feed Brain</h2>
-            <div className="text-gray-600 dark:text-gray-200 leading-relaxed mb-6">
-              <p>
-                Created a feature that allows users to train the AI by providing context and examples, 
-                making the assistant more personalized and effective.
-              </p>
-            </div>
-            <div className="space-y-6">
-              <div className="relative w-full max-w-2xl mx-auto max-h-[500px] overflow-hidden rounded-xl">
-                <Image
-                  src="/Portfolio Assets/Work/Hypertype/Feed Brain.png"
-                  alt="Feed Brain"
-                  width={800}
-                  height={600}
-                  className="w-full h-auto object-contain rounded-xl"
-                  sizes="(max-width: 768px) 100vw, 800px"
-                />
-              </div>
-              <div className="relative w-full max-w-2xl mx-auto max-h-[500px] overflow-hidden rounded-xl">
-                <Image
-                  src="/Portfolio Assets/Work/Hypertype/Feed Brain Flow.png"
-                  alt="Feed Brain Flow"
-                  width={800}
-                  height={600}
-                  className="w-full h-auto object-contain rounded-xl"
-                  sizes="(max-width: 768px) 100vw, 800px"
-                />
-              </div>
-              <div className="relative w-full max-w-2xl mx-auto max-h-[500px] overflow-hidden rounded-xl">
-                <Image
-                  src="/Portfolio Assets/Work/Hypertype/Feed Brain Info.png"
-                  alt="Feed Brain Info"
-                  width={800}
-                  height={600}
-                  className="w-full h-auto object-contain rounded-xl"
-                  sizes="(max-width: 768px) 100vw, 800px"
-                />
-              </div>
-            </div>
-          </section>
-
-          {/* Help Center Section */}
-          <section ref={helpCenterRef} id="help-center" className={`scroll-mt-20 mb-16 transition-all duration-700 ${helpCenterVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-            <h2 className="text-2xl md:text-3xl font-bold mb-6 text-white text-gray-900">Help Center</h2>
-            <div className="text-gray-600 dark:text-gray-200 leading-relaxed mb-6">
-              <p>
-                Designed a comprehensive help center that provides users with easy access to 
-                documentation, tutorials, and support resources.
-              </p>
-            </div>
-            <div className="space-y-6">
-              <div className="relative w-full max-w-2xl mx-auto max-h-[500px] overflow-hidden rounded-xl">
-                <Image
-                  src="/Portfolio Assets/Work/Hypertype/Help Center Design.png"
-                  alt="Help Center Design"
-                  width={800}
-                  height={600}
-                  className="w-full h-auto object-contain rounded-xl"
-                  sizes="(max-width: 768px) 100vw, 800px"
-                />
-              </div>
-              <div className="relative w-full max-w-2xl mx-auto max-h-[500px] overflow-hidden rounded-xl">
-                <Image
-                  src="/Portfolio Assets/Work/Hypertype/Help Center Flow.png"
-                  alt="Help Center Flow"
-                  width={800}
-                  height={600}
-                  className="w-full h-auto object-contain rounded-xl"
-                  sizes="(max-width: 768px) 100vw, 800px"
-                />
-              </div>
-              <div className="relative w-full max-w-2xl mx-auto max-h-[500px] overflow-hidden rounded-xl">
-                <Image
-                  src="/Portfolio Assets/Work/Hypertype/Help Center Info.png"
-                  alt="Help Center Info"
-                  width={800}
-                  height={600}
-                  className="w-full h-auto object-contain rounded-xl"
-                  sizes="(max-width: 768px) 100vw, 800px"
-                />
-              </div>
-            </div>
-          </section>
-
-          {/* Subscription Section */}
-          <section ref={subscriptionRef} id="subscription" className={`scroll-mt-20 mb-16 transition-all duration-700 ${subscriptionVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-            <h2 className="text-2xl md:text-3xl font-bold mb-6 text-white text-gray-900">Subscription</h2>
-            <div className="text-gray-600 dark:text-gray-200 leading-relaxed mb-6">
-              <p>
-                Designed subscription management features including plan selection, locked features, 
-                and account management.
-              </p>
-            </div>
-            <div className="space-y-6">
-              <div className="relative w-full max-w-2xl mx-auto max-h-[500px] overflow-hidden rounded-xl">
-                <Image
-                  src="/Portfolio Assets/Work/Hypertype/Locked Feature.png"
-                  alt="Locked Feature"
-                  width={800}
-                  height={600}
-                  className="w-full h-auto object-contain rounded-xl"
-                  sizes="(max-width: 768px) 100vw, 800px"
-                />
-              </div>
-              <div className="relative w-full max-w-2xl mx-auto max-h-[500px] overflow-hidden rounded-xl">
-                <Image
-                  src="/Portfolio Assets/Work/Hypertype/Your Plan.png"
-                  alt="Your Plan"
-                  width={800}
-                  height={600}
-                  className="w-full h-auto object-contain rounded-xl"
-                  sizes="(max-width: 768px) 100vw, 800px"
-                />
-              </div>
-            </div>
-          </section>
-          </div>
-        </div>
-      </div>
-    </main>
-  )
+  return <CaseStudyPage caseStudy={hypertypeCaseStudy} />
 }

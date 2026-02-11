@@ -42,6 +42,14 @@ const allWork = [
     href: '/work/hypertype',
   },
   {
+    id: 'mono',
+    title: 'Mono',
+    description: 'AI-assisted design system platform concept',
+    projectTag: 'Concept',
+    coverImage: '/Portfolio Assets/Work/Mono/designtokens.png',
+    href: '/work/mono',
+  },
+  {
     id: 'moments',
     title: 'Moments',
     description: 'Plugin and pricing design',
@@ -99,4 +107,3 @@ export default function WorkPage() {
     </main>
   )
 }
-

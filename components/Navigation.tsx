@@ -23,23 +23,71 @@ export default function Navigation() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
+  useEffect(() => {
+    if (pathname !== '/') return
+    const hash = window.location.hash
+    if (!hash) return
+
+    const scrollToHashTarget = () => {
+      const element = document.querySelector(hash)
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      }
+    }
+
+    const raf = window.requestAnimationFrame(scrollToHashTarget)
+    return () => window.cancelAnimationFrame(raf)
+  }, [pathname])
+
   const navItems = [
     { href: '#work', label: 'Work' },
     { href: '#about', label: 'About me' },
     { href: '#contact', label: 'Contact' },
   ]
+  const glassBlur = isScrolled ? 'blur(56px) saturate(185%)' : 'blur(46px) saturate(175%)'
+  const glassSurfaceColor =
+    theme === 'dark'
+      ? isScrolled
+        ? 'rgba(8, 10, 18, 0.78)'
+        : 'rgba(8, 10, 18, 0.68)'
+      : isScrolled
+        ? 'rgba(248, 250, 252, 0.9)'
+        : 'rgba(248, 250, 252, 0.82)'
+
+  const navigateToSection = (href: string) => {
+    if (pathname === '/') {
+      const element = document.querySelector(href)
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      }
+      return
+    }
+
+    router.push(`/${href}`)
+  }
 
   return (
     <>
-    <nav className="fixed top-3 left-1/2 transform -translate-x-1/2 z-[9999] w-full max-w-4xl px-4 animate-slide-down-from-top">
+    <nav className="site-nav fixed inset-x-0 top-3 z-[9999]">
+      <div className="site-nav-shell mx-auto w-full max-w-4xl px-4">
       {/* Rounded navigation bar */}
       <div 
-        className={`${isScrolled ? 'backdrop-blur-3xl' : 'backdrop-blur-xl'} border rounded-full px-3 py-1.5 flex items-center justify-between transition-all duration-500 ease-out ${
-          theme === 'dark' 
-            ? 'bg-[rgba(10,10,10,0.4)] border-gray-700/30' 
-            : 'bg-[rgba(243,244,246,0.35)] border-[rgba(209,213,219,0.6)]'
+        className={`site-nav-pill relative overflow-hidden border rounded-full px-3 py-1.5 flex items-center justify-between transition-[border-color,box-shadow] duration-500 ease-out ${
+          theme === 'dark'
+            ? 'border-gray-700/40'
+            : 'border-[rgba(209,213,219,0.72)]'
         }`}
       >
+        <div
+          className="site-nav-glass pointer-events-none absolute inset-0"
+          style={{
+            backgroundColor: glassSurfaceColor,
+            backdropFilter: glassBlur,
+            WebkitBackdropFilter: glassBlur,
+          }}
+          aria-hidden
+        />
+        <div className="relative flex w-full items-center justify-between">
         {/* Left side: Profile picture and name */}
         <a 
           href="#home"
@@ -52,13 +100,6 @@ export default function Navigation() {
               }
             } else {
               router.push('/')
-              // Wait for navigation to complete, then scroll
-              setTimeout(() => {
-                const element = document.querySelector('#home')
-                if (element) {
-                  element.scrollIntoView({ behavior: 'smooth', block: 'start' })
-                }
-              }, 50)
             }
           }}
           className="flex items-center space-x-2 hover:opacity-80 transition-opacity flex-shrink-0 cursor-pointer"
@@ -83,21 +124,7 @@ export default function Navigation() {
               href={item.href}
               onClick={(e) => {
                 e.preventDefault()
-                if (pathname === '/') {
-                  const element = document.querySelector(item.href)
-                  if (element) {
-                    element.scrollIntoView({ behavior: 'smooth', block: 'start' })
-                  }
-                } else {
-                  router.push('/')
-                  // Wait for navigation to complete, then scroll to section
-                  setTimeout(() => {
-                    const element = document.querySelector(item.href)
-                    if (element) {
-                      element.scrollIntoView({ behavior: 'smooth', block: 'start' })
-                    }
-                  }, 50)
-                }
+                navigateToSection(item.href)
               }}
               className={`text-sm font-medium transition-colors whitespace-nowrap cursor-pointer ${
                 pathname === item.href || (typeof window !== 'undefined' && window.location.hash === item.href)
@@ -174,6 +201,8 @@ export default function Navigation() {
             )}
           </button>
         </div>
+        </div>
+      </div>
       </div>
 
     </nav>
@@ -193,15 +222,19 @@ export default function Navigation() {
             }}
           />
           <div 
-            className={`md:hidden fixed top-16 left-1/2 transform -translate-x-1/2 w-full max-w-4xl px-4 z-[10001] ${isScrolled ? 'backdrop-blur-3xl' : 'backdrop-blur-xl'} border rounded-2xl p-3 transition-all duration-300 ease-out ${
+            className={`md:hidden fixed top-16 left-1/2 transform -translate-x-1/2 w-full max-w-4xl px-4 z-[10001] border rounded-2xl p-3 transition-all duration-300 ease-out ${
               theme === 'dark' 
-                ? 'bg-[rgba(10,10,10,0.4)] border-gray-700/30' 
-                : 'bg-[rgba(243,244,246,0.35)] border-[rgba(209,213,219,0.6)]'
+                ? 'bg-[rgba(8,10,18,0.68)] border-gray-700/40' 
+                : 'bg-[rgba(248,250,252,0.82)] border-[rgba(209,213,219,0.72)]'
             } ${
               isMenuClosing 
                 ? 'opacity-0 translate-y-[-20px]' 
                 : 'opacity-100 translate-y-0 animate-slide-down-menu'
             }`}
+            style={{
+              backdropFilter: glassBlur,
+              WebkitBackdropFilter: glassBlur,
+            }}
             onClick={(e) => e.stopPropagation()}
           >
           {navItems.map((item) => (
@@ -220,14 +253,7 @@ export default function Navigation() {
                       element.scrollIntoView({ behavior: 'smooth', block: 'start' })
                     }
                   } else {
-                    router.push('/')
-                    // Wait for navigation to complete, then scroll to section
-                    setTimeout(() => {
-                      const element = document.querySelector(item.href)
-                      if (element) {
-                        element.scrollIntoView({ behavior: 'smooth', block: 'start' })
-                      }
-                    }, 50)
+                    router.push(`/${item.href}`)
                   }
                 }, 300)
               }}
@@ -246,4 +272,3 @@ export default function Navigation() {
     </>
   )
 }
-

@@ -1,314 +1,164 @@
-'use client'
+import CaseStudyPage, { CaseStudyData } from '@/components/CaseStudyPage'
 
-import Image from 'next/image'
-import Link from 'next/link'
-import WorkPageNav from '@/components/WorkPageNav'
-import { useTheme } from '@/contexts/ThemeContext'
-import { useScrollAnimation } from '@/hooks/useScrollAnimation'
-
-const sections = [
-  { id: 'overview', label: 'Overview' },
-  { id: 'onboarding', label: 'Onboarding' },
-  { id: 'medical-id', label: 'Medical ID' },
-  { id: 'ai-chat', label: 'AI Analysis Chat' },
-  { id: 'website', label: 'Building the website' },
-]
+const myMedicalDataCaseStudy: CaseStudyData = {
+  title: 'MyMedicalData',
+  tagline:
+    'Designing trust-critical health experiences across onboarding, emergency medical access, AI guidance, and the public website.',
+  backHref: '/#work',
+  liveHref: 'https://www.mymedicaldata.se/',
+  liveLabel: 'Visit live site',
+  heroImage: {
+    src: '/Portfolio Assets/Work/MMD/MMDCover.png',
+    alt: 'MyMedicalData product screens shown in a device mockup.',
+    width: 1200,
+    height: 800,
+  },
+  heroCaption: 'Primary product surfaces for the Halsa+ experience.',
+  snapshot: {
+    role: 'Product Designer (UX/UI) with frontend collaboration',
+    timeline: 'January 2025 - Present',
+    team: 'Small cross-functional team: founder, developers, healthcare-informed stakeholders, and me as sole designer',
+    problem:
+      'Users needed to trust a new health product fast, complete secure sign-in without confusion, and access critical medical information quickly when stressed.',
+    measurableOutcomes: [
+      '3 core experiences redesigned in one cycle (onboarding, Medical ID, AI chat) between January-April 2025.',
+      'Product and marketing touchpoints were aligned under one design language in Q1 2025 (delivery proxy).',
+      'Analytics instrumentation is still being expanded, so current outcomes combine shipped scope plus moderated feedback proxies.',
+    ],
+  },
+  summary: [
+    'I lead product design at MyMedicalData and work across both app and web surfaces. The highest-risk challenge was trust: users share sensitive health data, so every step had to feel clear, intentional, and safe.',
+    'I focused on three high-impact flows - onboarding, Medical ID, and AI chat - while partnering closely with developers to move work from Figma into production-ready behavior.',
+  ],
+  problemStatement:
+    'The product had promising functionality, but key flows did not yet communicate confidence clearly enough for healthcare contexts. The goal was to reduce friction in first use while making critical information easier to understand under pressure.',
+  constraints: [
+    'Healthcare context raised the bar for clarity, readability, and perceived reliability.',
+    'BankID needed to be visible as the primary path without overwhelming first-time users.',
+    'Limited analytics coverage during this phase required relying on delivery and usability proxies.',
+  ],
+  ownership: {
+    owned: [
+      'UX/UI design for onboarding, Medical ID, and AI chat flows.',
+      'Interaction patterns, visual hierarchy, and handoff documentation in Figma.',
+      'Website experience updates to keep product and marketing language consistent.',
+    ],
+    shared: [
+      'Feature scoping and implementation tradeoffs with developers and founder.',
+      'Moderated review sessions to validate readability and confidence signals.',
+      'Iteration planning based on technical constraints and release timing.',
+    ],
+    outOfScope: [
+      'Clinical policy decisions and medical recommendation standards.',
+      'Backend data integration and security infrastructure implementation.',
+      'Model training and evaluation strategy for AI responses.',
+    ],
+  },
+  decisions: [
+    {
+      title: 'Prioritize BankID as the primary onboarding action',
+      decision:
+        'I moved BankID to the most prominent position and simplified surrounding content so first-time users always saw the secure path immediately.',
+      why:
+        'The previous flow made secure sign-in feel secondary, creating hesitation at the point where trust should increase.',
+      result:
+        'Post-redesign walkthroughs showed cleaner completion behavior with fewer clarifying questions about how to start (qualitative proxy while funnel analytics matures).',
+    },
+    {
+      title: 'Design Medical ID for emergency-time scanning',
+      decision:
+        'I structured Medical ID around high-priority fields first (allergies, medication, contacts) with clear read and edit states.',
+      why:
+        'Emergency scenarios demand fast comprehension; dense layouts fail when users or caregivers are under stress.',
+      result:
+        'The resulting information hierarchy became the reference model for implementation and stakeholder sign-off of emergency data presentation.',
+    },
+    {
+      title: 'Add transparency patterns to AI chat responses',
+      decision:
+        'I introduced response framing that separates answer, context, and next step so users can understand what the AI is basing guidance on.',
+      why:
+        'Health-related AI needs explicit guardrails to avoid black-box behavior and reduce over-trust.',
+      result:
+        'Prototype reviews reported stronger confidence in response clarity, and the pattern is now used as the baseline for follow-up chat scenarios (proxy outcome).',
+    },
+  ],
+  beforeAfter: {
+    title: 'Onboarding before/after: secure entry made obvious',
+    description:
+      'The same flow was rebuilt to reduce ambiguity around the first action and to align visual hierarchy with user expectations.',
+    before: {
+      src: '/Portfolio Assets/Work/MMD/OldOnboarding.png',
+      alt: 'Legacy onboarding layout where secure sign-in was less prominent.',
+      width: 800,
+      height: 600,
+      caption: 'Before: lower emphasis on secure sign-in path.',
+    },
+    after: {
+      src: '/Portfolio Assets/Work/MMD/Future Design-App-Login Flow.png',
+      alt: 'Updated onboarding flow with secure sign-in prioritized and clearer step progression.',
+      width: 1200,
+      height: 800,
+      caption: 'After: BankID-first hierarchy with clearer step progression.',
+    },
+    annotations: [
+      'Secure sign-in is now a first-glance action instead of a secondary choice.',
+      'Copy and hierarchy were reduced to essentials for faster orientation.',
+      'Visual rhythm and spacing now match the broader product system.',
+    ],
+  },
+  supportingVisuals: [
+    {
+      src: '/Portfolio Assets/Work/MMD/Medical ID Flow.png',
+      alt: 'Medical ID flow screens showing emergency information structure.',
+      width: 800,
+      height: 600,
+      caption: 'Medical ID flow focused on high-priority emergency fields.',
+    },
+    {
+      src: '/Portfolio Assets/Work/MMD/ChatMockup.png',
+      alt: 'AI chat interface mockup with health question and contextual response.',
+      width: 800,
+      height: 600,
+      caption: 'AI chat concept using answer, context, and next-step framing.',
+    },
+  ],
+  outcomes: {
+    intro:
+      'During this phase, outcomes are a mix of shipped scope and validated proxy signals while product analytics coverage expands.',
+    metrics: [
+      {
+        type: 'Measured',
+        value: '3 core flows',
+        label: 'Designed and shipped/prototyped in one delivery window',
+        context:
+          'Onboarding, Medical ID, and AI chat were completed between January-April 2025 across product workstreams.',
+      },
+      {
+        type: 'Proxy',
+        value: '1 shared system',
+        label: 'App and website language aligned',
+        context:
+          'Component behavior, copy tone, and visual hierarchy were synchronized across product and web touchpoints in Q1 2025.',
+      },
+      {
+        type: 'Proxy',
+        value: 'Trust-first feedback',
+        label: 'Clarity improved in stakeholder and usability reviews',
+        context:
+          'Review sessions consistently flagged onboarding clarity and emergency information readability as stronger in the updated flows.',
+      },
+    ],
+    note:
+      'Note: Activation, completion, and retention events are being instrumented; this case study intentionally labels current evidence as measured or proxy.',
+  },
+  nextImprovements: [
+    'Instrument onboarding and Medical ID funnels to quantify completion and drop-off by step.',
+    'Run larger external validation on AI response comprehension beyond internal/stakeholder reviews.',
+    'Add dedicated accessibility stress-testing for dynamic type, screen readers, and low-attention emergency use.',
+  ],
+}
 
 export default function MyMedicalDataPage() {
-  const { theme } = useTheme()
-  const { ref: onboardingRef, isVisible: onboardingVisible } = useScrollAnimation({ threshold: 0.1, triggerOnce: true, delay: 100 })
-  const { ref: medicalIdRef, isVisible: medicalIdVisible } = useScrollAnimation({ threshold: 0.1, triggerOnce: true, delay: 200 })
-  const { ref: aiChatRef, isVisible: aiChatVisible } = useScrollAnimation({ threshold: 0.1, triggerOnce: true, delay: 300 })
-  const { ref: websiteRef, isVisible: websiteVisible } = useScrollAnimation({ threshold: 0.1, triggerOnce: true, delay: 400 })
-
-  return (
-    <main className="pt-16 md:pt-20 min-h-screen bg-transparent relative">
-      <div className="max-w-6xl mx-auto px-6 sm:px-8 lg:px-12 py-8 md:py-12">
-        <div className="flex flex-col md:flex-row gap-12">
-          {/* Left sidebar navigation */}
-          <WorkPageNav sections={sections} />
-          
-          {/* Main content */}
-          <div className="flex-1 min-w-0">
-            <div className="flex items-start justify-between mb-8 md:pt-2">
-              <Link
-                href="/#work"
-                className={`inline-flex items-center gap-2 transition-colors ${
-                  theme === 'light'
-                    ? 'text-gray-500 hover:text-gray-900'
-                    : 'text-gray-400 hover:text-white'
-                }`}
-              >
-                ← Back to Work
-              </Link>
-              <a 
-                href="https://www.mymedicaldata.se/" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className={`inline-block px-6 py-3 rounded-full text-sm font-medium transition-all duration-200 cursor-pointer ${
-                  theme === 'light'
-                    ? 'border border-gray-300 hover:border-gray-600 text-gray-900 hover:bg-gray-200/50 hover:text-gray-800'
-                    : 'border border-gray-600 hover:border-gray-500 text-white hover:bg-gray-700/20 hover:text-gray-200'
-                }`}
-              >
-                Visit website
-              </a>
-            </div>
-            
-            {/* Overview Section */}
-            <section id="overview" className="scroll-mt-20 mb-16">
-            <div className="mb-12">
-              <p className="text-sm text-gray-400 text-gray-500 mb-4">About the project</p>
-              <h1 className="text-3xl md:text-4xl font-bold mb-8 text-white text-gray-900 leading-tight">
-                Product designer at MyMedicalData, designing for new app and website.
-              </h1>
-              
-              <div className="space-y-8">
-                {/* Description */}
-                <div className="space-y-4">
-                  <div className="text-gray-600 dark:text-gray-200 leading-relaxed space-y-4">
-                    <p>
-                      At My Medical Data, I am leading the design of Hälsa+, a health-focused mobile app, while also 
-                      contributing to its development alongside the team. As the sole designer, I am responsible for UX 
-                      and UI design, ensuring a seamless and engaging user experience while collaborating closely with 
-                      developers and stakeholders.
-                    </p>
-                    <p>
-                      A key part of my work has been designing an AI chat function, optimizing interactions for usability 
-                      and smooth integration.
-                    </p>
-                    <p>
-                      This role has given me valuable experience in refining digital products, problem-solving, and bridging 
-                      design with development.
-                    </p>
-                  </div>
-                </div>
-                
-                {/* Details */}
-                <div className="space-y-4">
-                  <div className="flex flex-col md:flex-row gap-6 md:gap-8">
-                    <div className="flex-1">
-                      <p className="text-sm text-gray-400 text-gray-500 mb-1">Role:</p>
-                      <p className="text-white text-gray-900">UX/UI Design & Frontend Development</p>
-                    </div>
-                    <div className="flex-1">
-                      <p className="text-sm text-gray-400 text-gray-500 mb-1">Company:</p>
-                      <p className="text-white text-gray-900">MyMedicalData</p>
-                    </div>
-                    <div className="flex-1">
-                      <p className="text-sm text-gray-400 text-gray-500 mb-1">Period:</p>
-                      <p className="text-white text-gray-900">Jan 2025 - Present</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="relative w-full max-w-3xl mx-auto max-h-[600px] overflow-hidden rounded-xl mb-12">
-              <Image
-                src="/Portfolio Assets/Work/MMD/MMDCover.png"
-                alt="My Medical Data Cover"
-                width={1200}
-                height={800}
-                className="w-full h-auto object-contain rounded-xl"
-                sizes="(max-width: 768px) 100vw, 1200px"
-              />
-            </div>
-          </section>
-
-          {/* Onboarding Section */}
-          <section ref={onboardingRef} id="onboarding" className={`scroll-mt-20 mb-16 transition-all duration-700 ${onboardingVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-            <h2 className="text-2xl md:text-3xl font-bold mb-6 text-white text-gray-900">Onboarding Flow</h2>
-            <div className="text-gray-600 dark:text-gray-200 leading-relaxed space-y-4 mb-6">
-              <p>
-                I redesigned the onboarding flow for our app to make it feel more familiar and intuitive, especially for 
-                users coming from similar apps. The previous flow worked but felt a bit off, and the BankID login, which 
-                is the main sign-in method, looked almost inactive and didn't get the attention it needed.
-              </p>
-              <p>
-                We focused on bringing the BankID option to the forefront and aligning the overall flow with common patterns 
-                users recognize. I also made sure the design still reflected our brand while feeling more in line with what 
-                users expect. The result was a smoother onboarding experience that helped users get started faster and with 
-                less friction.
-              </p>
-            </div>
-            
-            <div className="flex flex-wrap gap-3 mb-6">
-              <span className="px-3 py-1 text-xs font-medium text-gray-500 dark:text-gray-400 bg-gray-200/70 dark:bg-transparent rounded-full border border-gray-300/70 dark:border-gray-700/50">Benchmarking to similar services</span>
-              <span className="px-3 py-1 text-xs font-medium text-gray-500 dark:text-gray-400 bg-gray-200/70 dark:bg-transparent rounded-full border border-gray-300/70 dark:border-gray-700/50">Design of flow and UI</span>
-              <span className="px-3 py-1 text-xs font-medium text-gray-500 dark:text-gray-400 bg-gray-200/70 dark:bg-transparent rounded-full border border-gray-300/70 dark:border-gray-700/50">Close collaboration to developers</span>
-              <span className="px-3 py-1 text-xs font-medium text-gray-500 dark:text-gray-400 bg-gray-200/70 dark:bg-transparent rounded-full border border-gray-300/70 dark:border-gray-700/50">Figma</span>
-              <span className="px-3 py-1 text-xs font-medium text-gray-500 dark:text-gray-400 bg-gray-200/70 dark:bg-transparent rounded-full border border-gray-300/70 dark:border-gray-700/50">UI Design</span>
-              <span className="px-3 py-1 text-xs font-medium text-gray-500 dark:text-gray-400 bg-gray-200/70 dark:bg-transparent rounded-full border border-gray-300/70 dark:border-gray-700/50">UX Design</span>
-              <span className="px-3 py-1 text-xs font-medium text-gray-500 dark:text-gray-400 bg-gray-200/70 dark:bg-transparent rounded-full border border-gray-300/70 dark:border-gray-700/50">Project Management</span>
-              <span className="px-3 py-1 text-xs font-medium text-gray-500 dark:text-gray-400 bg-gray-200/70 dark:bg-transparent rounded-full border border-gray-300/70 dark:border-gray-700/50">Cross Collaboration</span>
-            </div>
-
-            <div className="space-y-8">
-              <div>
-                <h3 className="text-lg font-semibold text-white text-gray-900 mb-4">Previous design for onboarding</h3>
-                <div className="relative w-full max-w-2xl mx-auto max-h-[500px] overflow-hidden rounded-xl">
-                  <Image
-                    src="/Portfolio Assets/Work/MMD/OldOnboarding.png"
-                    alt="Previous design for onboarding"
-                    width={800}
-                    height={600}
-                    className="w-full h-auto object-contain rounded-xl"
-                    sizes="(max-width: 768px) 100vw, 800px"
-                  />
-                </div>
-              </div>
-              <div>
-                <h3 className="text-lg font-semibold text-white text-gray-900 mb-4">Updated design for onboarding</h3>
-                <div className="relative w-full max-w-4xl mx-auto max-h-[600px] overflow-hidden rounded-xl">
-                  <Image
-                    src="/Portfolio Assets/Work/MMD/Future Design-App-Login Flow.png"
-                    alt="Updated design for onboarding"
-                    width={1200}
-                    height={800}
-                    className="w-full h-auto object-contain rounded-xl"
-                    sizes="(max-width: 768px) 100vw, 1200px"
-                  />
-                </div>
-              </div>
-            </div>
-          </section>
-
-          {/* Medical ID Section */}
-          <section ref={medicalIdRef} id="medical-id" className={`scroll-mt-20 mb-16 transition-all duration-700 ${medicalIdVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-            <h2 className="text-2xl md:text-3xl font-bold mb-6 text-white text-gray-900">Medical ID</h2>
-            <div className="text-gray-600 dark:text-gray-200 leading-relaxed space-y-4 mb-6">
-              <p>
-                I designed a Medical ID feature to give users quick access to important health information in emergencies. 
-                Through user research I learned what details matter most and how to show them clearly and simply.
-              </p>
-              <p>
-                In Figma I created an easy to read and edit interface focusing on accessibility with clear text and high 
-                contrast colors. I worked closely with developers and tested with users to make sure the feature was reliable 
-                and user friendly. The result is a Medical ID that helps users feel safer and more prepared.
-              </p>
-            </div>
-            
-            <div className="flex flex-wrap gap-3 mb-6">
-              <span className="px-3 py-1 text-xs font-medium text-gray-500 dark:text-gray-400 bg-gray-200/70 dark:bg-transparent rounded-full border border-gray-300/70 dark:border-gray-700/50">Research with healthcare professionals and potential users</span>
-              <span className="px-3 py-1 text-xs font-medium text-gray-500 dark:text-gray-400 bg-gray-200/70 dark:bg-transparent rounded-full border border-gray-300/70 dark:border-gray-700/50">Design of flow and UI</span>
-              <span className="px-3 py-1 text-xs font-medium text-gray-500 dark:text-gray-400 bg-gray-200/70 dark:bg-transparent rounded-full border border-gray-300/70 dark:border-gray-700/50">Close collaboration to developers</span>
-              <span className="px-3 py-1 text-xs font-medium text-gray-500 dark:text-gray-400 bg-gray-200/70 dark:bg-transparent rounded-full border border-gray-300/70 dark:border-gray-700/50">Figma</span>
-              <span className="px-3 py-1 text-xs font-medium text-gray-500 dark:text-gray-400 bg-gray-200/70 dark:bg-transparent rounded-full border border-gray-300/70 dark:border-gray-700/50">UI Design</span>
-              <span className="px-3 py-1 text-xs font-medium text-gray-500 dark:text-gray-400 bg-gray-200/70 dark:bg-transparent rounded-full border border-gray-300/70 dark:border-gray-700/50">UX Design</span>
-              <span className="px-3 py-1 text-xs font-medium text-gray-500 dark:text-gray-400 bg-gray-200/70 dark:bg-transparent rounded-full border border-gray-300/70 dark:border-gray-700/50">Project Management</span>
-              <span className="px-3 py-1 text-xs font-medium text-gray-500 dark:text-gray-400 bg-gray-200/70 dark:bg-transparent rounded-full border border-gray-300/70 dark:border-gray-700/50">Cross Collaboration</span>
-              <span className="px-3 py-1 text-xs font-medium text-gray-500 dark:text-gray-400 bg-gray-200/70 dark:bg-transparent rounded-full border border-gray-300/70 dark:border-gray-700/50">Research</span>
-            </div>
-
-            <div className="relative w-full max-w-2xl mx-auto max-h-[500px] overflow-hidden rounded-xl">
-              <Image
-                src="/Portfolio Assets/Work/MMD/Medical ID Flow.png"
-                alt="Medical ID Flow"
-                width={800}
-                height={600}
-                className="w-full h-auto object-contain rounded-xl"
-                sizes="(max-width: 768px) 100vw, 800px"
-              />
-            </div>
-          </section>
-
-          {/* AI Analysis Chat Section */}
-          <section ref={aiChatRef} id="ai-chat" className={`scroll-mt-20 mb-16 transition-all duration-700 ${aiChatVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-            <h2 className="text-2xl md:text-3xl font-bold mb-6 text-white text-gray-900">AI Analysis Chat</h2>
-            <div className="text-gray-600 dark:text-gray-200 leading-relaxed space-y-4 mb-6">
-              <p>
-                I designed the AI chat feature to provide users with a seamless way to check their health status and 
-                specific metrics by interacting with a trained model. The chat interface was crafted to feel intuitive 
-                and accessible, allowing users to ask questions and receive insights based on their personal health data. 
-                This included information pulled from wearable devices, medical records, and vaccination history.
-              </p>
-              <p>
-                A key focus was ensuring clarity in responses, balancing automation with transparency so users could 
-                understand the AI's recommendations and data sources. I explored different interaction models, including 
-                conversational flows that guide users in refining their queries and visual elements that present key metrics 
-                in an easy-to-read format. By prioritizing usability, I aimed to create a chat experience that feels both 
-                intelligent and user-friendly, making health tracking more engaging and accessible.
-              </p>
-            </div>
-            
-            <div className="flex flex-wrap gap-3 mb-6">
-              <span className="px-3 py-1 text-xs font-medium text-gray-500 dark:text-gray-400 bg-gray-200/70 dark:bg-transparent rounded-full border border-gray-300/70 dark:border-gray-700/50">Benchmarking to similar services</span>
-              <span className="px-3 py-1 text-xs font-medium text-gray-500 dark:text-gray-400 bg-gray-200/70 dark:bg-transparent rounded-full border border-gray-300/70 dark:border-gray-700/50">Design of flow and UI</span>
-              <span className="px-3 py-1 text-xs font-medium text-gray-500 dark:text-gray-400 bg-gray-200/70 dark:bg-transparent rounded-full border border-gray-300/70 dark:border-gray-700/50">Close collaboration to developers</span>
-              <span className="px-3 py-1 text-xs font-medium text-gray-500 dark:text-gray-400 bg-gray-200/70 dark:bg-transparent rounded-full border border-gray-300/70 dark:border-gray-700/50">Figma</span>
-              <span className="px-3 py-1 text-xs font-medium text-gray-500 dark:text-gray-400 bg-gray-200/70 dark:bg-transparent rounded-full border border-gray-300/70 dark:border-gray-700/50">UI Design</span>
-              <span className="px-3 py-1 text-xs font-medium text-gray-500 dark:text-gray-400 bg-gray-200/70 dark:bg-transparent rounded-full border border-gray-300/70 dark:border-gray-700/50">UX Design</span>
-              <span className="px-3 py-1 text-xs font-medium text-gray-500 dark:text-gray-400 bg-gray-200/70 dark:bg-transparent rounded-full border border-gray-300/70 dark:border-gray-700/50">Project Management</span>
-              <span className="px-3 py-1 text-xs font-medium text-gray-500 dark:text-gray-400 bg-gray-200/70 dark:bg-transparent rounded-full border border-gray-300/70 dark:border-gray-700/50">Cross Collaboration</span>
-            </div>
-
-            <div className="relative w-full max-w-2xl mx-auto max-h-[500px] overflow-hidden rounded-xl">
-              <Image
-                src="/Portfolio Assets/Work/MMD/ChatMockup.png"
-                alt="AI Analysis Chat"
-                width={800}
-                height={600}
-                className="w-full h-auto object-contain rounded-xl"
-                sizes="(max-width: 768px) 100vw, 800px"
-              />
-            </div>
-          </section>
-
-          {/* Building the website Section */}
-          <section ref={websiteRef} id="website" className={`scroll-mt-20 mb-16 transition-all duration-700 ${websiteVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-            <h2 className="text-2xl md:text-3xl font-bold mb-6 text-white text-gray-900">Building the website</h2>
-            <div className="text-gray-600 dark:text-gray-200 leading-relaxed space-y-4 mb-6">
-              <p>
-                I designed the AI chat feature to provide users with a seamless way to check their health status and 
-                specific metrics by interacting with a trained model. The chat interface was crafted to feel intuitive 
-                and accessible, allowing users to ask questions and receive insights based on their personal health data. 
-                This included information pulled from wearable devices, medical records, and vaccination history.
-              </p>
-              <p>
-                A key focus was ensuring clarity in responses, balancing automation with transparency so users could 
-                understand the AI's recommendations and data sources. I explored different interaction models, including 
-                conversational flows that guide users in refining their queries and visual elements that present key metrics 
-                in an easy-to-read format. By prioritizing usability, I aimed to create a chat experience that feels both 
-                intelligent and user-friendly, making health tracking more engaging and accessible.
-              </p>
-            </div>
-            
-            <div className="flex flex-wrap gap-3 mb-6">
-              <span className="px-3 py-1 text-xs font-medium text-gray-500 dark:text-gray-400 bg-gray-200/70 dark:bg-transparent rounded-full border border-gray-300/70 dark:border-gray-700/50">Benchmarking to similar services</span>
-              <span className="px-3 py-1 text-xs font-medium text-gray-500 dark:text-gray-400 bg-gray-200/70 dark:bg-transparent rounded-full border border-gray-300/70 dark:border-gray-700/50">Design of flow and UI</span>
-              <span className="px-3 py-1 text-xs font-medium text-gray-500 dark:text-gray-400 bg-gray-200/70 dark:bg-transparent rounded-full border border-gray-300/70 dark:border-gray-700/50">Close collaboration to developers</span>
-              <span className="px-3 py-1 text-xs font-medium text-gray-500 dark:text-gray-400 bg-gray-200/70 dark:bg-transparent rounded-full border border-gray-300/70 dark:border-gray-700/50">Figma</span>
-              <span className="px-3 py-1 text-xs font-medium text-gray-500 dark:text-gray-400 bg-gray-200/70 dark:bg-transparent rounded-full border border-gray-300/70 dark:border-gray-700/50">UI Design</span>
-              <span className="px-3 py-1 text-xs font-medium text-gray-500 dark:text-gray-400 bg-gray-200/70 dark:bg-transparent rounded-full border border-gray-300/70 dark:border-gray-700/50">UX Design</span>
-              <span className="px-3 py-1 text-xs font-medium text-gray-500 dark:text-gray-400 bg-gray-200/70 dark:bg-transparent rounded-full border border-gray-300/70 dark:border-gray-700/50">Project Management</span>
-              <span className="px-3 py-1 text-xs font-medium text-gray-500 dark:text-gray-400 bg-gray-200/70 dark:bg-transparent rounded-full border border-gray-300/70 dark:border-gray-700/50">Cross Collaboration</span>
-            </div>
-
-            <div className="relative w-full max-w-3xl mx-auto max-h-[900px] overflow-hidden rounded-xl group">
-              <a 
-                href="https://www.mymedicaldata.se/" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="block relative"
-              >
-                <Image
-                  src="/Portfolio Assets/Work/MMD/WebsiteHero.png"
-                  alt="MyMedicalData Website"
-                  width={1200}
-                  height={800}
-                  className="w-full h-auto object-contain rounded-xl transition-opacity group-hover:opacity-80"
-                  sizes="(max-width: 768px) 100vw, 1200px"
-                />
-                <div className="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity rounded-xl">
-                  <span className="text-white font-medium px-4 py-2 border border-white/30 rounded-lg">Visit website</span>
-                </div>
-              </a>
-            </div>
-          </section>
-          </div>
-        </div>
-      </div>
-    </main>
-  )
+  return <CaseStudyPage caseStudy={myMedicalDataCaseStudy} />
 }

@@ -27,17 +27,17 @@ export default function Hero() {
         <h1 className={`text-6xl md:text-7xl lg:text-8xl font-bold mb-2 md:mb-6 leading-tight tracking-tight text-center ${
           theme === 'light' ? 'text-gray-900' : 'text-white'
         }`}>
-          <div className="inline-block" style={{ marginLeft: '-8%' }}>CREATIVE</div>
+          <div className="inline-block" style={{ marginLeft: '-8%' }}>PRODUCT</div>
           <br />
-          <div className="inline-block" style={{ marginRight: '-8%' }}>PRODUCT</div>
+          <div className="inline-block" style={{ marginRight: '-8%' }}>DESIGNER</div>
           <br />
-          <div>DESIGNER</div>
+          <div>&amp; BUILDER</div>
         </h1>
         
         <p className={`text-lg md:text-xl mb-2 md:mb-6 max-w-2xl mx-auto leading-relaxed text-center ${
           theme === 'light' ? 'text-gray-600' : 'text-gray-300'
         }`}>
-          Hello there, I'm Samuel - I design web and mobile apps that are user-friendly, beautiful & convert your target audience.
+          I&apos;m Samuel Oldmark, a Stockholm-based product designer who combines UX/UI craft with frontend fluency to turn complex ideas into shipped web and mobile products people trust.
         </p>
 
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-6 md:mb-6">
@@ -107,4 +107,3 @@ export default function Hero() {
     </section>
   )
 }
-
