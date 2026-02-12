@@ -35,16 +35,15 @@ const recommendations: Recommendation[] = [
     footnote: 'Quote translated from Swedish.',
   },
   {
-    id: 'lina-berg-mock',
+    id: 'praveen-natarajan',
     quote:
-      '“Samuel combines strong product thinking with execution speed. In our collaboration, he quickly turned ambiguous requirements into structured flows and polished UI that engineering could implement without friction. He raises both the quality bar and team momentum.”',
-    meta: 'October 14, 2025 · Lina collaborated cross-functionally with Samuel',
-    author: 'Lina Berg',
-    role: 'Product Manager · Digital Health',
-    initials: 'LB',
-    linkedinHref: 'https://www.linkedin.com/',
-    footnote: 'Portfolio sample recommendation.',
-    isMock: true,
+      '“I have worked with Samuel for a little over a year and he\'s extremely professional and has a very keen eye to detail. He also comes up with creative yet very practical ways to solve UX issues and has the user in mind while doing so. Samuel is also very flexible in accommodating changes and also very agile in coming up with alternative solutions when one solution doesn\'t work. He\'s an asset to any organization and will contribute immensely to them.”',
+    meta: 'February 11, 2026 · Praveen partnered cross-functionally with Samuel as a product manager',
+    author: 'Praveen Natarajan',
+    role: 'COO @ Nytt IQ | Process Improvement, Industrial Technology',
+    initials: 'PN',
+    linkedinHref: 'https://www.linkedin.com/in/praveen-natarajan/',
+    footnote: 'Original quote in English.',
   },
 ]
 
