@@ -41,6 +41,8 @@ const recommendations: Recommendation[] = [
     meta: 'February 11, 2026 · Praveen partnered cross-functionally with Samuel as a product manager',
     author: 'Praveen Natarajan',
     role: 'COO @ Nytt IQ | Process Improvement, Industrial Technology',
+    imageSrc: '/Portfolio Assets/Recommendations/Praveen.png',
+    imageAlt: 'Portrait of Praveen Natarajan',
     initials: 'PN',
     linkedinHref: 'https://www.linkedin.com/in/praveen-natarajan/',
     footnote: 'Original quote in English.',
