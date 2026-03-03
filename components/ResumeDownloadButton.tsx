@@ -4,21 +4,16 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import { useTheme } from '@/contexts/ThemeContext'
 
 type ResumeOption = {
-  id: 'product-ui' | 'web-ui'
+  id: 'product-designer'
   label: string
   href: string
 }
 
 const RESUME_OPTIONS: ResumeOption[] = [
   {
-    id: 'product-ui',
-    label: 'Product & UI',
-    href: '/Portfolio%20Assets/Resumes/Samuel-Oldmark-Resume-Product-UI.docx',
-  },
-  {
-    id: 'web-ui',
-    label: 'Web & UI',
-    href: '/Portfolio%20Assets/Resumes/Samuel-Oldmark-Resume-Web-UI.docx',
+    id: 'product-designer',
+    label: 'Product Designer',
+    href: '/Portfolio%20Assets/Resumes/Samuel-Oldmark-Product-Designer-CV.pdf',
   },
 ]
 
@@ -26,7 +21,7 @@ export default function ResumeDownloadButton() {
   const { theme } = useTheme()
   const [isScrolled, setIsScrolled] = useState(false)
   const [isOpen, setIsOpen] = useState(false)
-  const [selectedIds, setSelectedIds] = useState<Array<ResumeOption['id']>>(['product-ui'])
+  const [selectedIds, setSelectedIds] = useState<Array<ResumeOption['id']>>(['product-designer'])
   const rootRef = useRef<HTMLDivElement | null>(null)
 
   useEffect(() => {
@@ -91,10 +86,12 @@ export default function ResumeDownloadButton() {
     const selectedOptions = RESUME_OPTIONS.filter((option) => selectedIds.includes(option.id))
     if (!selectedOptions.length) return
 
-    for (const option of selectedOptions) {
+    const uniqueHrefs = Array.from(new Set(selectedOptions.map((option) => option.href)))
+
+    for (const href of uniqueHrefs) {
       const anchor = document.createElement('a')
-      anchor.href = option.href
-      anchor.download = option.href.split('/').pop() || ''
+      anchor.href = href
+      anchor.download = href.split('/').pop() || ''
       anchor.rel = 'noopener'
       document.body.appendChild(anchor)
       anchor.click()

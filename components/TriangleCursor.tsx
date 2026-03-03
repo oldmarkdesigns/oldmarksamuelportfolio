@@ -69,7 +69,7 @@ export default function TriangleCursor() {
 
     const tick = () => {
       const now = performance.now()
-      const follow = 0.32
+      const follow = 0.58
 
       current.x += (target.x - current.x) * follow
       current.y += (target.y - current.y) * follow
@@ -93,8 +93,8 @@ export default function TriangleCursor() {
       const velocityX = target.x - current.x
       const velocityY = target.y - current.y
       const velocity = Math.min(Math.hypot(velocityX, velocityY), 16)
-      const scale = 0.998 + (velocity / 16) * 0.005
-      const rotate = -68 + Math.max(-1, Math.min(1, velocityY * 0.03))
+      const scale = 1 + (velocity / 16) * 0.0012
+      const rotate = -68 + Math.max(-0.25, Math.min(0.25, velocityY * 0.01))
 
       cursor.style.transform = `translate3d(${current.x}px, ${current.y}px, 0) translate(-3px, -4px) rotate(${rotate}deg) scale(${scale})`
       cursor.style.opacity = opacity.toFixed(3)
