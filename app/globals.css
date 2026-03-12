@@ -1321,6 +1321,10 @@ a {
   gap: var(--cs-space-4);
 }
 
+.cs-decision-media {
+  margin-top: var(--cs-space-4);
+}
+
 .cs-before-after {
   display: grid;
   gap: var(--cs-space-5);

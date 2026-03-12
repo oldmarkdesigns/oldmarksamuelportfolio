@@ -61,6 +61,13 @@ const hypertypeCaseStudy: CaseStudyData = {
         'The original sequence moved users directly into prompts without enough orientation, increasing confusion risk.',
       result:
         'The redesigned flow better supports comprehension and progression clarity, which is a conversion proxy for early activation quality.',
+      image: {
+        src: '/Portfolio Assets/Work/Hypertype/Get Started Hifi.png',
+        alt: 'Get Started high-fidelity flow with clearer first-step framing.',
+        width: 800,
+        height: 600,
+        caption: 'Outcome: stronger first-step orientation before entering question flows.',
+      },
     },
     {
       title: 'Use locked-feature visibility as a value signal',
@@ -70,6 +77,13 @@ const hypertypeCaseStudy: CaseStudyData = {
         'Users need to see premium value in-context before considering an upgrade decision.',
       result:
         'Upgrade pathways are now embedded in usage context rather than isolated in pricing-only moments (proxy improvement).',
+      image: {
+        src: '/Portfolio Assets/Work/Hypertype/Locked Feature.png',
+        alt: 'Dashboard with premium-locked feature visibility.',
+        width: 800,
+        height: 600,
+        caption: 'Outcome: in-context premium signaling without blocking core free tasks.',
+      },
     },
     {
       title: 'Design connected support flows instead of a single-page redesign',
@@ -79,6 +93,13 @@ const hypertypeCaseStudy: CaseStudyData = {
         'Conversion friction usually appears across transitions, not only on a single screen.',
       result:
         'The concept now presents a consistent value narrative from onboarding through plan evaluation.',
+      image: {
+        src: '/Portfolio Assets/Work/Hypertype/Help Center Design.png',
+        alt: 'Help Center redesign aligned with activation journey.',
+        width: 800,
+        height: 600,
+        caption: 'Outcome: connected support surface aligned with activation and conversion flow.',
+      },
     },
   ],
   beforeAfter: {

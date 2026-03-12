@@ -64,6 +64,13 @@ const bontouchCaseStudy: CaseStudyData = {
         'The app had low ratings and limited direct feedback loops, which made quality improvements harder to prioritize.',
       result:
         'From November 2023 to May 2024, rating moved from 2.4 to 4.7. This is a correlated outcome alongside other product updates, not a single-feature claim.',
+      image: {
+        src: '/Portfolio Assets/Work/Bontouch/Assets/App Rating.png',
+        alt: 'App rating trend showing improved score during internship period.',
+        width: 800,
+        height: 600,
+        caption: 'Outcome: rating trend improvement during the internship timeframe.',
+      },
     },
     {
       title: 'Rewrite onboarding for readability and retention',
@@ -73,6 +80,13 @@ const bontouchCaseStudy: CaseStudyData = {
         'Existing onboarding was hard to scan, and user feedback indicated poor recall after completion.',
       result:
         'In moderated sessions (n=6), 5/6 users recalled key information and 6/6 said the content amount felt manageable after the redesign.',
+      image: {
+        src: '/Portfolio Assets/Work/Bontouch/Assets/Onboarding.png',
+        alt: 'Redesigned onboarding screens with improved pacing and hierarchy.',
+        width: 800,
+        height: 600,
+        caption: 'Outcome: redesigned onboarding with stronger readability and flow.',
+      },
     },
     {
       title: 'Restructure components to reduce visual drift',
@@ -82,6 +96,13 @@ const bontouchCaseStudy: CaseStudyData = {
         'Legacy files had inconsistent construction, making updates slow and increasing mismatch risk between screens.',
       result:
         'Design updates became easier to maintain in final internship deliverables, and stakeholders received a more coherent modernization proposal (delivery proxy).',
+      image: {
+        src: '/Portfolio Assets/Work/Bontouch/Assets/DesignSystem.png',
+        alt: 'Design system board with cleaned component structure and patterns.',
+        width: 1200,
+        height: 800,
+        caption: 'Outcome: cleaner component system proposal for consistent updates.',
+      },
     },
   ],
   beforeAfter: {

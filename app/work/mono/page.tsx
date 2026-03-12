@@ -74,6 +74,13 @@ const monoCaseStudy: CaseStudyData = {
         'Different users start differently. Some need immediate structure, others want full control from the first click.',
       result:
         'Mono supports both starting behaviors without forking into separate products or inconsistent data models.',
+      image: {
+        src: '/Portfolio Assets/Work/Mono/designsystems-createfromscratch-state.png',
+        alt: 'Create-from-scratch entry path in Mono.',
+        width: 1886,
+        height: 929,
+        caption: 'Outcome: manual first-step path with clear structure and control.',
+      },
     },
     {
       title: 'Make code import transparent and staged',
@@ -83,6 +90,13 @@ const monoCaseStudy: CaseStudyData = {
         'A single spinner hides what is happening and reduces trust in AI-assisted setup.',
       result:
         'The flow communicates system behavior clearly and creates a ready pattern for future real backend processing.',
+      image: {
+        src: '/Portfolio Assets/Work/Mono/importfromcode.png',
+        alt: 'Import from Code screen with multiple source options.',
+        width: 1886,
+        height: 929,
+        caption: 'Outcome: staged import flow with explicit system progress visibility.',
+      },
     },
     {
       title: 'Treat editing surfaces as first-class product modules',
@@ -92,6 +106,13 @@ const monoCaseStudy: CaseStudyData = {
         'Focused surfaces reduce cognitive load and make progression through setup/editing clearer.',
       result:
         'The concept demonstrates a modular editing system that feels navigable and scalable as feature depth grows.',
+      image: {
+        src: '/Portfolio Assets/Work/Mono/componentbuilder.png',
+        alt: 'Component Builder screen as a dedicated editing module in Mono.',
+        width: 1886,
+        height: 929,
+        caption: 'Outcome: modular editing surfaces that scale beyond a single overloaded panel.',
+      },
     },
   ],
   beforeAfter: {

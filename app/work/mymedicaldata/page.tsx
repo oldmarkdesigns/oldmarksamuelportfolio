@@ -63,6 +63,13 @@ const myMedicalDataCaseStudy: CaseStudyData = {
         'The previous flow made secure sign-in feel secondary, creating hesitation at the point where trust should increase.',
       result:
         'Post-redesign walkthroughs showed cleaner completion behavior with fewer clarifying questions about how to start (qualitative proxy while funnel analytics matures).',
+      image: {
+        src: '/Portfolio Assets/Work/MMD/Future Design-App-Login Flow.png',
+        alt: 'Updated onboarding flow with BankID-first hierarchy.',
+        width: 1200,
+        height: 800,
+        caption: 'Outcome: onboarding flow with secure sign-in emphasized first.',
+      },
     },
     {
       title: 'Design Medical ID for emergency-time scanning',
@@ -72,6 +79,13 @@ const myMedicalDataCaseStudy: CaseStudyData = {
         'Emergency scenarios demand fast comprehension; dense layouts fail when users or caregivers are under stress.',
       result:
         'The resulting information hierarchy became the reference model for implementation and stakeholder sign-off of emergency data presentation.',
+      image: {
+        src: '/Portfolio Assets/Work/MMD/Medical ID Flow.png',
+        alt: 'Medical ID flow screens with emergency fields prioritized.',
+        width: 800,
+        height: 600,
+        caption: 'Outcome: emergency-first Medical ID hierarchy for faster scanning.',
+      },
     },
     {
       title: 'Add transparency patterns to AI chat responses',
@@ -81,6 +95,13 @@ const myMedicalDataCaseStudy: CaseStudyData = {
         'Health-related AI needs explicit guardrails to avoid black-box behavior and reduce over-trust.',
       result:
         'Prototype reviews reported stronger confidence in response clarity, and the pattern is now used as the baseline for follow-up chat scenarios (proxy outcome).',
+      image: {
+        src: '/Portfolio Assets/Work/MMD/ChatMockup.png',
+        alt: 'AI chat interface showing answer, context, and next-step structure.',
+        width: 800,
+        height: 600,
+        caption: 'Outcome: transparent AI response structure with clearer guidance framing.',
+      },
     },
   ],
   beforeAfter: {

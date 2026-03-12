@@ -26,6 +26,7 @@ interface DecisionItem {
   decision: string
   why: string
   result: string
+  image?: CaseStudyImage
 }
 
 interface OwnershipModel {
@@ -93,7 +94,6 @@ interface CaseStudyPageProps {
 
 export default function CaseStudyPage({ caseStudy }: CaseStudyPageProps) {
   const { theme } = useTheme()
-  const isSingleColumnMedia = caseStudy.mediaLayout === 'single-column'
   const imageQuality = caseStudy.imageQuality ?? 85
   const sections = useMemo(
     () => [
@@ -340,77 +340,25 @@ export default function CaseStudyPage({ caseStudy }: CaseStudyPageProps) {
                         <dd className="cs-copy">{item.result}</dd>
                       </div>
                     </dl>
+                    {item.image ? (
+                      <figure className="cs-decision-media">
+                        <div className="cs-media-frame">
+                          <Image
+                            src={item.image.src}
+                            alt={item.image.alt}
+                            width={item.image.width}
+                            height={item.image.height}
+                            className="cs-media-image"
+                            quality={imageQuality}
+                            sizes="(max-width: 1024px) 100vw, 760px"
+                          />
+                          {item.image.caption ? <figcaption className="cs-caption">{item.image.caption}</figcaption> : null}
+                        </div>
+                      </figure>
+                    ) : null}
                   </article>
                 ))}
               </div>
-
-              <figure className="cs-before-after">
-                <h3 className="cs-card-title">{caseStudy.beforeAfter.title}</h3>
-                {caseStudy.beforeAfter.description ? <p className="cs-copy">{caseStudy.beforeAfter.description}</p> : null}
-                <div className={`cs-before-after-grid ${isSingleColumnMedia ? 'is-single-column' : ''}`}>
-                  <div className="cs-media-panel">
-                    <p className="cs-media-label">Before</p>
-                    <div className="cs-media-frame">
-                      <Image
-                        src={caseStudy.beforeAfter.before.src}
-                        alt={caseStudy.beforeAfter.before.alt}
-                        width={caseStudy.beforeAfter.before.width}
-                        height={caseStudy.beforeAfter.before.height}
-                        className="cs-media-image"
-                        quality={imageQuality}
-                        sizes={isSingleColumnMedia ? '(max-width: 1024px) 100vw, 760px' : '(max-width: 1024px) 100vw, 360px'}
-                      />
-                      {caseStudy.beforeAfter.before.caption ? (
-                        <figcaption className="cs-caption">{caseStudy.beforeAfter.before.caption}</figcaption>
-                      ) : null}
-                    </div>
-                  </div>
-                  <div className="cs-media-panel">
-                    <p className="cs-media-label">After</p>
-                    <div className="cs-media-frame">
-                      <Image
-                        src={caseStudy.beforeAfter.after.src}
-                        alt={caseStudy.beforeAfter.after.alt}
-                        width={caseStudy.beforeAfter.after.width}
-                        height={caseStudy.beforeAfter.after.height}
-                        className="cs-media-image"
-                        quality={imageQuality}
-                        sizes={isSingleColumnMedia ? '(max-width: 1024px) 100vw, 760px' : '(max-width: 1024px) 100vw, 360px'}
-                      />
-                      {caseStudy.beforeAfter.after.caption ? (
-                        <figcaption className="cs-caption">{caseStudy.beforeAfter.after.caption}</figcaption>
-                      ) : null}
-                    </div>
-                  </div>
-                </div>
-                <div className="cs-callout">
-                  <p className="cs-label">Annotations</p>
-                  <ul className="cs-list cs-list-compact">
-                    {caseStudy.beforeAfter.annotations.map((annotation) => (
-                      <li key={annotation}>{annotation}</li>
-                    ))}
-                  </ul>
-                </div>
-              </figure>
-
-              {caseStudy.supportingVisuals && caseStudy.supportingVisuals.length > 0 ? (
-                <div className={`cs-visual-grid ${isSingleColumnMedia ? 'is-single-column' : ''}`}>
-                  {caseStudy.supportingVisuals.map((visual) => (
-                    <figure key={visual.src} className="cs-media-frame">
-                      <Image
-                        src={visual.src}
-                        alt={visual.alt}
-                        width={visual.width}
-                        height={visual.height}
-                        className="cs-media-image"
-                        quality={imageQuality}
-                        sizes={isSingleColumnMedia ? '(max-width: 1024px) 100vw, 760px' : '(max-width: 1024px) 100vw, 360px'}
-                      />
-                      {visual.caption ? <figcaption className="cs-caption">{visual.caption}</figcaption> : null}
-                    </figure>
-                  ))}
-                </div>
-              ) : null}
             </section>
 
             <section id="outcomes" className="cs-section cs-section-divider">
