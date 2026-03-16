@@ -340,7 +340,51 @@ export default function CaseStudyPage({ caseStudy }: CaseStudyPageProps) {
                         <dd className="cs-copy">{item.result}</dd>
                       </div>
                     </dl>
-                    {item.image ? (
+                    {index === 0 ? (
+                      <article className="cs-before-after">
+                        <div className="cs-before-after-grid">
+                          <figure className="cs-media-panel">
+                            <p className="cs-media-label">Before</p>
+                            <div className="cs-media-frame">
+                              <Image
+                                src={caseStudy.beforeAfter.before.src}
+                                alt={caseStudy.beforeAfter.before.alt}
+                                width={caseStudy.beforeAfter.before.width}
+                                height={caseStudy.beforeAfter.before.height}
+                                className="cs-media-image"
+                                quality={imageQuality}
+                                sizes="(max-width: 1024px) 100vw, 760px"
+                              />
+                              {caseStudy.beforeAfter.before.caption ? (
+                                <figcaption className="cs-caption">{caseStudy.beforeAfter.before.caption}</figcaption>
+                              ) : null}
+                            </div>
+                          </figure>
+                          <figure className="cs-media-panel">
+                            <p className="cs-media-label">After</p>
+                            <div className="cs-media-frame">
+                              <Image
+                                src={caseStudy.beforeAfter.after.src}
+                                alt={caseStudy.beforeAfter.after.alt}
+                                width={caseStudy.beforeAfter.after.width}
+                                height={caseStudy.beforeAfter.after.height}
+                                className="cs-media-image"
+                                quality={imageQuality}
+                                sizes="(max-width: 1024px) 100vw, 760px"
+                              />
+                              {caseStudy.beforeAfter.after.caption ? (
+                                <figcaption className="cs-caption">{caseStudy.beforeAfter.after.caption}</figcaption>
+                              ) : null}
+                            </div>
+                          </figure>
+                        </div>
+                        <ul className="cs-list cs-list-compact">
+                          {caseStudy.beforeAfter.annotations.map((annotation) => (
+                            <li key={annotation}>{annotation}</li>
+                          ))}
+                        </ul>
+                      </article>
+                    ) : item.image ? (
                       <figure className="cs-decision-media">
                         <div className="cs-media-frame">
                           <Image
