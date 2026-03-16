@@ -62,13 +62,13 @@ const myMedicalDataCaseStudy: CaseStudyData = {
       why:
         'The previous flow made secure sign-in feel secondary, creating hesitation at the point where trust should increase.',
       result:
-        'Post-redesign walkthroughs showed cleaner completion behavior with fewer clarifying questions about how to start (qualitative proxy while funnel analytics matures).',
+        'The updated onboarding now introduces core features step by step, so users finish setup with clearer understanding of what the app offers and how to use it.',
       image: {
-        src: '/Portfolio Assets/Work/MMD/Future Design-App-Login Flow.png',
-        alt: 'Updated onboarding flow with BankID-first hierarchy.',
-        width: 1200,
-        height: 800,
-        caption: 'Outcome: onboarding flow with secure sign-in emphasized first.',
+        src: '/Portfolio Assets/Work/MMD/OnboardingFlow.png',
+        alt: 'Onboarding flow showing progressive feature and information reveal across steps.',
+        width: 2610,
+        height: 1431,
+        caption: 'Progressive onboarding: each step adds key information and product features before first use.',
       },
     },
     {

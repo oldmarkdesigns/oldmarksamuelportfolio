@@ -383,6 +383,22 @@ export default function CaseStudyPage({ caseStudy }: CaseStudyPageProps) {
                             <li key={annotation}>{annotation}</li>
                           ))}
                         </ul>
+                        {item.image ? (
+                          <figure className="cs-decision-media">
+                            <div className="cs-media-frame">
+                              <Image
+                                src={item.image.src}
+                                alt={item.image.alt}
+                                width={item.image.width}
+                                height={item.image.height}
+                                className="cs-media-image"
+                                quality={imageQuality}
+                                sizes="(max-width: 1024px) 100vw, 760px"
+                              />
+                              {item.image.caption ? <figcaption className="cs-caption">{item.image.caption}</figcaption> : null}
+                            </div>
+                          </figure>
+                        ) : null}
                       </article>
                     ) : item.image ? (
                       <figure className="cs-decision-media">
