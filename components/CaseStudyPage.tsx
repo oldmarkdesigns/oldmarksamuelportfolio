@@ -27,6 +27,7 @@ interface DecisionItem {
   why: string
   result: string
   image?: CaseStudyImage
+  additionalImages?: CaseStudyImage[]
 }
 
 interface OwnershipModel {
@@ -416,6 +417,24 @@ export default function CaseStudyPage({ caseStudy }: CaseStudyPageProps) {
                         </div>
                       </figure>
                     ) : null}
+                    {index !== 0 && item.additionalImages?.length
+                      ? item.additionalImages.map((extraImage) => (
+                          <figure key={`${item.title}-${extraImage.src}`} className="cs-decision-media">
+                            <div className="cs-media-frame">
+                              <Image
+                                src={extraImage.src}
+                                alt={extraImage.alt}
+                                width={extraImage.width}
+                                height={extraImage.height}
+                                className="cs-media-image"
+                                quality={imageQuality}
+                                sizes="(max-width: 1024px) 100vw, 760px"
+                              />
+                              {extraImage.caption ? <figcaption className="cs-caption">{extraImage.caption}</figcaption> : null}
+                            </div>
+                          </figure>
+                        ))
+                      : null}
                   </article>
                 ))}
               </div>

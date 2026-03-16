@@ -56,13 +56,13 @@ const myMedicalDataCaseStudy: CaseStudyData = {
   },
   decisions: [
     {
-      title: 'Prioritize BankID as the primary onboarding action',
+      title: 'Combine BankID-first entry with feature-led onboarding',
       decision:
-        'I moved BankID to the most prominent position and simplified surrounding content so first-time users always saw the secure path immediately.',
+        'I redesigned onboarding so BankID is the primary first action, then structured the next steps to progressively introduce key app features and what each one is for.',
       why:
-        'The previous flow made secure sign-in feel secondary, creating hesitation at the point where trust should increase.',
+        'The previous flow made secure sign-in feel secondary and did not clearly explain product value early, so users lacked both trust cues and feature context during first use.',
       result:
-        'The updated onboarding now introduces core features step by step, so users finish setup with clearer understanding of what the app offers and how to use it.',
+        'The updated flow reduces hesitation at sign-in and gives users a clearer understanding of core features by the time onboarding is complete, improving readiness for first real use.',
       image: {
         src: '/Portfolio Assets/Work/MMD/OnboardingFlow.png',
         alt: 'Onboarding flow showing progressive feature and information reveal across steps.',
@@ -102,6 +102,15 @@ const myMedicalDataCaseStudy: CaseStudyData = {
         height: 600,
         caption: 'Outcome: transparent AI response structure with clearer guidance framing.',
       },
+      additionalImages: [
+        {
+          src: '/Portfolio Assets/Work/MMD/halsa-gpt.png',
+          alt: 'Halsa+ AI chat flow showing transparent health guidance and feature context.',
+          width: 4040,
+          height: 2148,
+          caption: 'Additional AI onboarding/chat flow for feature guidance and contextual responses.',
+        },
+      ],
     },
   ],
   beforeAfter: {
@@ -137,10 +146,10 @@ const myMedicalDataCaseStudy: CaseStudyData = {
       caption: 'Medical ID flow focused on high-priority emergency fields.',
     },
     {
-      src: '/Portfolio Assets/Work/MMD/ChatMockup.png',
-      alt: 'AI chat interface mockup with health question and contextual response.',
-      width: 800,
-      height: 600,
+      src: '/Portfolio Assets/Work/MMD/halsa-gpt.png',
+      alt: 'Halsa+ AI chat interface with contextual guidance and response framing.',
+      width: 4040,
+      height: 2148,
       caption: 'AI chat concept using answer, context, and next-step framing.',
     },
   ],
