@@ -18,7 +18,7 @@ const bontouchCaseStudy: CaseStudyData = {
     role: 'UX/UI Design Intern',
     timeline: 'November 2023 - May 2024 (5 months)',
     team:
-      'Mentored by a senior UX designer; collaborated with product owner, developers, and client stakeholders',
+      'Mentored by a senior UI designer; collaborated with product owner, developers, and client stakeholders',
     problem:
       'The app had weak ratings, onboarding readability issues, and inconsistent component usage that made updates slower and less coherent.',
     measurableOutcomes: [
