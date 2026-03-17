@@ -3,7 +3,7 @@ import CaseStudyPage, { CaseStudyData } from '@/components/CaseStudyPage'
 const bontouchCaseStudy: CaseStudyData = {
   title: 'Bontouch (Framna)',
   tagline:
-    'A five-month internship focused on improving onboarding clarity, introducing in-app review prompts, and strengthening design-system consistency.',
+    'A five-month internship focused on improving onboarding clarity, introducing in-app review prompts, and strengthening design-system consistency. My biggest takeaway was learning how to work in a professional team and collaborate on real digital products. I got hands-on experience in both UX and UI, with my main focus on UI design.',
   backHref: '/#work',
   liveHref: 'https://www.bontouch.com',
   liveLabel: 'Visit company site',
