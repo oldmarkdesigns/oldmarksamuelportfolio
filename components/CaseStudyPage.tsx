@@ -70,6 +70,7 @@ export interface CaseStudyData {
   title: string
   titleLogo?: CaseStudyTitleLogo
   imageQuality?: number
+  beforeAfterDecisionIndex?: number
   tagline: string
   backHref: string
   liveHref?: string
@@ -341,7 +342,7 @@ export default function CaseStudyPage({ caseStudy }: CaseStudyPageProps) {
                         <dd className="cs-copy">{item.result}</dd>
                       </div>
                     </dl>
-                    {index === 0 ? (
+                    {index === caseStudy.beforeAfterDecisionIndex ? (
                       <article className="cs-before-after">
                         <div className="cs-before-after-grid">
                           <figure className="cs-media-panel">
@@ -417,7 +418,7 @@ export default function CaseStudyPage({ caseStudy }: CaseStudyPageProps) {
                         </div>
                       </figure>
                     ) : null}
-                    {index !== 0 && item.additionalImages?.length
+                    {index !== caseStudy.beforeAfterDecisionIndex && item.additionalImages?.length
                       ? item.additionalImages.map((extraImage) => (
                           <figure key={`${item.title}-${extraImage.src}`} className="cs-decision-media">
                             <div className="cs-media-frame">

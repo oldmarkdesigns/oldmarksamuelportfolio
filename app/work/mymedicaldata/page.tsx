@@ -2,6 +2,7 @@ import CaseStudyPage, { CaseStudyData } from '@/components/CaseStudyPage'
 
 const myMedicalDataCaseStudy: CaseStudyData = {
   title: 'MyMedicalData',
+  beforeAfterDecisionIndex: 0,
   tagline:
     'Designing trust-critical health experiences across onboarding, emergency medical access, AI guidance, and the public website.',
   backHref: '/#work',
