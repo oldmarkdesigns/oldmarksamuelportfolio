@@ -1,0 +1,56 @@
+SAMUEL OLDMARK
+Product Designer (UX/UI + Frontend) | AI-Assisted Product Development
+Stockholm, Sweden | +46 73 804 83 00 | samuel@oldmark.se
+LinkedIn: linkedin.com/in/samuel-oldmark-31055a1a8 | Portfolio: samueloldmark.com
+
+PROFILE
+Product Designer with hands-on frontend competence and a strong track record in fast-paced teams. I design and ship product experiences end-to-end, from user flows and high-fidelity UI to implementation-ready handoff and production collaboration. My work combines product thinking, visual craft, and speed, with particular strength in simplifying complex journeys into clear, intuitive interfaces.
+
+I currently lead product design in an early-stage environment and have delivered measurable quality improvements in previous app work, including a rating increase from 2.2 to 4+ stars in six months. I enjoy operating at high velocity, owning outcomes, and using AI tooling to accelerate exploration, prototyping, and delivery.
+
+EXPERIENCE
+Product Designer | Halsa+ (Early-stage MedTech)
+Jan 2025 - Present | Stockholm, Sweden
+- Own product design across key app flows, including onboarding, emergency medical access, and AI-related product surfaces.
+- Built the design system from scratch, defining reusable UI components and interaction patterns for consistency and speed.
+- Collaborate closely with engineering in an iterative delivery loop, turning ambiguous requirements into implementable UX/UI solutions.
+- Designed supporting web and communication assets (including Webflow surfaces and presentation templates) to keep product and brand execution aligned.
+
+UX/UI Designer (Freelance) | Oldmark Designs
+May 2024 - Present
+- Help clients improve websites and digital experiences with practical UX/UI improvements and clear information architecture.
+- Deliver web projects primarily in Webflow, with additional WordPress experience where needed.
+- Translate business goals into production-ready design decisions, balancing speed, quality, and technical feasibility.
+
+UI Design Intern | Bontouch (Framna)
+Nov 2023 - Apr 2024 | Stockholm, Sweden
+- Reworked design-system structures and components to improve visual consistency and team delivery speed across products.
+- Implemented an in-app review feature that contributed to App Store rating growth from 2.2 to 4+ stars within six months.
+- Led onboarding redesign and user-testing iteration; 80% of test participants reported improved readability and usability.
+- Contributed in a high-velocity, cross-functional team culture with strong quality standards and fast feedback loops.
+
+Store Associate | ICA Kvantum Sickla
+Dec 2020 - Oct 2023
+- Developed strong customer-centric communication and service mindset that continues to inform my product design decisions.
+
+SELECTED STRENGTHS RELEVANT TO LOVABLE
+- AI-supported workflow design: experience designing product journeys that include AI guidance and iterative user feedback loops.
+- Fast prototyping and implementation collaboration: comfortable moving from concept to testable UI quickly.
+- Design systems and scalable quality: proven ability to create and evolve component systems under delivery pressure.
+- Frontend fluency: able to communicate and collaborate at implementation level (HTML/CSS/JavaScript, React fundamentals).
+
+SKILLS
+Product & UX: Product design, UX/UI design, user research, personas & journeys, usability testing, interaction design, prototyping, design thinking, design systems, agile collaboration
+Visual & Interface: High-fidelity UI, visual hierarchy, information architecture, interaction patterns, component-based design
+Technical: Frontend development, HTML, CSS, JavaScript, React fundamentals, Webflow, WordPress
+Tools: Figma, Visual Studio Code, Linear, Rive
+
+EDUCATION
+UX/UI Design with Frontend Competence
+Chas Academy, Stockholm | 2022 - 2024
+
+Music Production & Business
+Icon Collective, Los Angeles | 2019 - 2020
+
+LANGUAGES
+Swedish (Native), English (Professional)

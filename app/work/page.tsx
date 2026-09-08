@@ -3,6 +3,14 @@ import Link from 'next/link'
 
 const allWork = [
   {
+    id: 'office-rental-platform',
+    title: 'Office rental platform',
+    description: 'Self-serve marketplace for commercial space — strategy, design & full-stack build',
+    projectTag: 'Personal side project',
+    coverImage: '/Portfolio Assets/Work/LOA/loa-card.jpg',
+    href: '/work/office-rental-platform',
+  },
+  {
     id: 'mymedicaldata',
     title: 'Hälsa+',
     description: 'UX & UI Design Intern - Health app design',

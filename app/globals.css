@@ -1177,8 +1177,76 @@ a {
   color: var(--cs-text-primary);
   font-size: var(--cs-type-h2);
   line-height: 1.2;
-  margin-bottom: var(--cs-space-5);
+  margin-bottom: var(--cs-space-6);
   font-weight: var(--cs-weight-semibold);
+}
+
+/* Case study — one consistent vertical rhythm around every visual.
+   Applied to standalone figures, mockup pairs, diagrams, stat grids and tables
+   so no image/mockup/diagram/preview ever butts up against the surrounding copy. */
+.cs-media-block {
+  margin-block: var(--cs-space-8);
+}
+
+.cs-media-block:last-child {
+  margin-bottom: 0;
+}
+
+.cs-hero .cs-media-block {
+  margin-top: var(--cs-space-4);
+  margin-bottom: 0;
+}
+
+.cs-media-caption {
+  color: var(--cs-text-muted);
+  font-size: 0.86rem;
+  line-height: 1.5;
+  margin-top: var(--cs-space-4);
+  max-width: 64ch;
+}
+
+.cs-media-block > .cs-diagram,
+.cs-media-block > .cs-matrix-wrap {
+  margin: 0;
+}
+
+/* breathing room between a section's intro copy and the first block that follows it */
+.cs-section > .cs-prose + .cs-decision-grid,
+.cs-section > .cs-prose + .cs-ownership-grid,
+.cs-section > .cs-prose + .cs-list,
+.cs-section > .cs-prose + .cs-callout,
+.cs-section > .cs-snapshot-grid,
+.cs-section > .cs-decision-grid + .cs-callout,
+.cs-section > .cs-list + .cs-callout {
+  margin-top: var(--cs-space-6);
+}
+
+/* mid-section subheadings get real separation from the block above them */
+.cs-subhead {
+  margin-top: var(--cs-space-8);
+}
+
+/* discovery gallery — compact thumbnail grid of research / board screenshots */
+.cs-gallery {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--cs-space-4);
+}
+
+@media (min-width: 640px) {
+  .cs-gallery {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.cs-gallery .cs-media-frame {
+  align-self: start;
+}
+
+.cs-gallery .cs-media-image {
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  object-position: top center;
 }
 
 .cs-card-title {
@@ -1281,151 +1349,208 @@ a {
   margin-top: var(--cs-space-4);
 }
 
-/* SEB case study — flow step. Stacked on mobile, media-left / text-right on desktop. */
-.cs-flow {
-  display: grid;
-  gap: var(--cs-space-5);
-  margin-bottom: var(--cs-space-5);
-}
-
-/* SEB case study — proposed-flow step tabs */
-.cs-steptabs-wrap {
-  display: flex;
-  align-items: center;
-  gap: var(--cs-space-3);
+/* SEB case study — step carousel */
+.cs-carousel {
+  position: relative;
   margin: var(--cs-space-6) 0 var(--cs-space-5);
 }
 
-.cs-steptabs {
-  flex: 1 1 auto;
-  min-width: 0;
+/* indicator + chevrons, pinned to the top-right corner of the active card */
+.cs-carousel-controls {
+  position: absolute;
+  top: var(--cs-space-4);
+  left: 0;
+  width: 92%;
   display: flex;
-  flex-wrap: nowrap;
-  gap: var(--cs-space-2);
-  overflow-x: auto;
-  scrollbar-width: none;
-  -webkit-overflow-scrolling: touch;
-  padding-bottom: 2px;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.4rem;
+  padding-right: var(--cs-space-4);
+  z-index: 10;
 }
 
-.cs-steptabs::-webkit-scrollbar {
-  display: none;
+.cs-carousel-count {
+  font-size: 0.75rem;
+  font-weight: var(--cs-weight-semibold);
+  letter-spacing: 0.02em;
+  color: var(--cs-text-muted);
+  white-space: nowrap;
+  margin-right: 0.15rem;
 }
 
-.cs-stepnav {
+.cs-carousel-btn {
   flex: 0 0 auto;
-  display: flex;
-  gap: var(--cs-space-2);
-}
-
-.cs-stepnav-btn {
-  flex: 0 0 auto;
-  width: 2.1rem;
-  height: 2.1rem;
+  width: 1.8rem;
+  height: 1.8rem;
   display: grid;
   place-items: center;
   border-radius: 999px;
   border: 1px solid var(--cs-border);
-  background: var(--cs-surface-2);
+  background: var(--cs-surface-1);
   color: var(--cs-text-primary);
   cursor: pointer;
   transition: color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease, opacity 0.2s ease;
 }
 
-.cs-stepnav-btn:hover:not(:disabled) {
+.cs-carousel-btn:hover:not(:disabled) {
   border-color: var(--cs-text-muted);
-  background: var(--cs-surface-1);
+  background: var(--cs-surface-2);
 }
 
-.cs-stepnav-btn:focus-visible {
+.cs-carousel-btn:focus-visible {
   outline: 2px solid #5cb8d6;
   outline-offset: 2px;
 }
 
-.cs-stepnav-btn:disabled {
-  opacity: 0.32;
+.cs-carousel-btn:disabled {
+  opacity: 0.3;
   cursor: not-allowed;
 }
 
-.cs-stepnav-btn svg {
-  width: 0.95rem;
-  height: 0.95rem;
+.cs-carousel-btn svg {
+  width: 0.82rem;
+  height: 0.82rem;
 }
 
-.cs-steptab {
-  flex: 0 0 auto;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
+/* keep the card heading clear of the controls */
+.cs-carousel-card .cs-card-title {
+  padding-right: 6.75rem;
+}
+
+/* "there's more to click through" hint.
+   narrow screens: tucked just under the carousel, right-aligned (no room beside
+   the card). wide screens: on the chevron row, just past the card's right edge. */
+.cs-carousel-hint {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  margin-top: 0.5rem;
+  z-index: 20;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.35rem;
+  width: max-content;
+  max-width: min(15rem, 68vw);
+  padding: 0.45rem 0.4rem 0.45rem 0.65rem;
   border: 1px solid var(--cs-border);
-  border-radius: 999px;
-  background: var(--cs-surface-2);
-  color: var(--cs-text-muted);
-  font-size: 0.85rem;
-  font-weight: var(--cs-weight-semibold);
-  line-height: 1;
-  padding: 0.55rem 0.85rem;
-  cursor: pointer;
-  white-space: nowrap;
-  transition: color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
+  border-radius: var(--cs-radius-sm);
+  background: var(--cs-surface-1);
+  backdrop-filter: var(--cs-glass-blur);
+  -webkit-backdrop-filter: var(--cs-glass-blur);
+  box-shadow: var(--cs-glass-highlight), var(--cs-shadow-sm);
+  font-size: 0.72rem;
+  line-height: 1.35;
+  color: var(--cs-text-secondary);
+  opacity: 0;
+  transform: translateY(-4px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+  pointer-events: none;
 }
 
-.cs-steptab:hover {
-  color: var(--cs-text-primary);
+.cs-carousel-hint[data-visible='true'] {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
 }
 
-.cs-steptab:focus-visible {
-  outline: 2px solid #5cb8d6;
-  outline-offset: 2px;
+@media (min-width: 1180px) {
+  .cs-carousel-hint {
+    top: var(--cs-space-5);
+    right: auto;
+    left: calc(88% + 0.55rem);
+    margin-top: 0;
+    min-height: 1.8rem;
+    align-items: center;
+    max-width: 15rem;
+  }
 }
 
-.cs-steptab-num {
-  display: inline-grid;
+.cs-carousel-hint-close {
+  flex: 0 0 auto;
+  display: grid;
   place-items: center;
   width: 1.15rem;
   height: 1.15rem;
+  border: 0;
   border-radius: 999px;
-  background: var(--cs-border);
+  background: transparent;
+  color: var(--cs-text-muted);
+  cursor: pointer;
+  transition: color 0.15s ease, background-color 0.15s ease;
+}
+
+.cs-carousel-hint-close:hover {
   color: var(--cs-text-primary);
-  font-size: 0.72rem;
+  background: var(--cs-surface-2);
 }
 
-.cs-steptab.is-active {
-  background: #15657f;
-  border-color: #15657f;
-  color: #eaf7fb;
+.cs-carousel-hint-close:focus-visible {
+  outline: 2px solid #5cb8d6;
+  outline-offset: 1px;
 }
 
-.cs-steptab.is-active .cs-steptab-num {
-  background: rgba(255, 255, 255, 0.24);
-  color: #ffffff;
+.cs-carousel-hint-close svg {
+  width: 0.7rem;
+  height: 0.7rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cs-carousel-hint {
+    transition: opacity 0.2s ease;
+  }
+}
+
+.cs-carousel-stage {
+  position: relative;
+  overflow: hidden;
+  min-height: 380px;
+  transition: height 0.5s cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+.cs-carousel-card {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 92%;
+  transform-origin: center center;
+  transition: transform 0.55s cubic-bezier(0.32, 0.72, 0, 1), opacity 0.45s ease,
+    filter 0.45s ease;
+}
+
+.cs-carousel-card > .cs-step {
+  box-shadow: none;
+}
+
+.cs-carousel-card[data-state='active'] {
+  position: relative;
+  filter: blur(0);
+}
+
+.cs-carousel-card:not([data-state='active']) {
+  pointer-events: none;
+  filter: blur(4px);
+}
+
+@media (min-width: 1024px) {
+  .cs-carousel-card {
+    width: 88%;
+  }
+  .cs-carousel-controls {
+    width: 88%;
+    top: var(--cs-space-5);
+  }
 }
 
 @media (max-width: 640px) {
-  .cs-steptabs-wrap {
-    gap: var(--cs-space-2);
+  .cs-carousel-card .cs-card-title {
+    padding-right: 6rem;
   }
-  .cs-steptabs {
-    gap: var(--cs-space-1);
-  }
-  .cs-stepnav {
-    gap: var(--cs-space-1);
-  }
-  .cs-stepnav-btn {
-    width: 1.95rem;
-    height: 1.95rem;
-  }
-  .cs-steptab {
-    padding: 0.55rem 0.65rem;
-  }
-  .cs-steptab .cs-steptab-label {
-    display: none;
-  }
-  .cs-steptab.is-active {
-    padding: 0.55rem 0.85rem;
-  }
-  .cs-steptab.is-active .cs-steptab-label {
-    display: inline;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cs-carousel-stage,
+  .cs-carousel-card {
+    transition: none;
   }
 }
 
@@ -1602,5 +1727,152 @@ a {
 }
 
 .light .shadow-2xl {
+  box-shadow: none !important;
+}
+
+/* LOA case study — supplementary layout pieces (reuse the cs- tokens above) */
+.cs-tag-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--cs-space-2);
+  margin-top: var(--cs-space-4);
+}
+
+.cs-tag {
+  border: 1px solid var(--cs-border);
+  border-radius: 999px;
+  padding: 0.34rem 0.72rem;
+  font-size: 0.8rem;
+  font-weight: var(--cs-weight-medium);
+  color: var(--cs-text-secondary);
+  background: var(--cs-surface-2);
+  white-space: nowrap;
+}
+
+.cs-num-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--cs-space-4);
+  margin-block: var(--cs-space-8);
+}
+
+@media (min-width: 768px) {
+  .cs-num-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+.cs-num {
+  border: 1px solid var(--cs-border);
+  border-radius: var(--cs-radius-md);
+  background: var(--cs-surface-1);
+  padding: var(--cs-space-4);
+  box-shadow: var(--cs-glass-highlight), var(--cs-shadow-sm);
+  backdrop-filter: var(--cs-glass-blur);
+  -webkit-backdrop-filter: var(--cs-glass-blur);
+}
+
+.cs-num-value {
+  color: var(--cs-text-primary);
+  font-size: clamp(1.5rem, 3.5vw, 2rem);
+  font-weight: var(--cs-weight-bold);
+  line-height: 1.05;
+}
+
+.cs-num-label {
+  color: var(--cs-text-muted);
+  font-size: 0.82rem;
+  margin-top: var(--cs-space-2);
+  line-height: 1.4;
+}
+
+.cs-diagram {
+  border: 1px solid var(--cs-border);
+  border-radius: var(--cs-radius-lg);
+  background: var(--cs-surface-1);
+  padding: var(--cs-space-5);
+  box-shadow: var(--cs-glass-highlight), var(--cs-shadow-sm);
+  backdrop-filter: var(--cs-glass-blur);
+  -webkit-backdrop-filter: var(--cs-glass-blur);
+  overflow-x: auto;
+}
+
+.cs-diagram svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  min-width: 400px;
+}
+
+.cs-matrix-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--cs-border);
+  border-radius: var(--cs-radius-md);
+  background: var(--cs-surface-1);
+  box-shadow: var(--cs-glass-highlight), var(--cs-shadow-sm);
+  backdrop-filter: var(--cs-glass-blur);
+  -webkit-backdrop-filter: var(--cs-glass-blur);
+}
+
+.cs-matrix {
+  border-collapse: collapse;
+  width: 100%;
+  min-width: 540px;
+  font-size: 0.9rem;
+}
+
+.cs-matrix th,
+.cs-matrix td {
+  text-align: left;
+  padding: var(--cs-space-3) var(--cs-space-4);
+  border-bottom: 1px solid var(--cs-divider);
+  vertical-align: top;
+}
+
+.cs-matrix thead th {
+  color: var(--cs-text-primary);
+  font-weight: var(--cs-weight-semibold);
+  font-size: 0.74rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.cs-matrix tbody th {
+  color: var(--cs-text-secondary);
+  font-weight: var(--cs-weight-medium);
+}
+
+.cs-matrix td {
+  color: var(--cs-text-muted);
+}
+
+.cs-matrix tr:last-child th,
+.cs-matrix tr:last-child td {
+  border-bottom: 0;
+}
+
+.cs-timeline {
+  display: grid;
+  gap: var(--cs-space-4);
+}
+
+.cs-timeline-item {
+  display: grid;
+  grid-template-columns: 5rem minmax(0, 1fr);
+  gap: var(--cs-space-4);
+  align-items: baseline;
+}
+
+.cs-timeline-when {
+  color: var(--cs-text-muted);
+  font-size: 0.78rem;
+  font-weight: var(--cs-weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.light .cs-num,
+.light .cs-diagram,
+.light .cs-matrix-wrap {
   box-shadow: none !important;
 }

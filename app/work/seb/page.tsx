@@ -94,13 +94,184 @@ function Step({ img, alt, caption, w = 1206, h = 2622, mediaPos, children }: Ste
   )
 }
 
+function Carousel({ items, label }: { items: React.ReactNode[]; label: string }) {
+  const [index, setIndex] = useState(0)
+  const [height, setHeight] = useState<number>()
+  const [hintVisible, setHintVisible] = useState(false)
+  const stageRef = useRef<HTMLDivElement>(null)
+  const rootRef = useRef<HTMLDivElement>(null)
+  const hintDoneRef = useRef(false)
+  const count = items.length
+
+  const dismissHint = () => {
+    hintDoneRef.current = true
+    setHintVisible(false)
+  }
+
+  useEffect(() => {
+    const root = rootRef.current
+    if (!root || hintDoneRef.current) return
+
+    let showTimer = 0
+    let hideTimer = 0
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (!entries[0].isIntersecting || hintDoneRef.current) return
+        observer.disconnect()
+        // show almost immediately once the module enters the viewport; the short
+        // delay just lets the fade-in register rather than popping in
+        showTimer = window.setTimeout(() => {
+          if (hintDoneRef.current) return
+          setHintVisible(true)
+          hideTimer = window.setTimeout(() => setHintVisible(false), 5500)
+        }, 250)
+      },
+      { threshold: 0 }
+    )
+    observer.observe(root)
+
+    return () => {
+      observer.disconnect()
+      window.clearTimeout(showTimer)
+      window.clearTimeout(hideTimer)
+    }
+  }, [])
+
+  useEffect(() => {
+    const stage = stageRef.current
+    if (!stage) return
+
+    const measure = () => {
+      const active = stage.querySelector<HTMLElement>('[data-state="active"]')
+      if (active && active.offsetHeight > 0) setHeight(active.offsetHeight)
+    }
+
+    measure()
+    const raf = requestAnimationFrame(measure)
+    const timer = window.setTimeout(measure, 80)
+
+    // observe only the active card (measuring its content height); observing the
+    // stage would feed back on the height we set here
+    const active = stage.querySelector<HTMLElement>('[data-state="active"]')
+    const observer = active ? new ResizeObserver(measure) : null
+    if (active && observer) observer.observe(active)
+    window.addEventListener('resize', measure)
+
+    return () => {
+      cancelAnimationFrame(raf)
+      window.clearTimeout(timer)
+      observer?.disconnect()
+      window.removeEventListener('resize', measure)
+    }
+  }, [index])
+
+  const go = (delta: number) => {
+    if (!hintDoneRef.current) dismissHint()
+    setIndex((i) => Math.min(count - 1, Math.max(0, i + delta)))
+  }
+
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
+    if (event.key === 'ArrowRight') {
+      event.preventDefault()
+      go(1)
+    } else if (event.key === 'ArrowLeft') {
+      event.preventDefault()
+      go(-1)
+    }
+  }
+
+  return (
+    <div
+      className="cs-carousel"
+      ref={rootRef}
+      role="group"
+      aria-roledescription="carousel"
+      aria-label={label}
+      onKeyDown={handleKeyDown}
+    >
+      <div className="cs-carousel-stage" ref={stageRef} style={height ? { height } : undefined}>
+        <div className="cs-carousel-controls">
+          <span className="cs-carousel-count" aria-live="polite">
+            {index + 1} of {count}
+          </span>
+          <button
+            type="button"
+            className="cs-carousel-btn"
+            aria-label="Previous step"
+            disabled={index === 0}
+            onClick={() => go(-1)}
+          >
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M15 5l-7 7 7 7" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </button>
+          <button
+            type="button"
+            className="cs-carousel-btn"
+            aria-label="Next step"
+            disabled={index === count - 1}
+            onClick={() => go(1)}
+          >
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M9 5l7 7-7 7" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </button>
+        </div>
+        {items.map((item, i) => {
+          const offset = i - index
+          let transform = 'translateX(16%) scale(0.85)'
+          let opacity = 0
+          let zIndex = 1
+          if (offset === 0) {
+            transform = 'translateX(0) scale(1)'
+            opacity = 1
+            zIndex = 4
+          } else if (offset === 1) {
+            transform = 'translateX(16%) scale(0.9)'
+            opacity = 0.4
+            zIndex = 3
+          } else if (offset < 0) {
+            transform = 'translateX(-108%) scale(0.94)'
+            opacity = 0
+            zIndex = 0
+          }
+          return (
+            <div
+              key={i}
+              className="cs-carousel-card"
+              data-state={offset === 0 ? 'active' : 'inactive'}
+              aria-hidden={offset !== 0}
+              style={{ transform, opacity, zIndex }}
+            >
+              {item}
+            </div>
+          )
+        })}
+      </div>
+      <div className="cs-carousel-hint" data-visible={hintVisible} role="status">
+        <span>Use the arrows to click through all {count} steps.</span>
+        <button
+          type="button"
+          className="cs-carousel-hint-close"
+          aria-label="Dismiss hint"
+          onClick={dismissHint}
+        >
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M6 6l12 12M18 6L6 18" stroke="currentColor" strokeWidth={2} strokeLinecap="round" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  )
+}
+
 const sections = [
   { id: 'project-overview', label: 'Overview' },
   { id: 'snapshot', label: 'At a glance' },
   { id: 'summary', label: 'Summary' },
   { id: 'method', label: 'How I did this' },
   { id: 'current', label: 'How it works now' },
-  { id: 'problems', label: "What's wrong" },
+  { id: 'problems', label: 'Where it falls short' },
   { id: 'klarna', label: 'A look at Klarna' },
   { id: 'principles', label: 'Rules I set' },
   { id: 'proposal', label: 'The proposed flow' },
@@ -108,29 +279,9 @@ const sections = [
   { id: 'validate', label: "How I'd test it" },
 ]
 
-const proposalTabs = ['Filters', 'Date range', 'Clearer list', 'Ask a question', 'Change a filter']
-
 export default function SebCaseStudyPage() {
   const sectionIds = useMemo(() => sections.map((section) => section.id), [])
   const [activeSection, setActiveSection] = useState(sectionIds[0])
-  const [activeStep, setActiveStep] = useState(0)
-  const stepTabRefs = useRef<(HTMLButtonElement | null)[]>([])
-
-  const selectStep = (index: number) => {
-    setActiveStep(index)
-    requestAnimationFrame(() => {
-      stepTabRefs.current[index]?.scrollIntoView({ block: 'nearest', inline: 'center' })
-    })
-  }
-
-  const handleStepTabKey = (event: React.KeyboardEvent<HTMLDivElement>) => {
-    if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return
-    event.preventDefault()
-    const dir = event.key === 'ArrowRight' ? 1 : -1
-    const next = (activeStep + dir + proposalTabs.length) % proposalTabs.length
-    selectStep(next)
-    stepTabRefs.current[next]?.focus()
-  }
 
   useEffect(() => {
     const updateActiveSection = () => {
@@ -290,9 +441,9 @@ export default function SebCaseStudyPage() {
                 </p>
                 <p>
                   <strong>What I found.</strong> The list you scroll through is also unreliable. Swish payments
-                  show up as phone numbers. Some payments get the wrong category &mdash; a software subscription
-                  filed as a restaurant, a stockbroker filed as a mortgage &mdash; and the wrong category also
-                  picks the wrong icon.
+                  show up as phone numbers. Some payments are misclassified &mdash; a software subscription
+                  filed as a restaurant, a stockbroker filed as a mortgage &mdash; and a misclassified payment
+                  also picks a misleading icon.
                 </p>
                 <p>
                   <strong>What I&rsquo;m proposing.</strong> Keep the SEB app as it is and add four things:
@@ -311,7 +462,7 @@ export default function SebCaseStudyPage() {
                   <ul className="cs-list cs-list-compact">
                     <li>Went through the search screens one by one and wrote down every control and piece of information.</li>
                     <li>Listed the questions people actually have about their spending, then checked which ones the app can answer.</li>
-                    <li>Checked the sample transactions for wrong names and wrong categories.</li>
+                    <li>Checked the sample transactions for inaccurate names and misclassified categories.</li>
                     <li>Built the new screens using SEB&rsquo;s existing colours, fonts, spacing and components.</li>
                   </ul>
                 </div>
@@ -329,67 +480,72 @@ export default function SebCaseStudyPage() {
             <section id="current" className="cs-section cs-section-divider">
               <h2 className="cs-section-title">How SEB search works today</h2>
 
-              <div className="cs-flow">
-                <Step
-                  img={`${IMG}/seb-account-overview.png`}
-                  alt="SEB account overview with the Transactions header and a small search icon."
-                  caption="The only way into search is the small magnifier, top right of the transaction list."
-                >
-                  <h3 className="cs-card-title">1. Getting to search</h3>
-                  <div className="cs-prose">
-                    <p>
-                      Search is one small magnifier icon above the transaction list. Tapping it opens an empty
-                      box with the keyboard up &mdash; no recent searches, no filters, no suggestions. You have
-                      to know what to type before anything helps.
-                    </p>
-                    <p>
-                      The account screen does have one nice touch: a plain line saying &ldquo;Upcoming
-                      transactions &mdash; 1 in the next 30 days&rdquo;. Nothing that simple shows up once you
-                      start searching.
-                    </p>
-                  </div>
-                </Step>
-
-                <Step
-                  img={`${IMG}/seb-search-empty.png`}
-                  alt="SEB search field with placeholder text and All / Outgoing / Incoming tabs."
-                  caption="One text box plus an In / Out toggle. No filter for date, category, shop or amount."
-                >
-                  <h3 className="cs-card-title">2. The search box and its filters</h3>
-                  <div className="cs-prose">
-                    <p>
-                      The hint text is &ldquo;Search text, date and amount&rdquo;. It expects you to know how to
-                      phrase it and doesn&rsquo;t tell you what actually works.
-                    </p>
-                    <p>
-                      The only real controls are three tabs: All, Outgoing, Incoming. There is no filter for
-                      date range, category, shop, account or amount.
-                    </p>
-                  </div>
-                </Step>
-
-                <Step
-                  img={`${IMG}/seb-search-results.png`}
-                  alt="SEB search results showing Anthropic categorised as Restaurant and Nordnet Bank as Mortgage and interest."
-                  caption="Anthropic filed as &ldquo;Restaurant&rdquo;; Nordnet Bank as &ldquo;Mortgage and interest&rdquo;; two rows shown as phone numbers."
-                >
-                  <h3 className="cs-card-title">3. The results</h3>
-                  <div className="cs-prose">
-                    <p>
-                      The results are just a list, newest first, split up by month. The biggest, boldest text on
-                      each row is the shop or person &mdash; but for Swish payments that&rsquo;s a phone number.
-                    </p>
-                    <p>
-                      The category, which is the useful part, is the smallest text. The account balance after
-                      each payment is shown on every row, right next to the amount, so both are harder to read.
-                    </p>
-                  </div>
-                </Step>
-              </div>
+              <Carousel
+                label="How SEB search works today"
+                items={[
+                  <Step
+                    key="c1"
+                    img={`${IMG}/seb-account-overview.png`}
+                    alt="SEB account overview with the Transactions header and a small search icon."
+                    caption="The only way into search is the small magnifier, top right of the transaction list."
+                  >
+                    <h3 className="cs-card-title">1. Getting to search</h3>
+                    <div className="cs-prose">
+                      <p>
+                        Search is one small magnifier icon above the transaction list. Tapping it opens an empty
+                        box with the keyboard up &mdash; no recent searches, no filters, no suggestions. You have
+                        to know what to type before anything helps.
+                      </p>
+                      <p>
+                        The account screen does have one nice touch: a plain line saying &ldquo;Upcoming
+                        transactions &mdash; 1 in the next 30 days&rdquo;. Nothing that simple shows up once you
+                        start searching.
+                      </p>
+                    </div>
+                  </Step>,
+                  <Step
+                    key="c2"
+                    img={`${IMG}/seb-search-empty.png`}
+                    alt="SEB search field with placeholder text and All / Outgoing / Incoming tabs."
+                    caption="One text box plus an In / Out toggle. No filter for date, category, shop or amount."
+                  >
+                    <h3 className="cs-card-title">2. The search box and its filters</h3>
+                    <div className="cs-prose">
+                      <p>
+                        The hint text is &ldquo;Search text, date and amount&rdquo;. It expects you to know how
+                        to phrase it and doesn&rsquo;t tell you what actually works.
+                      </p>
+                      <p>
+                        The only real controls are three tabs: All, Outgoing, Incoming. There is no filter for
+                        date range, category, shop, account or amount.
+                      </p>
+                    </div>
+                  </Step>,
+                  <Step
+                    key="c3"
+                    img={`${IMG}/seb-search-results.png`}
+                    alt="SEB search results showing Anthropic categorised as Restaurant and Nordnet Bank as Mortgage and interest."
+                    caption="Anthropic filed as &ldquo;Restaurant&rdquo;; Nordnet Bank as &ldquo;Mortgage and interest&rdquo;; two rows shown as phone numbers."
+                  >
+                    <h3 className="cs-card-title">3. The results</h3>
+                    <div className="cs-prose">
+                      <p>
+                        The results are just a list, newest first, split up by month. The biggest, boldest text
+                        on each row is the shop or person &mdash; but for Swish payments that&rsquo;s a phone
+                        number.
+                      </p>
+                      <p>
+                        The category, which is the useful part, is the smallest text. The account balance after
+                        each payment is shown on every row, right next to the amount, so both are harder to read.
+                      </p>
+                    </div>
+                  </Step>,
+                ]}
+              />
             </section>
 
             <section id="problems" className="cs-section cs-section-divider">
-              <h2 className="cs-section-title">What&rsquo;s wrong with it</h2>
+              <h2 className="cs-section-title">Where it falls short</h2>
               <div className="cs-decision-grid">
                 <article className="cs-surface-card">
                   <h3 className="cs-card-title">A. Almost no filters</h3>
@@ -414,19 +570,19 @@ export default function SebCaseStudyPage() {
                   </p>
                 </article>
                 <article className="cs-surface-card">
-                  <h3 className="cs-card-title">D. Wrong categories, and the icon repeats the mistake</h3>
+                  <h3 className="cs-card-title">D. Misclassified categories, and the icon repeats the mistake</h3>
                   <p className="cs-copy">
                     Anthropic (a software subscription) is filed as &ldquo;Restaurant&rdquo;. Nordnet Bank (a
                     stockbroker) is filed as &ldquo;Mortgage and interest&rdquo;. The icon is picked from the
-                    category, so a wrong category shows a wrong icon too &mdash; and there&rsquo;s no obvious
-                    way to fix it.
+                    category, so a misclassified category shows a misleading icon too &mdash; and there&rsquo;s
+                    no obvious way to fix it.
                   </p>
                 </article>
                 <article className="cs-surface-card">
                   <h3 className="cs-card-title">E. The icons don&rsquo;t help much</h3>
                   <p className="cs-copy">
                     Nearly every row has the same purple circle. It sits in the spot that draws the eye first
-                    but tells you very little &mdash; and it points you the wrong way when the category is wrong.
+                    but tells you very little &mdash; and it actively misleads you when the category is misclassified.
                   </p>
                 </article>
                 <article className="cs-surface-card">
@@ -524,225 +680,159 @@ export default function SebCaseStudyPage() {
                 </p>
               </div>
 
-              <div className="cs-steptabs-wrap">
-                <div
-                  className="cs-steptabs"
-                  role="tablist"
-                  aria-label="Proposed flow steps"
-                  onKeyDown={handleStepTabKey}
-                >
-                  {proposalTabs.map((label, i) => (
-                    <button
-                      key={label}
-                      type="button"
-                      role="tab"
-                      id={`proposal-tab-${i}`}
-                      aria-selected={activeStep === i}
-                      aria-controls="proposal-panel"
-                      tabIndex={activeStep === i ? 0 : -1}
-                      ref={(el) => {
-                        stepTabRefs.current[i] = el
-                      }}
-                      className={`cs-steptab ${activeStep === i ? 'is-active' : ''}`}
-                      onClick={() => selectStep(i)}
-                    >
-                      <span className="cs-steptab-num">{i + 1}</span>
-                      <span className="cs-steptab-label">{label}</span>
-                    </button>
-                  ))}
-                </div>
-
-                <div className="cs-stepnav">
-                  <button
-                    type="button"
-                    className="cs-stepnav-btn"
-                    aria-label="Previous step"
-                    aria-controls="proposal-panel"
-                    disabled={activeStep === 0}
-                    onClick={() => selectStep(activeStep - 1)}
+              <Carousel
+                label="The proposed flow"
+                items={[
+                  <Step
+                    key="p1"
+                    img={`${IMG}/concept-01-search-filters.svg`}
+                    alt="Mockup of the SEB search screen with a new row of filter buttons (Date, Category, Amount, Account) and a quiet 'Ask about your transactions' row below the existing tabs."
+                    w={390}
+                    h={848}
+                    caption="Mockup &mdash; not real SEB work."
                   >
-                    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                      <path d="M15 5l-7 7 7 7" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
-                  </button>
-                  <button
-                    type="button"
-                    className="cs-stepnav-btn"
-                    aria-label="Next step"
-                    aria-controls="proposal-panel"
-                    disabled={activeStep === proposalTabs.length - 1}
-                    onClick={() => selectStep(activeStep + 1)}
+                    <h3 className="cs-card-title">Step 1 &mdash; Search, with filters on screen</h3>
+                    <dl className="cs-dl">
+                      <div>
+                        <dt className="cs-label">What&rsquo;s new</dt>
+                        <dd className="cs-copy">
+                          A row of filter buttons &mdash; Date, Category, Amount, Account &mdash; under the
+                          existing tabs, using SEB&rsquo;s pill shape. Below that, a quiet &ldquo;Ask about your
+                          transactions&rdquo; row opens the question search.
+                        </dd>
+                      </div>
+                      <div>
+                        <dt className="cs-label">Why</dt>
+                        <dd className="cs-copy">
+                          You can see straight away that you can filter. The question search is there if you
+                          want it, but it doesn&rsquo;t get in the way.
+                        </dd>
+                      </div>
+                    </dl>
+                  </Step>,
+                  <Step
+                    key="p2"
+                    img={`${IMG}/concept-02-date-range.svg`}
+                    alt="Mockup of a SEB pop-up sheet titled 'Date' with quick options (Any time, This month, Last 3 / 12 months, by year), a custom From/To range, and Clear and Apply buttons."
+                    w={390}
+                    h={848}
+                    mediaPos="center bottom"
+                    caption="Mockup &mdash; not real SEB work."
                   >
-                    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                      <path d="M9 5l7 7-7 7" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
-                  </button>
-                </div>
-              </div>
-
-              <div
-                className="cs-flow"
-                id="proposal-panel"
-                role="tabpanel"
-                aria-labelledby={`proposal-tab-${activeStep}`}
-              >
-                {activeStep === 0 && (
-                <Step
-                  img={`${IMG}/concept-01-search-filters.svg`}
-                  alt="Concept of the SEB search screen with a new row of filter chips (Date, Category, Amount, Account) and a subtle 'Ask about your transactions' row below the existing tabs."
-                  w={390}
-                  h={848}
-                  caption="Mockup &mdash; not real SEB work."
-                >
-                  <h3 className="cs-card-title">Step 1 &mdash; Search, with filters on screen</h3>
-                  <dl className="cs-dl">
-                    <div>
-                      <dt className="cs-label">What&rsquo;s new</dt>
-                      <dd className="cs-copy">
-                        A row of filter buttons &mdash; Date, Category, Amount, Account &mdash; under the
-                        existing tabs, using SEB&rsquo;s pill shape. Below that, a quiet &ldquo;Ask about your
-                        transactions&rdquo; row opens the question search.
-                      </dd>
-                    </div>
-                    <div>
-                      <dt className="cs-label">Why</dt>
-                      <dd className="cs-copy">
-                        You can see straight away that you can filter. The question search is there if you want
-                        it, but it doesn&rsquo;t get in the way.
-                      </dd>
-                    </div>
-                  </dl>
-                </Step>
-                )}
-
-                {activeStep === 1 && (
-                <Step
-                  img={`${IMG}/concept-02-date-range.svg`}
-                  alt="Concept of a SEB bottom sheet titled 'Date' with presets (Any time, This month, Last 3 / 12 months, by year), a custom From/To range, and Clear and Apply actions."
-                  w={390}
-                  h={848}
-                  mediaPos="center bottom"
-                  caption="Mockup &mdash; not real SEB work."
-                >
-                  <h3 className="cs-card-title">Step 2 &mdash; Pick a date range</h3>
-                  <dl className="cs-dl">
-                    <div>
-                      <dt className="cs-label">What&rsquo;s new</dt>
-                      <dd className="cs-copy">
-                        The Date button opens a normal SEB pop-up sheet: quick options like this month, last 3
-                        months, last 12 months and by year, plus a From / To for an exact range. Clear and
-                        Apply at the bottom.
-                      </dd>
-                    </div>
-                    <div>
-                      <dt className="cs-label">Why</dt>
-                      <dd className="cs-copy">
-                        This is the biggest thing missing today. One tap covers most cases, the From / To covers
-                        the rest, and you can always undo it.
-                      </dd>
-                    </div>
-                  </dl>
-                </Step>
-                )}
-
-                {activeStep === 2 && (
-                <Step
-                  img={`${IMG}/concept-03-results.svg`}
-                  alt="Mockup of a filtered SEB list (Groceries, June to August), with four numbered markers: 1 the filters you picked stay pinned at the top, 2 a line shows the count and total, 3 the shop name and category are the clearest text on each row and the running balance is gone, 4 the amount is unchanged."
-                  w={390}
-                  h={720}
-                  caption="Mockup &mdash; not real SEB work."
-                >
-                  <h3 className="cs-card-title">Step 3 &mdash; A shorter, clearer list</h3>
-                  <ul className="cs-list cs-list-compact">
-                    <li>
-                      <strong>1 &mdash;</strong> The filters you picked stay pinned at the top. Tap one to change
-                      it, tap &times; to clear it.
-                    </li>
-                    <li>
-                      <strong>2 &mdash;</strong> A line at the top shows how many payments there are and the
-                      total &mdash; the answer to &ldquo;how much&rdquo;.
-                    </li>
-                    <li>
-                      <strong>3 &mdash;</strong> The shop name and category are the clearest text on each row.
-                      The running balance is no longer shown in search results.
-                    </li>
-                    <li>
-                      <strong>4 &mdash;</strong> The amount is the same size, weight and position as it is today.
-                    </li>
-                  </ul>
-                  <p className="cs-copy">
-                    <strong>Why:</strong> you can skim the list by what you actually care about, and &ldquo;how
-                    much did I spend&rdquo; is answered without adding anything up.
-                  </p>
-                </Step>
-                )}
-
-                {activeStep === 3 && (
-                <Step
-                  img={`${IMG}/concept-04-ai-search.svg`}
-                  alt="Concept of natural-language search in SEB: the user asks 'how much did I spend on groceries in august', an answer card summarises the total and count, and two editable filter chips show what was applied, above the matching transactions."
-                  w={390}
-                  h={848}
-                  caption="Mockup &mdash; not real SEB work."
-                >
-                  <h3 className="cs-card-title">Step 4 &mdash; Ask a question in plain words</h3>
-                  <dl className="cs-dl">
-                    <div>
-                      <dt className="cs-label">What&rsquo;s new</dt>
-                      <dd className="cs-copy">
-                        You type something like &ldquo;how much did I spend on groceries in August&rdquo;. You
-                        get a one-line answer, the filters it used (Category: Groceries, and the August dates)
-                        shown as normal buttons you can tap, and the matching payments below.
-                      </dd>
-                    </div>
-                    <div>
-                      <dt className="cs-label">Why</dt>
-                      <dd className="cs-copy">
-                        You can ask the question you actually have. Showing the filters means you can check the
-                        answer is right and fix it if it isn&rsquo;t.
-                      </dd>
-                    </div>
-                  </dl>
-                </Step>
-                )}
-
-                {activeStep === 4 && (
-                <Step
-                  img={`${IMG}/concept-05-edit-filter.svg`}
-                  alt="Concept of tapping the 'Category: Groceries' chip from the assistant result: it opens a standard SEB multi-select category sheet with Groceries checked, plus Clear and Apply actions."
-                  w={390}
-                  h={848}
-                  mediaPos="center bottom"
-                  caption="Mockup &mdash; not real SEB work."
-                >
-                  <h3 className="cs-card-title">Step 5 &mdash; Change a filter the AI picked</h3>
-                  <dl className="cs-dl">
-                    <div>
-                      <dt className="cs-label">What&rsquo;s new</dt>
-                      <dd className="cs-copy">
-                        Tapping one of the filter buttons from the answer &mdash; here, Category &mdash; opens
-                        the same pop-up you&rsquo;d use if you set the filter yourself. Nothing about the
-                        AI&rsquo;s answer is locked.
-                      </dd>
-                    </div>
-                    <div>
-                      <dt className="cs-label">Why</dt>
-                      <dd className="cs-copy">
-                        People trust the answer more when they can see how it was worked out and change it.
-                      </dd>
-                    </div>
-                  </dl>
-                </Step>
-                )}
-              </div>
+                    <h3 className="cs-card-title">Step 2 &mdash; Pick a date range</h3>
+                    <dl className="cs-dl">
+                      <div>
+                        <dt className="cs-label">What&rsquo;s new</dt>
+                        <dd className="cs-copy">
+                          The Date button opens a normal SEB pop-up sheet: quick options like this month, last 3
+                          months, last 12 months and by year, plus a From / To for an exact range. Clear and
+                          Apply at the bottom.
+                        </dd>
+                      </div>
+                      <div>
+                        <dt className="cs-label">Why</dt>
+                        <dd className="cs-copy">
+                          This is the biggest thing missing today. One tap covers most cases, the From / To
+                          covers the rest, and you can always undo it.
+                        </dd>
+                      </div>
+                    </dl>
+                  </Step>,
+                  <Step
+                    key="p3"
+                    img={`${IMG}/concept-03-results.svg`}
+                    alt="Mockup of a filtered SEB list (Groceries, June to August), with four numbered markers: 1 the filters you picked stay pinned at the top, 2 a line shows the count and total, 3 the shop name and category are the clearest text on each row and the running balance is gone, 4 the amount is unchanged."
+                    w={390}
+                    h={720}
+                    caption="Mockup &mdash; not real SEB work."
+                  >
+                    <h3 className="cs-card-title">Step 3 &mdash; A shorter, clearer list</h3>
+                    <ul className="cs-list cs-list-compact">
+                      <li>
+                        <strong>1 &mdash;</strong> The filters you picked stay pinned at the top. Tap one to
+                        change it, tap &times; to clear it.
+                      </li>
+                      <li>
+                        <strong>2 &mdash;</strong> A line at the top shows how many payments there are and the
+                        total &mdash; the answer to &ldquo;how much&rdquo;.
+                      </li>
+                      <li>
+                        <strong>3 &mdash;</strong> The shop name and category are the clearest text on each row.
+                        The running balance is no longer shown in search results.
+                      </li>
+                      <li>
+                        <strong>4 &mdash;</strong> The amount is the same size, weight and position as it is
+                        today.
+                      </li>
+                    </ul>
+                    <p className="cs-copy">
+                      <strong>Why:</strong> you can skim the list by what you actually care about, and
+                      &ldquo;how much did I spend&rdquo; is answered without adding anything up.
+                    </p>
+                  </Step>,
+                  <Step
+                    key="p4"
+                    img={`${IMG}/concept-04-ai-search.svg`}
+                    alt="Mockup of natural-language search in SEB: the user asks 'how much did I spend on groceries in august', a one-line answer summarises the total and count, and two editable filter buttons show what was applied, above the matching payments."
+                    w={390}
+                    h={848}
+                    caption="Mockup &mdash; not real SEB work."
+                  >
+                    <h3 className="cs-card-title">Step 4 &mdash; Ask a question in plain words</h3>
+                    <dl className="cs-dl">
+                      <div>
+                        <dt className="cs-label">What&rsquo;s new</dt>
+                        <dd className="cs-copy">
+                          You type something like &ldquo;how much did I spend on groceries in August&rdquo;. You
+                          get a one-line answer, the filters it used (Category: Groceries, and the August dates)
+                          shown as normal buttons you can tap, and the matching payments below.
+                        </dd>
+                      </div>
+                      <div>
+                        <dt className="cs-label">Why</dt>
+                        <dd className="cs-copy">
+                          You can ask the question you actually have. Showing the filters means you can check
+                          the answer is right and fix it if it isn&rsquo;t.
+                        </dd>
+                      </div>
+                    </dl>
+                  </Step>,
+                  <Step
+                    key="p5"
+                    img={`${IMG}/concept-05-edit-filter.svg`}
+                    alt="Mockup of tapping the 'Category: Groceries' button from the answer: it opens a standard SEB category sheet with Groceries ticked, plus Clear and Apply buttons."
+                    w={390}
+                    h={848}
+                    mediaPos="center bottom"
+                    caption="Mockup &mdash; not real SEB work."
+                  >
+                    <h3 className="cs-card-title">Step 5 &mdash; Change a filter the AI picked</h3>
+                    <dl className="cs-dl">
+                      <div>
+                        <dt className="cs-label">What&rsquo;s new</dt>
+                        <dd className="cs-copy">
+                          Tapping one of the filter buttons from the answer &mdash; here, Category &mdash; opens
+                          the same pop-up you&rsquo;d use if you set the filter yourself. Nothing about the
+                          AI&rsquo;s answer is locked.
+                        </dd>
+                      </div>
+                      <div>
+                        <dt className="cs-label">Why</dt>
+                        <dd className="cs-copy">
+                          People trust the answer more when they can see how it was worked out and change it.
+                        </dd>
+                      </div>
+                    </dl>
+                  </Step>,
+                ]}
+              />
             </section>
 
             <section id="rows" className="cs-section cs-section-divider">
               <h2 className="cs-section-title">The transaction row: before and after</h2>
               <Fig
                 src={`${IMG}/concept-row-anatomy.svg`}
-                alt="The transaction row, before and after. Today: a reference number is the biggest text even when it's just a code, the category is the smallest text, the account balance is shown on every row, and the icon comes from a category that can be wrong. Concept: the shop name and category are the clearest things and stay the same size as today, the category can be changed in one tap, the account balance is not shown in search results, and a plain icon is used when the category isn't certain."
+                alt="The transaction row, before and after. Today: a reference number is the biggest text even when it's just a code, the category is the smallest text, the account balance is shown on every row, and the icon comes from a category that can be inaccurate. Concept: the shop name and category are the clearest things and stay the same size as today, the category can be changed in one tap, the account balance is not shown in search results, and a plain icon is used when the category isn't certain."
                 w={800}
                 h={760}
                 className="mb-7"
@@ -760,7 +850,7 @@ export default function SebCaseStudyPage() {
                 <li>
                   <strong>Fixable.</strong> You can change a category in one tap from the payment&rsquo;s detail
                   screen. When the category isn&rsquo;t certain, the row shows a plain grey icon instead of a
-                  confident wrong one.
+                  confident but inaccurate one.
                 </li>
               </ul>
             </section>
@@ -773,7 +863,7 @@ export default function SebCaseStudyPage() {
                   <ul className="cs-list cs-list-compact">
                     <li>Ask people to write down the questions they have when they look at their transactions.</li>
                     <li>Ask people to find specific payments in the current app, and time how long it takes.</li>
-                    <li>With permission, check a set of real transactions to see how often the category is wrong.</li>
+                    <li>With permission, check a set of real transactions to see how often the category is misclassified.</li>
                   </ul>
                 </div>
                 <div className="cs-surface-card">
@@ -798,7 +888,7 @@ export default function SebCaseStudyPage() {
 
               <p className="cs-note">
                 I did this because I want to work on fintech products. It shows I can take a real app, work out
-                what&rsquo;s actually wrong with it, and suggest a fix that fits the product &mdash; keeping in
+                what&rsquo;s actually holding it back, and suggest a fix that fits the product &mdash; keeping in
                 mind that banks have to deal with trust, regulation and information they don&rsquo;t always have.
               </p>
             </section>
