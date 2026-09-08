@@ -19,6 +19,14 @@ const allWork = [
     href: '/work/bontouch',
   },
   {
+    id: 'seb',
+    title: 'SEB',
+    description: 'Fintech UX analysis - transaction search & filtering',
+    projectTag: 'Case study',
+    coverImage: '/Portfolio Assets/Work/SEB_Case_Study/seb_logo.png',
+    href: '/work/seb',
+  },
+  {
     id: 'zanlugproperties',
     title: 'Zanlüg Properties',
     description: 'Luxury property website design',

@@ -234,54 +234,10 @@ body {
   min-height: 100vh;
 }
 
-.triangle-cursor {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 18px;
-  height: 18px;
-  pointer-events: none;
-  z-index: 13050;
-  opacity: 0;
-  will-change: transform, opacity;
-}
-
-.triangle-cursor-svg {
-  display: block;
-  width: 100%;
-  height: 100%;
-  filter: drop-shadow(0 2px 8px rgba(2, 6, 23, 0.18));
-}
-
-.triangle-cursor.is-dark {
-  color: rgba(226, 232, 240, 0.82);
-}
-
-.triangle-cursor.is-light {
-  color: rgba(15, 23, 42, 0.76);
-}
-
-.triangle-cursor polygon {
-  fill: currentColor;
-  stroke: rgba(255, 255, 255, 0.22);
-  stroke-width: 0.75;
-}
-
-.light .triangle-cursor polygon {
-  stroke: rgba(15, 23, 42, 0.22);
-}
-
 * {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
-}
-
-@media (hover: hover) and (pointer: fine) {
-  body.custom-triangle-cursor,
-  body.custom-triangle-cursor * {
-    cursor: none !important;
-  }
 }
 
 html {
@@ -1325,6 +1281,231 @@ a {
   margin-top: var(--cs-space-4);
 }
 
+/* SEB case study — flow step. Stacked on mobile, media-left / text-right on desktop. */
+.cs-flow {
+  display: grid;
+  gap: var(--cs-space-5);
+  margin-bottom: var(--cs-space-5);
+}
+
+/* SEB case study — proposed-flow step tabs */
+.cs-steptabs-wrap {
+  display: flex;
+  align-items: center;
+  gap: var(--cs-space-3);
+  margin: var(--cs-space-6) 0 var(--cs-space-5);
+}
+
+.cs-steptabs {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  flex-wrap: nowrap;
+  gap: var(--cs-space-2);
+  overflow-x: auto;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 2px;
+}
+
+.cs-steptabs::-webkit-scrollbar {
+  display: none;
+}
+
+.cs-stepnav {
+  flex: 0 0 auto;
+  display: flex;
+  gap: var(--cs-space-2);
+}
+
+.cs-stepnav-btn {
+  flex: 0 0 auto;
+  width: 2.1rem;
+  height: 2.1rem;
+  display: grid;
+  place-items: center;
+  border-radius: 999px;
+  border: 1px solid var(--cs-border);
+  background: var(--cs-surface-2);
+  color: var(--cs-text-primary);
+  cursor: pointer;
+  transition: color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease, opacity 0.2s ease;
+}
+
+.cs-stepnav-btn:hover:not(:disabled) {
+  border-color: var(--cs-text-muted);
+  background: var(--cs-surface-1);
+}
+
+.cs-stepnav-btn:focus-visible {
+  outline: 2px solid #5cb8d6;
+  outline-offset: 2px;
+}
+
+.cs-stepnav-btn:disabled {
+  opacity: 0.32;
+  cursor: not-allowed;
+}
+
+.cs-stepnav-btn svg {
+  width: 0.95rem;
+  height: 0.95rem;
+}
+
+.cs-steptab {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border: 1px solid var(--cs-border);
+  border-radius: 999px;
+  background: var(--cs-surface-2);
+  color: var(--cs-text-muted);
+  font-size: 0.85rem;
+  font-weight: var(--cs-weight-semibold);
+  line-height: 1;
+  padding: 0.55rem 0.85rem;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.cs-steptab:hover {
+  color: var(--cs-text-primary);
+}
+
+.cs-steptab:focus-visible {
+  outline: 2px solid #5cb8d6;
+  outline-offset: 2px;
+}
+
+.cs-steptab-num {
+  display: inline-grid;
+  place-items: center;
+  width: 1.15rem;
+  height: 1.15rem;
+  border-radius: 999px;
+  background: var(--cs-border);
+  color: var(--cs-text-primary);
+  font-size: 0.72rem;
+}
+
+.cs-steptab.is-active {
+  background: #15657f;
+  border-color: #15657f;
+  color: #eaf7fb;
+}
+
+.cs-steptab.is-active .cs-steptab-num {
+  background: rgba(255, 255, 255, 0.24);
+  color: #ffffff;
+}
+
+@media (max-width: 640px) {
+  .cs-steptabs-wrap {
+    gap: var(--cs-space-2);
+  }
+  .cs-steptabs {
+    gap: var(--cs-space-1);
+  }
+  .cs-stepnav {
+    gap: var(--cs-space-1);
+  }
+  .cs-stepnav-btn {
+    width: 1.95rem;
+    height: 1.95rem;
+  }
+  .cs-steptab {
+    padding: 0.55rem 0.65rem;
+  }
+  .cs-steptab .cs-steptab-label {
+    display: none;
+  }
+  .cs-steptab.is-active {
+    padding: 0.55rem 0.85rem;
+  }
+  .cs-steptab.is-active .cs-steptab-label {
+    display: inline;
+  }
+}
+
+.cs-step {
+  border: 1px solid var(--cs-border);
+  border-radius: var(--cs-radius-md);
+  background: var(--cs-surface-1);
+  box-shadow: var(--cs-glass-highlight), var(--cs-shadow-sm);
+  backdrop-filter: var(--cs-glass-blur);
+  -webkit-backdrop-filter: var(--cs-glass-blur);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.cs-step-body {
+  padding: var(--cs-space-5) var(--cs-space-5) 0;
+}
+
+.cs-step-media {
+  position: relative;
+  margin: var(--cs-space-6) var(--cs-space-5) var(--cs-space-5);
+  max-width: 320px;
+  border: 1px solid var(--cs-border);
+  border-radius: var(--cs-radius-sm);
+  overflow: hidden;
+  background: var(--cs-surface-2);
+}
+
+.cs-step-media img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.cs-step-media figcaption {
+  color: var(--cs-text-muted);
+  font-size: 0.86rem;
+  line-height: 1.4;
+  padding: var(--cs-space-3) var(--cs-space-4) var(--cs-space-4);
+  border-top: 1px solid var(--cs-divider);
+}
+
+@media (min-width: 1024px) {
+  .cs-step {
+    display: grid;
+    grid-template-columns: minmax(232px, 288px) minmax(0, 1fr);
+    align-items: stretch;
+    column-gap: var(--cs-space-7);
+    min-height: 420px;
+  }
+
+  .cs-step-body {
+    order: 2;
+    align-self: center;
+    padding: var(--cs-space-6) var(--cs-space-6) var(--cs-space-6) 0;
+  }
+
+  .cs-step-media {
+    order: 1;
+    margin: 0;
+    border: 0;
+    border-right: 1px solid var(--cs-divider);
+    border-radius: 0;
+  }
+
+  .cs-step-media img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: var(--cs-step-media-pos, center top);
+  }
+
+  .cs-step-media figcaption {
+    display: none;
+  }
+}
+
 .cs-before-after {
   display: grid;
   gap: var(--cs-space-5);
@@ -1414,6 +1595,7 @@ a {
 .light .cs-snapshot-item,
 .light .cs-before-after,
 .light .cs-metric-card,
+.light .cs-step,
 .light .about-intro-card,
 .light .about-value-card {
   box-shadow: none !important;

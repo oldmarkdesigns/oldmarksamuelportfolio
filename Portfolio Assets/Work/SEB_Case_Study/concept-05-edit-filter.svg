@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 390 848" width="390" height="848" role="img" aria-label="SEB concept: tapping an assistant-applied filter opens the same category control the user would use manually — a multi-select sheet with Clear and Apply.">
+  <defs>
+    <style>
+      text{font-family:-apple-system,'SF Pro Text','Segoe UI','Inter',system-ui,sans-serif;fill:#FFFFFF}
+      .sec{fill:#A6A6A8}.ter{fill:#7C7C80}
+      .opt{font-size:15px}
+    </style>
+  </defs>
+
+  <rect width="390" height="848" fill="#0A0A0A"/>
+
+  <!-- dimmed AI screen behind -->
+  <g opacity="0.3">
+    <text x="24" y="30" font-size="15" font-weight="600">19:47</text>
+    <rect x="16" y="52" width="294" height="40" rx="10" fill="#1E1E20"/>
+    <rect x="16" y="106" width="358" height="126" rx="14" fill="#1E1E20"/>
+    <rect x="16" y="266" width="176" height="34" rx="17" fill="#123B4E"/>
+    <rect x="200" y="266" width="174" height="34" rx="17" fill="#123B4E"/>
+  </g>
+  <rect width="390" height="848" fill="#000000" opacity="0.4"/>
+
+  <!-- sheet -->
+  <path d="M0 250 Q0 230 20 230 H370 Q390 230 390 250 V848 H0 Z" fill="#1C1C1E"/>
+  <rect x="175" y="242" width="40" height="5" rx="2.5" fill="#3A3A3C"/>
+  <text x="24" y="286" font-size="18" font-weight="600">Category</text>
+  <g stroke="#A6A6A8" stroke-width="1.7" stroke-linecap="round"><line x1="350" y1="274" x2="362" y2="286"/><line x1="362" y1="274" x2="350" y2="286"/></g>
+
+  <!-- search categories -->
+  <rect x="24" y="304" width="342" height="40" rx="10" fill="#242427"/>
+  <circle cx="44" cy="324" r="6" fill="none" stroke="#A6A6A8" stroke-width="1.6"/><line x1="48.5" y1="328.5" x2="53" y2="333" stroke="#A6A6A8" stroke-width="1.6" stroke-linecap="round"/>
+  <text x="60" y="329" class="sec" font-size="14">Search categories</text>
+
+  <!-- multi-select list -->
+  <g>
+    <text x="24" y="381" class="opt">Groceries</text>
+    <rect x="342" y="366" width="20" height="20" rx="5" fill="#19516F"/>
+    <path d="M346 376l3 3 6-7" fill="none" stroke="#FFFFFF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+    <line x1="24" y1="402" x2="366" y2="402" stroke="#38383A" stroke-width="1"/>
+
+    <text x="24" y="431" class="opt">Restaurants &amp; cafés</text>
+    <rect x="342" y="416" width="20" height="20" rx="5" fill="none" stroke="#4A4A4E" stroke-width="1.6"/>
+    <line x1="24" y1="452" x2="366" y2="452" stroke="#38383A" stroke-width="1"/>
+
+    <text x="24" y="481" class="opt">Transport</text>
+    <rect x="342" y="466" width="20" height="20" rx="5" fill="none" stroke="#4A4A4E" stroke-width="1.6"/>
+    <line x1="24" y1="502" x2="366" y2="502" stroke="#38383A" stroke-width="1"/>
+
+    <text x="24" y="531" class="opt">Shopping</text>
+    <rect x="342" y="516" width="20" height="20" rx="5" fill="none" stroke="#4A4A4E" stroke-width="1.6"/>
+    <line x1="24" y1="552" x2="366" y2="552" stroke="#38383A" stroke-width="1"/>
+
+    <text x="24" y="581" class="opt">Home &amp; utilities</text>
+    <rect x="342" y="566" width="20" height="20" rx="5" fill="none" stroke="#4A4A4E" stroke-width="1.6"/>
+    <line x1="24" y1="602" x2="366" y2="602" stroke="#38383A" stroke-width="1"/>
+
+    <text x="24" y="631" class="opt">Software &amp; subscriptions</text>
+    <rect x="342" y="616" width="20" height="20" rx="5" fill="none" stroke="#4A4A4E" stroke-width="1.6"/>
+    <line x1="24" y1="652" x2="366" y2="652" stroke="#38383A" stroke-width="1"/>
+
+    <text x="24" y="681" class="opt">Savings &amp; investments</text>
+    <rect x="342" y="666" width="20" height="20" rx="5" fill="none" stroke="#4A4A4E" stroke-width="1.6"/>
+  </g>
+
+  <!-- actions -->
+  <text x="46" y="784" font-size="15" fill="#63B7D9" text-anchor="middle">Clear</text>
+  <rect x="126" y="762" width="240" height="46" rx="12" fill="#19516F"/>
+  <text x="246" y="791" font-size="15" font-weight="600" fill="#E7F4FA" text-anchor="middle">Apply</text>
+
+  <rect x="139" y="826" width="112" height="5" rx="2.5" fill="#3A3A3C"/>
+</svg>

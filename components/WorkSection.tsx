@@ -28,6 +28,16 @@ const allWork = [
     href: '/work/bontouch',
   },
   {
+    id: 'seb',
+    title: 'SEB',
+    description: 'A self-directed fintech UX analysis of transaction search and filtering in SEB’s mobile banking app, benchmarked against Klarna.',
+    year: '2026',
+    tags: ['Fintech', 'UX Analysis', 'Product Design', 'Mobile App'],
+    projectTag: 'Case study',
+    coverImage: '/Portfolio Assets/Work/SEB_Case_Study/seb_logo.png',
+    href: '/work/seb',
+  },
+  {
     id: 'zanlugproperties',
     title: 'Zanlüg Properties',
     description: 'Designing a luxury property showcase website connecting travelers with exclusive retreats.',
@@ -169,16 +179,16 @@ export default function WorkSection() {
       work.id !== 'moments' &&
       work.id !== 'djungelbyran'
   )
-  const featuredWork = visibleWork.slice(0, 2)
-  const moreWork = visibleWork.slice(2)
+  const featuredWork = visibleWork.slice(0, 3)
+  const moreWork = visibleWork.slice(3)
 
   return (
     <section id="work" className="py-12 md:py-16 bg-transparent relative scroll-mt-12">
-      <div ref={sectionRef} className="max-w-4xl mx-auto px-6 sm:px-8 lg:px-12">
+      <div ref={sectionRef} className="max-w-6xl mx-auto px-6 sm:px-8 lg:px-4">
         <h2 className={`text-xl md:text-2xl font-serif font-medium mb-8 text-white transition-all duration-700 ${sectionVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>Selected work</h2>
-        
+
         {/* Featured work (always visible) */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">
           {featuredWork.map((work, index) => (
             <WorkItem key={work.id} work={work} index={index} />
           ))}
@@ -187,9 +197,9 @@ export default function WorkSection() {
         {/* Additional work (collapsible) */}
         {moreWork.length > 0 && (
           <div
-            className={`mt-4 md:mt-5 grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5 overflow-hidden transition-all duration-500 ${
+            className={`mt-4 md:mt-5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5 overflow-hidden transition-all duration-500 ${
               showAllWork
-                ? 'max-h-[1200px] opacity-100 translate-y-0'
+                ? 'max-h-[1600px] opacity-100 translate-y-0'
                 : 'max-h-0 opacity-0 -translate-y-2 pointer-events-none'
             }`}
           >

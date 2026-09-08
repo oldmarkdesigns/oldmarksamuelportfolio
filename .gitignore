@@ -34,3 +34,6 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
+
+# SEB case study — raw brand logo working files (embedded into the mockup SVGs already)
+/Portfolio Assets/Work/SEB_Case_Study/logos/
