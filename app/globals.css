@@ -961,6 +961,9 @@ a {
 .cs-page {
   min-height: 100vh;
   padding-top: 5.5rem;
+  /* safety net: a wide child (diagram / table) scrolls inside its own box,
+     never the page. `clip` (not `hidden`) keeps the sticky TOC working. */
+  overflow-x: clip;
 }
 
 .cs-shell {
@@ -1233,20 +1236,22 @@ a {
   gap: var(--cs-space-4);
 }
 
-@media (min-width: 640px) {
-  .cs-gallery {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-}
-
 .cs-gallery .cs-media-frame {
   align-self: start;
 }
 
-.cs-gallery .cs-media-image {
-  aspect-ratio: 4 / 3;
-  object-fit: cover;
-  object-position: top center;
+/* one image per row on small screens: show them whole.
+   three-up on wider screens: crop to a tidy uniform tile. */
+@media (min-width: 640px) {
+  .cs-gallery {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .cs-gallery .cs-media-image {
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    object-position: top center;
+  }
 }
 
 .cs-card-title {
@@ -1305,6 +1310,9 @@ a {
   backdrop-filter: var(--cs-glass-blur);
   -webkit-backdrop-filter: var(--cs-glass-blur);
   transition: background-color 0.28s ease, border-color 0.28s ease, box-shadow 0.28s ease;
+  /* never let a wide child (diagram, code, table) stretch the card past its grid track */
+  min-width: 0;
+  overflow-wrap: break-word;
 }
 
 .cs-callout,
@@ -1336,12 +1344,14 @@ a {
 
 .cs-decision-grid {
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   gap: var(--cs-space-4);
   margin-bottom: var(--cs-space-5);
 }
 
 .cs-dl {
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   gap: var(--cs-space-4);
 }
 
