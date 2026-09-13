@@ -3,6 +3,8 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import WorkPageNav from '@/components/WorkPageNav'
+import WorkPageSkills from '@/components/WorkPageSkills'
+import { TOOLS } from '@/lib/tools'
 import { useTheme } from '@/contexts/ThemeContext'
 import { useScrollAnimation } from '@/hooks/useScrollAnimation'
 
@@ -10,6 +12,16 @@ const sections = [
   { id: 'overview', label: 'Overview' },
   { id: 'plugin', label: 'Plugin' },
   { id: 'pricing', label: 'Pricing' },
+  { id: 'skills', label: 'Skills & Tools' },
+]
+
+const momentsSkills = [
+  {
+    category: 'Design',
+    name: 'Product design (UX/UI)',
+    description: 'Concept, UX flows and high-fidelity UI for an AI-powered playlist generator.',
+    tools: [TOOLS.figma, TOOLS.claude],
+  },
 ]
 
 export default function MomentsPage() {
@@ -179,6 +191,8 @@ export default function MomentsPage() {
               />
             </div>
           </section>
+
+          <WorkPageSkills skills={momentsSkills} />
           </div>
         </div>
       </div>

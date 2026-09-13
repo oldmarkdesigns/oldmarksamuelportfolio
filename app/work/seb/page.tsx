@@ -3,6 +3,8 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { useEffect, useMemo, useRef, useState } from 'react'
+import { TOOLS } from '@/lib/tools'
+import { SkillsAndToolsGrid } from '@/components/ToolBadges'
 
 const SEB_GREEN = '#013823'
 const IMG = '/Portfolio Assets/Work/SEB_Case_Study'
@@ -276,7 +278,23 @@ const sections = [
   { id: 'principles', label: 'Rules I set' },
   { id: 'proposal', label: 'The proposed flow' },
   { id: 'rows', label: 'The row: before & after' },
+  { id: 'skills', label: 'Skills & tools' },
   { id: 'validate', label: "How I'd test it" },
+]
+
+const sebSkills = [
+  {
+    category: 'Design',
+    name: 'UX/UI design',
+    description: "Mockups drawn in SEB's existing visual language, from concept sketches to hi-fi screens.",
+    tools: [TOOLS.figma, TOOLS.claude],
+  },
+  {
+    category: 'Research',
+    name: 'Competitive & heuristic analysis',
+    description: 'Screenshot-based audit of the current flow, benchmarked against Klarna.',
+    tools: [],
+  },
 ]
 
 export default function SebCaseStudyPage() {
@@ -853,6 +871,11 @@ export default function SebCaseStudyPage() {
                   confident but inaccurate one.
                 </li>
               </ul>
+            </section>
+
+            <section id="skills" className="cs-section cs-section-divider">
+              <h2 className="cs-section-title">Skills & tools</h2>
+              <SkillsAndToolsGrid skills={sebSkills} />
             </section>
 
             <section id="validate" className="cs-section cs-section-divider">

@@ -1,7 +1,8 @@
 import CaseStudyPage, { CaseStudyData } from '@/components/CaseStudyPage'
+import { TOOLS } from '@/lib/tools'
 
 const bontouchCaseStudy: CaseStudyData = {
-  title: 'Bontouch (Framna)',
+  title: 'Framna (earlier Bontouch)',
   tagline:
     'A five-month internship focused on improving onboarding clarity, introducing in-app review prompts, and strengthening design-system consistency. My biggest takeaway was learning how to work in a professional team and collaborate on real digital products. I got hands-on experience in both UX and UI, with my main focus on UI design.',
   backHref: '/#work',
@@ -9,7 +10,7 @@ const bontouchCaseStudy: CaseStudyData = {
   liveLabel: 'Visit company site',
   heroImage: {
     src: '/Portfolio Assets/Work/Bontouch/Assets/Bontouch Background Cover.png',
-    alt: 'Bontouch case study cover with mobile product visuals.',
+    alt: 'Framna (earlier Bontouch) case study cover with mobile product visuals.',
     width: 1200,
     height: 800,
   },
@@ -178,6 +179,26 @@ const bontouchCaseStudy: CaseStudyData = {
     'Run a larger unmoderated onboarding study (target n>=30) to validate readability findings at scale.',
     'Instrument prompt-level analytics for in-app review timing and completion rates.',
     'Set component governance with documented adoption checkpoints to sustain design-system consistency.',
+  ],
+  skillsAndTools: [
+    {
+      category: 'Design',
+      name: 'UX/UI design',
+      description: 'Interaction design for onboarding, review prompts, and proposal screens.',
+      tools: [TOOLS.figma, TOOLS.claude],
+    },
+    {
+      category: 'Design',
+      name: 'Design systems',
+      description: 'Cleaned up component construction and auto-layout patterns to reduce visual drift.',
+      tools: [TOOLS.figma, TOOLS.claude],
+    },
+    {
+      category: 'Research',
+      name: 'Usability testing',
+      description: 'Planned and synthesized moderated onboarding sessions (n=6) to validate readability and recall.',
+      tools: [],
+    },
   ],
 }
 

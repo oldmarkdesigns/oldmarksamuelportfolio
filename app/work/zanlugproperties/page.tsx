@@ -3,6 +3,8 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import WorkPageNav from '@/components/WorkPageNav'
+import WorkPageSkills from '@/components/WorkPageSkills'
+import { TOOLS } from '@/lib/tools'
 import { useTheme } from '@/contexts/ThemeContext'
 import { useScrollAnimation } from '@/hooks/useScrollAnimation'
 
@@ -12,6 +14,16 @@ const sections = [
   { id: 'property-showcase', label: 'Property Showcase' },
   { id: 'brand-logo', label: 'Brand Logo Design' },
   { id: 'outcome', label: 'Outcome' },
+  { id: 'skills', label: 'Skills & Tools' },
+]
+
+const zanlugSkills = [
+  {
+    category: 'Design',
+    name: 'Web & UX/UI design',
+    description: 'Visual identity alignment, user journey mapping, and responsive UI design for a multilingual luxury property site.',
+    tools: [TOOLS.figma, TOOLS.claude],
+  },
 ]
 
 export default function ZanlugPropertiesPage() {
@@ -250,6 +262,8 @@ export default function ZanlugPropertiesPage() {
               </a>
             </div>
           </section>
+
+          <WorkPageSkills skills={zanlugSkills} />
           </div>
         </div>
       </div>

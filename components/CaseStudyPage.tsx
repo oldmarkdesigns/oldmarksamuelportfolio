@@ -4,6 +4,8 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useEffect, useMemo, useState } from 'react'
 import { useTheme } from '@/contexts/ThemeContext'
+import { SkillsAndToolsGrid } from '@/components/ToolBadges'
+import type { SkillCard } from '@/lib/tools'
 
 interface CaseStudyImage {
   src: string
@@ -86,6 +88,7 @@ export interface CaseStudyData {
   beforeAfter: BeforeAfterBlock
   supportingVisuals?: CaseStudyImage[]
   mediaLayout?: 'default' | 'single-column'
+  skillsAndTools?: SkillCard[]
   outcomes: OutcomesSection
   nextImprovements: string[]
 }
@@ -98,17 +101,19 @@ export default function CaseStudyPage({ caseStudy }: CaseStudyPageProps) {
   const { theme } = useTheme()
   const imageQuality = caseStudy.imageQuality ?? 85
   const sections = useMemo(
-    () => [
-      { id: 'project-overview', label: 'Project overview' },
-      { id: 'snapshot', label: 'Outcome snapshot' },
-      { id: 'summary', label: '30-second summary' },
-      { id: 'problem', label: 'Problem + constraints' },
-      { id: 'role', label: 'My role + ownership' },
-      { id: 'decisions', label: 'Key decisions' },
-      { id: 'outcomes', label: 'Outcomes' },
-      { id: 'next', label: "What I'd improve" },
-    ],
-    []
+    () =>
+      [
+        { id: 'project-overview', label: 'Project overview' },
+        { id: 'snapshot', label: 'Outcome snapshot' },
+        { id: 'summary', label: '30-second summary' },
+        { id: 'problem', label: 'Problem + constraints' },
+        { id: 'role', label: 'My role + ownership' },
+        { id: 'decisions', label: 'Key decisions' },
+        caseStudy.skillsAndTools ? { id: 'skills', label: 'Skills & tools' } : null,
+        { id: 'outcomes', label: 'Outcomes' },
+        { id: 'next', label: "What I'd improve" },
+      ].filter((section): section is { id: string; label: string } => section !== null),
+    [caseStudy.skillsAndTools]
   )
 
   const [activeSection, setActiveSection] = useState(sections[0].id)
@@ -440,6 +445,13 @@ export default function CaseStudyPage({ caseStudy }: CaseStudyPageProps) {
                 ))}
               </div>
             </section>
+
+            {caseStudy.skillsAndTools ? (
+              <section id="skills" className="cs-section cs-section-divider">
+                <h2 className="cs-section-title">Skills & tools</h2>
+                <SkillsAndToolsGrid skills={caseStudy.skillsAndTools} />
+              </section>
+            ) : null}
 
             <section id="outcomes" className="cs-section cs-section-divider">
               <h2 className="cs-section-title">5. Outcomes</h2>

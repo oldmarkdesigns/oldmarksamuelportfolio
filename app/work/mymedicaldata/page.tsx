@@ -1,4 +1,5 @@
 import CaseStudyPage, { CaseStudyData } from '@/components/CaseStudyPage'
+import { TOOLS } from '@/lib/tools'
 
 const myMedicalDataCaseStudy: CaseStudyData = {
   title: 'MyMedicalData',
@@ -187,6 +188,20 @@ const myMedicalDataCaseStudy: CaseStudyData = {
     'Instrument onboarding and Medical ID funnels to quantify completion and drop-off by step.',
     'Run larger external validation on AI response comprehension beyond internal/stakeholder reviews.',
     'Add dedicated accessibility stress-testing for dynamic type, screen readers, and low-attention emergency use.',
+  ],
+  skillsAndTools: [
+    {
+      category: 'Design',
+      name: 'Product design (UX/UI)',
+      description: 'Designed onboarding, Medical ID, and AI chat flows across app and website surfaces.',
+      tools: [TOOLS.figma, TOOLS.claude],
+    },
+    {
+      category: 'Design',
+      name: 'Design handoff',
+      description: 'Interaction patterns, visual hierarchy, and handoff documentation for developers.',
+      tools: [TOOLS.figma, TOOLS.claude],
+    },
   ],
 }
 

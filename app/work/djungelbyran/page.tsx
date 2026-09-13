@@ -3,6 +3,8 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import WorkPageNav from '@/components/WorkPageNav'
+import WorkPageSkills from '@/components/WorkPageSkills'
+import { TOOLS } from '@/lib/tools'
 import { useTheme } from '@/contexts/ThemeContext'
 import { useScrollAnimation } from '@/hooks/useScrollAnimation'
 
@@ -11,6 +13,22 @@ const sections = [
   { id: 'design-process', label: 'Design Process' },
   { id: 'branding', label: 'Branding' },
   { id: 'web-design', label: 'Web Design' },
+  { id: 'skills', label: 'Skills & Tools' },
+]
+
+const djungelbyranSkills = [
+  {
+    category: 'Design',
+    name: 'Brand identity & UI design',
+    description: 'Logo, color palette, typography and component design for the brand and site.',
+    tools: [TOOLS.figma, TOOLS.claude],
+  },
+  {
+    category: 'Development',
+    name: 'Frontend development',
+    description: 'Built the responsive site in Squarespace with custom HTML, CSS and JavaScript.',
+    tools: [TOOLS.claude],
+  },
 ]
 
 export default function DjungelbyranPage() {
@@ -241,6 +259,8 @@ export default function DjungelbyranPage() {
               />
             </div>
           </section>
+
+          <WorkPageSkills skills={djungelbyranSkills} />
           </div>
         </div>
       </div>

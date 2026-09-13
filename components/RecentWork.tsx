@@ -13,8 +13,8 @@ const recentWork = [
   },
   {
     id: 'bontouch',
-    title: 'Internship @ Bontouch',
-    company: 'Bontouch',
+    title: 'Internship @ Framna (earlier Bontouch)',
+    company: 'Framna (earlier Bontouch)',
     coverImage: '/Portfolio Assets/Work/Bontouch/Assets/DesignSystem.png',
     href: '/work/bontouch',
   },

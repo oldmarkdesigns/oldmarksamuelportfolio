@@ -20,7 +20,7 @@ const allWork = [
   },
   {
     id: 'bontouch',
-    title: 'Bontouch (Framna)',
+    title: 'Framna (earlier Bontouch)',
     description: 'UI Design Intern - Product design',
     projectTag: 'Internship',
     coverImage: '/Portfolio Assets/Work/Bontouch/Assets/Bontouch Background Cover.png',
@@ -50,12 +50,12 @@ const allWork = [
     href: '/work/uigoodies',
   },
   {
-    id: 'hypertype',
-    title: 'Hypertype',
-    description: 'Product design project',
-    projectTag: 'Case',
-    coverImage: '/Portfolio Assets/Work/Hypertype/Hypertype Pre.png',
-    href: '/work/hypertype',
+    id: 'oldmarkstudio',
+    title: 'Oldmark Studio',
+    description: 'My design & development agency',
+    projectTag: 'Agency',
+    coverImage: '/Portfolio Assets/Work/Oldmark Studio/oldmark-studio-thumbnail.png',
+    href: '/work/oldmarkstudio',
   },
   {
     id: 'mono',

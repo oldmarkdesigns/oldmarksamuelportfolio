@@ -3,6 +3,8 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { Children, cloneElement, isValidElement, useEffect, useMemo, useState } from 'react'
+import { TOOLS } from '@/lib/tools'
+import { SkillsAndToolsGrid } from '@/components/ToolBadges'
 
 const IMG = '/Portfolio Assets/Work/LOA'
 
@@ -243,7 +245,35 @@ const sections = [
   { id: 'backend', label: 'Backend & data' },
   { id: 'auth', label: 'Sign-up & onboarding' },
   { id: 'integrations', label: 'Integrations & tooling' },
+  { id: 'skills', label: 'Skills & tools' },
   { id: 'next', label: 'Where it goes next' },
+]
+
+const loaSkills = [
+  {
+    category: 'Research',
+    name: 'Discovery & planning',
+    description: 'Competitor teardown, flow sketches and adoption mapping before drawing any screens.',
+    tools: [TOOLS.miro],
+  },
+  {
+    category: 'Design',
+    name: 'Product design (UX/UI)',
+    description: 'Designed the entire product end to end, from information architecture to high-fidelity UI.',
+    tools: [TOOLS.figma, TOOLS.claude],
+  },
+  {
+    category: 'Development',
+    name: 'Frontend development',
+    description: '~25k lines across 60+ components and pages: React, Vite, and Tailwind.',
+    tools: [TOOLS.cursor, TOOLS.claude],
+  },
+  {
+    category: 'Development',
+    name: 'Backend & integrations',
+    description: 'Convex backend and schema, WorkOS auth, Google Maps, Archilogic and PostHog.',
+    tools: [TOOLS.claude],
+  },
 ]
 
 export default function OfficeRentalPlatformCaseStudyPage() {
@@ -902,6 +932,12 @@ export default function OfficeRentalPlatformCaseStudyPage() {
                   </ul>
                 </div>
               </div>
+            </section>
+
+            {/* SKILLS & TOOLS */}
+            <section id="skills" className="cs-section cs-section-divider">
+              <h2 className="cs-section-title">Skills & tools</h2>
+              <SkillsAndToolsGrid skills={loaSkills} />
             </section>
 
             {/* WHERE IT GOES NEXT */}

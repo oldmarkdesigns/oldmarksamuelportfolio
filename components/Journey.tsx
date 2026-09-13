@@ -13,11 +13,11 @@ const experience = [
   },
   {
     id: 'bontouch',
-    company: 'Bontouch',
+    company: 'Framna (earlier Bontouch)',
     role: 'UI Design Intern',
     period: 'Nov 2023 - May 2024',
     link: '/work/bontouch',
-    description: "I completed my five-month internship at Bontouch in Stockholm two months ago, which was a part of my education. My main focus was on UI design, though I was also involved in UX work.\n\nDuring my internship at Bontouch, I had the opportunity to work with a real product and participate in client meetings. I collaborated with experienced designers and developers, gaining a deeper understanding of all aspects related to a digital product, as well as how collaboration between different skill sets can be executed.",
+    description: "I completed my five-month internship at Framna (earlier Bontouch) in Stockholm two months ago, which was a part of my education. My main focus was on UI design, though I was also involved in UX work.\n\nDuring my internship at Framna (earlier Bontouch), I had the opportunity to work with a real product and participate in client meetings. I collaborated with experienced designers and developers, gaining a deeper understanding of all aspects related to a digital product, as well as how collaboration between different skill sets can be executed.",
   },
 ]
 

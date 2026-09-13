@@ -3,6 +3,8 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import WorkPageNav from '@/components/WorkPageNav'
+import WorkPageSkills from '@/components/WorkPageSkills'
+import { TOOLS } from '@/lib/tools'
 import { useTheme } from '@/contexts/ThemeContext'
 import { useScrollAnimation } from '@/hooks/useScrollAnimation'
 
@@ -12,6 +14,16 @@ const sections = [
   { id: 'sign-up', label: 'Sign Up' },
   { id: 'user-profile', label: 'User Profile' },
   { id: 'direct-message', label: 'Direct Message' },
+  { id: 'skills', label: 'Skills & Tools' },
+]
+
+const uigoodiesSkills = [
+  {
+    category: 'Design',
+    name: 'UI design challenges',
+    description: 'Daily UI-style interface explorations across credit card, sign-up, profile and messaging screens.',
+    tools: [TOOLS.figma, TOOLS.claude],
+  },
 ]
 
 export default function UIGoodiesPage() {
@@ -206,6 +218,8 @@ export default function UIGoodiesPage() {
               </div>
             </div>
           </section>
+
+          <WorkPageSkills skills={uigoodiesSkills} />
           </div>
         </div>
       </div>

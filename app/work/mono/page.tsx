@@ -1,4 +1,5 @@
 import CaseStudyPage, { CaseStudyData } from '@/components/CaseStudyPage'
+import { TOOLS } from '@/lib/tools'
 
 const monoCaseStudy: CaseStudyData = {
   title: 'Mono',
@@ -217,6 +218,20 @@ const monoCaseStudy: CaseStudyData = {
     'Connect real repository parsing and async processing jobs to replace simulated import progress.',
     'Run usability tests focused on time-to-first-system and first-publish completion rate.',
     'Add collaboration permissions and review workflows for multi-user team environments.',
+  ],
+  skillsAndTools: [
+    {
+      category: 'Design',
+      name: 'Product design (UX/UI)',
+      description: 'Information architecture and UX/UI for the dashboard, creator, import, and settings flows.',
+      tools: [TOOLS.figma, TOOLS.claude],
+    },
+    {
+      category: 'Development',
+      name: 'Frontend development',
+      description: 'Built the full prototype in React, TypeScript, Tailwind, and Zustand for local persistence.',
+      tools: [TOOLS.cursor, TOOLS.claude],
+    },
   ],
 }
 
