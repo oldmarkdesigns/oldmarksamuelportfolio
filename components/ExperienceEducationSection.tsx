@@ -73,7 +73,7 @@ export default function ExperienceEducationSection() {
               </div>
               <div className="flex gap-4 items-start">
                 <Image
-                  src="/Portfolio Assets/Experience Logos/hälsa+_logo.png"
+                  src="/Portfolio Assets/Experience Logos/halsa-plus-logo.png"
                   alt="Hälsa+"
                   width={160}
                   height={160}
