@@ -19,7 +19,7 @@ export default function AboutSection() {
               <div className="space-y-3">
                 <div className="about-profile-frame relative overflow-hidden rounded-xl">
                   <Image
-                    src="/Portfolio Assets/ProfilePicLarge.png"
+                    src="/Portfolio Assets/ProfilePicLarge-2026.png"
                     alt="Samuel Oldmark"
                     width={400}
                     height={600}

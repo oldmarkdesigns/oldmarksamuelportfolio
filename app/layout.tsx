@@ -11,6 +11,17 @@ export const metadata: Metadata = {
     icon: '/Portfolio Assets/Symbols/Favicon 32x32 2.0.png',
     apple: '/Portfolio Assets/Symbols/Webclip 256x256 2.0.png',
   },
+  openGraph: {
+    title: 'Samuel Oldmark - Creative Product Designer',
+    description: 'I design web and mobile apps that are user-friendly, beautiful & convert your target audience.',
+    images: ['/Portfolio Assets/ProfilePicLarge-2026.png'],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Samuel Oldmark - Creative Product Designer',
+    description: 'I design web and mobile apps that are user-friendly, beautiful & convert your target audience.',
+    images: ['/Portfolio Assets/ProfilePicLarge-2026.png'],
+  },
   themeColor: [
     { media: '(prefers-color-scheme: dark)', color: '#0a0a0a' },
     { media: '(prefers-color-scheme: light)', color: '#fafafa' },
