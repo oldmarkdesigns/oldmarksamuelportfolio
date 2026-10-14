@@ -2,7 +2,6 @@
 
 import Link from 'next/link'
 import Image from 'next/image'
-import { useState } from 'react'
 import { useTheme } from '@/contexts/ThemeContext'
 import { useScrollAnimation } from '@/hooks/useScrollAnimation'
 
@@ -180,8 +179,6 @@ function WorkItem({ work, index }: { work: typeof allWork[0], index: number }) {
 
 export default function WorkSection() {
   const { ref: sectionRef, isVisible: sectionVisible } = useScrollAnimation({ threshold: 0.1, triggerOnce: true })
-  const { theme } = useTheme()
-  const [showAllWork, setShowAllWork] = useState(false)
 
   const visibleWork = allWork.filter(
     (work) =>
@@ -189,60 +186,17 @@ export default function WorkSection() {
       work.id !== 'moments' &&
       work.id !== 'djungelbyran'
   )
-  const featuredWork = visibleWork.slice(0, 3)
-  const moreWork = visibleWork.slice(3)
 
   return (
     <section id="work" className="py-12 md:py-16 bg-transparent relative scroll-mt-12">
       <div ref={sectionRef} className="max-w-6xl mx-auto px-6 sm:px-8 lg:px-4">
         <h2 className={`text-xl md:text-2xl font-serif font-medium mb-8 text-white transition-all duration-700 ${sectionVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>Selected work</h2>
 
-        {/* Featured work (always visible) */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">
-          {featuredWork.map((work, index) => (
+          {visibleWork.map((work, index) => (
             <WorkItem key={work.id} work={work} index={index} />
           ))}
         </div>
-
-        {/* Additional work (collapsible) */}
-        {moreWork.length > 0 && (
-          <div
-            className={`mt-4 md:mt-5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5 overflow-hidden transition-all duration-500 ${
-              showAllWork
-                ? 'max-h-[1600px] opacity-100 translate-y-0'
-                : 'max-h-0 opacity-0 -translate-y-2 pointer-events-none'
-            }`}
-          >
-            {moreWork.map((work, index) => (
-              <WorkItem key={work.id} work={work} index={featuredWork.length + index} />
-            ))}
-          </div>
-        )}
-
-        {/* Toggle */}
-        {moreWork.length > 0 && (
-          <div className="mt-6">
-            <button
-              type="button"
-              onClick={() => setShowAllWork((prev) => !prev)}
-              className={`mx-auto flex items-center gap-2 rounded-full px-6 py-3 text-sm font-medium transition-all duration-200 cursor-pointer ${
-                theme === 'light'
-                  ? 'border border-gray-300 hover:border-gray-600 text-gray-900 hover:bg-gray-200/50 hover:text-gray-800'
-                  : 'border border-gray-600 hover:border-gray-500 text-white hover:bg-gray-700/20 hover:text-gray-200'
-              }`}
-            >
-              <span>{showAllWork ? 'Show less work' : 'Show more work'}</span>
-              <svg
-                className={`h-4 w-4 transform transition-transform ${showAllWork ? 'rotate-180' : ''}`}
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-              </svg>
-            </button>
-          </div>
-        )}
       </div>
     </section>
   )
