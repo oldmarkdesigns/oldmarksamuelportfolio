@@ -3,6 +3,7 @@ import { TOOLS } from '@/lib/tools'
 
 const myMedicalDataCaseStudy: CaseStudyData = {
   title: 'MyMedicalData',
+  compact: true,
   beforeAfterDecisionIndex: 0,
   tagline:
     'Designing trust-critical health experiences across onboarding, emergency medical access, AI guidance, and the public website.',

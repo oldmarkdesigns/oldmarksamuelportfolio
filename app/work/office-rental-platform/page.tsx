@@ -4,7 +4,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { Children, cloneElement, isValidElement, useEffect, useMemo, useState } from 'react'
 import { TOOLS } from '@/lib/tools'
-import { SkillsAndToolsGrid } from '@/components/ToolBadges'
+import { CompactSkills, Row, RowCard } from '@/components/CompactRows'
 
 const IMG = '/Portfolio Assets/Work/LOA'
 
@@ -370,45 +370,39 @@ export default function OfficeRentalPlatformCaseStudyPage() {
             {/* AT A GLANCE */}
             <section id="snapshot" className="cs-section cs-section-divider">
               <h2 className="cs-section-title">At a glance</h2>
-              <div className="cs-snapshot-grid">
-                <div className="cs-snapshot-item">
-                  <p className="cs-label">What this is</p>
-                  <p className="cs-copy">
+              <RowCard>
+                <Row title="What this is" asLabel>
+                  <p>
                     A self-serve B2B marketplace for renting commercial space in Stockholm. My own project,
                     not client work.
                   </p>
-                </div>
-                <div className="cs-snapshot-item">
-                  <p className="cs-label">My role</p>
-                  <p className="cs-copy">
+                </Row>
+                <Row title="My role" asLabel>
+                  <p>
                     Everything: business model, product strategy, UX and UI, frontend, backend, database
                     design, and the auth and third-party integrations.
                   </p>
-                </div>
-                <div className="cs-snapshot-item">
-                  <p className="cs-label">Timeline</p>
-                  <p className="cs-copy">
+                </Row>
+                <Row title="Timeline" asLabel>
+                  <p>
                     Roughly six months of evenings and weekends, March&ndash;September 2026, still ongoing.
                   </p>
-                </div>
-                <div className="cs-snapshot-item">
-                  <p className="cs-label">Stack</p>
-                  <p className="cs-copy">
+                </Row>
+                <Row title="Stack" asLabel>
+                  <p>
                     Vite + React, Tailwind, Convex (backend + database), WorkOS AuthKit, Google Maps,
                     Archilogic, PostHog.
                   </p>
-                </div>
-              </div>
-
-              <div className="cs-callout">
-                <p className="cs-label">The core idea</p>
-                <p className="cs-copy">
+                </Row>
+                <Row title="The core idea" asLabel>
+                  <p>
                   Stockholm&rsquo;s commercial rental market is large and stable but has seen little modern
                   product design. The bet is that a well-built self-serve platform can make the process
                   meaningfully faster than the broker-led norm. This case study is about designing and
                   building that platform, not about the commercial plan behind it.
                 </p>
-              </div>
+                </Row>
+              </RowCard>
 
               <div className="cs-tag-row">
                 {[
@@ -665,9 +659,8 @@ export default function OfficeRentalPlatformCaseStudyPage() {
                 caption="Desktop search — result list on the left, map with pins on the right. Each card carries a mini gallery, verified / featured badges, price per m², availability and a one-tap “Boka visning”."
               />
 
-              <div className="cs-decision-grid">
-                <article className="cs-surface-card">
-                  <h3 className="cs-card-title">The full filter set</h3>
+              <RowCard>
+                <Row title="The full filter set">
                   <p className="cs-copy">
                     Behind &ldquo;Visa alla filter&rdquo;: type, area, seats, min/max size, min/max budget,
                     move-in date, contract flexibility, transit distance, parking, layout, advertiser,
@@ -675,16 +668,15 @@ export default function OfficeRentalPlatformCaseStudyPage() {
                     eco-certified) &mdash; plus a 29-item amenities picker. Filters can be saved as named
                     presets and set to &ldquo;watch&rdquo;.
                   </p>
-                </article>
-                <article className="cs-surface-card">
-                  <h3 className="cs-card-title">Contradiction detection</h3>
+                </Row>
+                <Row title="Contradiction detection">
                   <p className="cs-copy">
                     If a combination of filters is impossible &mdash; area plus amenities too narrow together,
                     size and budget incompatible, or the whole query over-constrained &mdash; the UI says so
                     and suggests which constraint to loosen, instead of just showing zero results.
                   </p>
-                </article>
-              </div>
+                </Row>
+              </RowCard>
 
               <TwoUp caption="Left: the full filter panel. Right: AI search — a plain-language request that turns into the same filters, shown and editable.">
                 <Fig
@@ -749,9 +741,8 @@ export default function OfficeRentalPlatformCaseStudyPage() {
                 </p>
               </div>
 
-              <div className="cs-decision-grid">
-                <article className="cs-surface-card">
-                  <h3 className="cs-card-title">Lead CRM</h3>
+              <RowCard>
+                <Row title="Lead CRM">
                   <p className="cs-copy">
                     Every viewing request becomes a lead with a fit score and auto-generated match tags. Leads
                     move through a canonical pipeline, each with a side-panel of detail and an activity log
@@ -759,18 +750,16 @@ export default function OfficeRentalPlatformCaseStudyPage() {
                     operation&rdquo; principle.
                   </p>
                   <PipelineDiagram flush />
-                </article>
-                <article className="cs-surface-card">
-                  <h3 className="cs-card-title">Listing management &amp; publishing</h3>
+                </Row>
+                <Row title="Listing management &amp; publishing">
                   <p className="cs-copy">
                     &ldquo;Dina objekt&rdquo; opens each listing into an in-panel editor, sectioned by base
                     info, amenities, images and terms, with a fixed action footer. Publishing runs through a
                     three-step wizard (Grundinfo &rarr; Villkor &rarr; Granska &amp; publicera) with a live
                     quality score, required-field validation, draft saving, and a duplicate-address signal.
                   </p>
-                </article>
-                <article className="cs-surface-card">
-                  <h3 className="cs-card-title">Analytics</h3>
+                </Row>
+                <Row title="Analytics">
                   <p className="cs-copy">
                     The company-admin panel has a nine-module analytics view built on Recharts &mdash; KPI
                     overview, a views/enquiries trend, type distribution, per-area performance, a conversion
@@ -778,16 +767,15 @@ export default function OfficeRentalPlatformCaseStudyPage() {
                     metrics. It reads real data from the tenant&rsquo;s own listings and falls back to an
                     empty state rather than fake numbers.
                   </p>
-                </article>
-                <article className="cs-surface-card">
-                  <h3 className="cs-card-title">Broker verification</h3>
+                </Row>
+                <Row title="Broker verification">
                   <p className="cs-copy">
                     A broker requests to join a company by organisation number; the company admin gets a
                     notification and approves, edits or rejects. Approval grants the broker role, links the
                     membership, and notifies the broker. Removing a broker steps their roles back down safely.
                   </p>
-                </article>
-              </div>
+                </Row>
+              </RowCard>
 
               <p className="cs-note">
                 These panels sit behind auth, so they are described here from the build rather than shown as
@@ -808,9 +796,8 @@ export default function OfficeRentalPlatformCaseStudyPage() {
                 </p>
               </div>
 
-              <div className="cs-decision-grid">
-                <article className="cs-surface-card">
-                  <h3 className="cs-card-title">The data model &mdash; 11 tables</h3>
+              <RowCard>
+                <Row title="The data model &mdash; 11 tables">
                   <ul className="cs-list cs-list-compact">
                     <li><strong>Identity:</strong> users, companies, companyMemberships, notifications.</li>
                     <li><strong>Marketplace:</strong> listings, listingViews, favorites.</li>
@@ -822,9 +809,8 @@ export default function OfficeRentalPlatformCaseStudyPage() {
                     hand-picked set of indexes (by owner, by status, by company, by user + listing, by
                     publisher + follow-up date) so list and pipeline queries stay index-backed.
                   </p>
-                </article>
-                <article className="cs-surface-card">
-                  <h3 className="cs-card-title">Server-enforced rules</h3>
+                </Row>
+                <Row title="Server-enforced rules">
                   <ul className="cs-list cs-list-compact">
                     <li>Draft listings are visible only to their owner, the owning company, and that company&rsquo;s brokers.</li>
                     <li>A listing&rsquo;s quality score is computed server-side from field completeness; publishing checks a minimum set of fields.</li>
@@ -832,8 +818,8 @@ export default function OfficeRentalPlatformCaseStudyPage() {
                     <li><code>updateMe</code> physically cannot patch a role; role changes go through a separate, checked mutation.</li>
                     <li>Sanitised user objects strip the token identifier and subject before they ever reach the client.</li>
                   </ul>
-                </article>
-              </div>
+                </Row>
+              </RowCard>
 
               <div className="cs-callout">
                 <p className="cs-label">An auth-safety regression test</p>
@@ -878,26 +864,24 @@ export default function OfficeRentalPlatformCaseStudyPage() {
 
               <AuthFlowDiagram caption="The account flow. Getting the role selection to survive the redirect — and never bounce the user back to it — took several iterations." />
 
-              <div className="cs-decision-grid">
-                <article className="cs-surface-card">
-                  <h3 className="cs-card-title">Four onboarding flows</h3>
+              <RowCard>
+                <Row title="Four onboarding flows">
                   <ul className="cs-list cs-list-compact">
                     <li><strong>Tenant:</strong> build a Lokalprogram (17 fields), review. On finish it seeds the search filters.</li>
                     <li><strong>Broker:</strong> publisher profile, then a verification request to the company admin.</li>
                     <li><strong>Broker with program:</strong> both of the above.</li>
                     <li><strong>Company admin:</strong> company profile with organisation-number lookup and dedup against existing companies.</li>
                   </ul>
-                </article>
-                <article className="cs-surface-card">
-                  <h3 className="cs-card-title">Things that were fiddly on purpose</h3>
+                </Row>
+                <Row title="Things that were fiddly on purpose">
                   <ul className="cs-list cs-list-compact">
                     <li>A brand-new Google sign-in for an unknown email must land in <em>Skapa konto</em>, not a login page, with name and email pre-filled but the account not yet created.</li>
                     <li>Drafts persist to local storage so a refresh mid-onboarding loses nothing.</li>
                     <li>A renter-only account and a company-admin account for the same email are reconciled on sign-in instead of colliding.</li>
                     <li>Back navigation works at every step, including role re-selection.</li>
                   </ul>
-                </article>
-              </div>
+                </Row>
+              </RowCard>
 
               <Fig
                 src={`${IMG}/loa-signup.png`}
@@ -911,9 +895,8 @@ export default function OfficeRentalPlatformCaseStudyPage() {
             {/* INTEGRATIONS & TOOLING */}
             <section id="integrations" className="cs-section cs-section-divider">
               <h2 className="cs-section-title">Integrations &amp; tooling</h2>
-              <div className="cs-ownership-grid">
-                <div className="cs-surface-card">
-                  <h3 className="cs-card-title">Third-party services</h3>
+              <RowCard>
+                <Row title="Third-party services">
                   <ul className="cs-list cs-list-compact">
                     <li><strong>WorkOS AuthKit</strong> &mdash; hosted sign-in and Google OAuth; custom-JWT provider verified inside Convex; dev/preview/prod redirect and CORS config committed to the repo.</li>
                     <li><strong>Convex</strong> &mdash; backend functions, reactive database, file storage, env-gated seeding.</li>
@@ -921,23 +904,22 @@ export default function OfficeRentalPlatformCaseStudyPage() {
                     <li><strong>Archilogic</strong> &mdash; embedded 2D/3D floor-plan and walkthrough on listing pages.</li>
                     <li><strong>PostHog</strong> (EU) &mdash; a typed analytics layer: search performed, signup completed, viewing requested, lead status changed, AI prompt submitted.</li>
                   </ul>
-                </div>
-                <div className="cs-surface-card">
-                  <h3 className="cs-card-title">Build &amp; data tooling</h3>
+                </Row>
+                <Row title="Build &amp; data tooling">
                   <ul className="cs-list cs-list-compact">
                     <li>A Playwright scraper that pulls real office listings from a Stockholm property owner&rsquo;s site &mdash; with a robots.txt parser and polite rate limiting &mdash; to seed a credible catalogue.</li>
                     <li>The <code>test:auth-safety</code> static check described above.</li>
                     <li>A local mock-data seed so the app is usable on first boot without any network calls.</li>
                     <li>Deployment config for Vercel with per-branch preview auth.</li>
                   </ul>
-                </div>
-              </div>
+                </Row>
+              </RowCard>
             </section>
 
             {/* SKILLS & TOOLS */}
             <section id="skills" className="cs-section cs-section-divider">
               <h2 className="cs-section-title">Skills & tools</h2>
-              <SkillsAndToolsGrid skills={loaSkills} />
+              <CompactSkills skills={loaSkills} />
             </section>
 
             {/* WHERE IT GOES NEXT */}

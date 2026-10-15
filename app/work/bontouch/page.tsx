@@ -3,6 +3,7 @@ import { TOOLS } from '@/lib/tools'
 
 const bontouchCaseStudy: CaseStudyData = {
   title: 'Framna (earlier Bontouch)',
+  compact: true,
   tagline:
     'A five-month internship focused on improving onboarding clarity, introducing in-app review prompts, and strengthening design-system consistency. My biggest takeaway was learning how to work in a professional team and collaborate on real digital products. I got hands-on experience in both UX and UI, with my main focus on UI design.',
   backHref: '/#work',

@@ -57,24 +57,24 @@ const allWork = [
     href: '/work/zanlugproperties',
   },
   {
+    id: 'hemma',
+    title: 'Hemma',
+    description: 'A Swedish-first iPhone app that keeps a home’s log, documents and costs in one place. Designed and built in SwiftUI, still in development.',
+    year: '2026',
+    tags: ['Product Design', 'UX/UI', 'iOS App'],
+    projectTag: 'Personal project',
+    coverImage: '/Portfolio Assets/Work/Hemma/hemma-card.jpg',
+    href: '/work/hemma',
+  },
+  {
     id: 'oldmarkstudio',
     title: 'Oldmark Studio',
     description: 'My own design & development agency for founders and product teams who need digital work done well.',
     year: '2024',
     tags: ['Agency', 'Web Design', 'Web Development'],
     projectTag: 'Agency',
-    coverImage: '/Portfolio Assets/Work/Oldmark Studio/oldmark-studio-thumbnail.png',
+    coverImage: '/Portfolio Assets/Work/Oldmark Studio/oldmark-studio-thumbnail-inverted.png',
     href: '/work/oldmarkstudio',
-  },
-  {
-    id: 'mono',
-    title: 'Mono',
-    description: 'Designing and building an AI-assisted design-system workflow from setup to editable token architecture.',
-    year: '2026',
-    tags: ['Product Design', 'UX/UI', 'SaaS'],
-    projectTag: 'Concept',
-    coverImage: '/Portfolio Assets/Work/Mono/designtokens.png',
-    href: '/work/mono',
   },
   {
     id: 'moments',
@@ -131,7 +131,7 @@ function WorkItem({ work, index }: { work: typeof allWork[0], index: number }) {
           {/* Image */}
           <div
             className={`relative w-full aspect-[16/10] min-h-[160px] overflow-hidden rounded-xl ${
-              work.id === 'bontouch' || work.id === 'moments' || work.id === 'mono'
+              work.id === 'bontouch' || work.id === 'moments' || work.id === 'hemma'
                 ? 'bg-gray-950'
                 : 'bg-gray-900'
             }`}

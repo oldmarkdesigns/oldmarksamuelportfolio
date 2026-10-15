@@ -1903,3 +1903,137 @@ a {
 .light .cs-matrix-wrap {
   box-shadow: none !important;
 }
+
+/* Optional case-study blocks (problem cards, design approach, solution) */
+.cs-label-block {
+  margin-top: var(--cs-space-6);
+  margin-bottom: var(--cs-space-3);
+}
+
+.cs-tour {
+  margin-top: var(--cs-space-7);
+}
+
+.cs-tour .cs-card-title {
+  margin-bottom: var(--cs-space-3);
+}
+
+.cs-tour-media {
+  margin-top: var(--cs-space-5);
+}
+
+.cs-built-grid {
+  margin-top: var(--cs-space-7);
+}
+
+/* "Planned" reads as not real yet: a dashed outline instead of a solid one */
+.cs-surface-card.is-planned {
+  border-style: dashed;
+}
+
+/* Compact rows: label left, text right, several rows inside one card */
+.cs-rows {
+  padding-top: var(--cs-space-2);
+  padding-bottom: var(--cs-space-2);
+}
+
+.cs-section > .cs-prose + .cs-rows,
+.cs-section > .cs-snapshot-rows {
+  margin-top: var(--cs-space-5);
+}
+
+.cs-row {
+  display: grid;
+  gap: var(--cs-space-1);
+  padding: var(--cs-space-3) 0;
+  border-top: 1px solid var(--cs-divider);
+}
+
+.cs-row:first-child {
+  border-top: 0;
+}
+
+.cs-row-head {
+  min-width: 0;
+}
+
+.cs-row-kicker {
+  margin-bottom: 0.1rem;
+}
+
+.cs-row-title {
+  color: var(--cs-text-primary);
+  font-size: 0.95rem;
+  line-height: 1.4;
+  font-weight: var(--cs-weight-semibold);
+}
+
+.cs-row-title.is-big {
+  font-size: 1.2rem;
+  line-height: 1.2;
+  font-weight: var(--cs-weight-bold);
+}
+
+.cs-row-label {
+  margin-bottom: 0;
+  padding-top: 0.15rem;
+}
+
+.cs-row-body {
+  min-width: 0;
+  color: var(--cs-text-secondary);
+  font-size: 0.95rem;
+  line-height: 1.55;
+}
+
+.cs-row-body p + p {
+  margin-top: var(--cs-space-1);
+}
+
+.cs-row-strong {
+  color: var(--cs-text-primary);
+  font-weight: var(--cs-weight-semibold);
+}
+
+.cs-row-planned {
+  color: var(--cs-text-muted);
+}
+
+.cs-row-planned strong {
+  font-weight: var(--cs-weight-semibold);
+  letter-spacing: 0.02em;
+}
+
+.cs-row-tools {
+  display: flex;
+  gap: 0.35rem;
+  margin-top: var(--cs-space-2);
+}
+
+/* rows inside a decision card, under its title */
+.cs-rows-inline {
+  margin-top: var(--cs-space-1);
+}
+
+.cs-rows-inline .cs-row:first-child {
+  border-top: 1px solid var(--cs-divider);
+}
+
+.cs-rows.cs-metric-grid {
+  margin-top: var(--cs-space-5);
+  gap: 0;
+}
+
+/* two columns where the text column stays comfortable: below the table-of-contents breakpoint, and on wide screens */
+@media (min-width: 640px) and (max-width: 1023px), (min-width: 1180px) {
+  .cs-row {
+    grid-template-columns: 11rem minmax(0, 1fr);
+    column-gap: var(--cs-space-5);
+  }
+}
+
+/* text inside a row follows the row's size, even when it carries the older .cs-copy class */
+.cs-row-body .cs-copy {
+  font-size: inherit;
+  line-height: inherit;
+}

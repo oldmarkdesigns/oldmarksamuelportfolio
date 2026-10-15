@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { useEffect, useMemo, useState } from 'react'
 import { TOOLS } from '@/lib/tools'
 import { ToolBadges } from '@/components/ToolBadges'
+import { CompactSkills, Row, RowCard } from '@/components/CompactRows'
 
 const responsibilities = [
   'Sole designer and developer on every engagement — brand identity, UX/UI, frontend build, and post-launch iteration.',
@@ -214,29 +215,18 @@ export default function OldmarkStudioPage() {
 
             <section id="process" className="cs-section cs-section-divider">
               <h2 className="cs-section-title">Process</h2>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <RowCard>
                 {process.map((item) => (
-                  <div key={item.step} className="cs-surface-card">
-                    <p className="cs-label">{item.step}</p>
-                    <h3 className="cs-card-title">{item.title}</h3>
-                    <p className="cs-copy">{item.description}</p>
-                  </div>
+                  <Row key={item.step} title={item.title} kicker={item.step}>
+                    <p>{item.description}</p>
+                  </Row>
                 ))}
-              </div>
+              </RowCard>
             </section>
 
             <section id="skills" className="cs-section cs-section-divider">
               <h2 className="cs-section-title">Skills & tools</h2>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                {skills.map((skill) => (
-                  <div key={skill.name} className="cs-surface-card relative">
-                    <ToolBadges items={skill.tools} />
-                    <p className="cs-label pr-16">{skill.category}</p>
-                    <h3 className="cs-card-title">{skill.name}</h3>
-                    <p className="cs-copy">{skill.description}</p>
-                  </div>
-                ))}
-              </div>
+              <CompactSkills skills={skills} />
 
               <p className="cs-label mt-6 mb-3">Tools I use most</p>
               <div className="flex flex-wrap gap-2">
