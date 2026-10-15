@@ -62,7 +62,7 @@ const allWork = [
     title: 'Oldmark Studio',
     description: 'My design & development agency',
     projectTag: 'Agency',
-    coverImage: '/Portfolio Assets/Work/Oldmark Studio/oldmark-studio-thumbnail-inverted.png',
+    coverImage: '/Portfolio Assets/Work/Oldmark Studio/oldmark-studio-thumbnail-photo.jpg',
     href: '/work/oldmarkstudio',
   },
   {

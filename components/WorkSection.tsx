@@ -73,7 +73,7 @@ const allWork = [
     year: '2024',
     tags: ['Agency', 'Web Design', 'Web Development'],
     projectTag: 'Agency',
-    coverImage: '/Portfolio Assets/Work/Oldmark Studio/oldmark-studio-thumbnail-inverted.png',
+    coverImage: '/Portfolio Assets/Work/Oldmark Studio/oldmark-studio-thumbnail-photo.jpg',
     href: '/work/oldmarkstudio',
   },
   {
