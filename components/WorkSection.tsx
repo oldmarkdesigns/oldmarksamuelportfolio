@@ -4,6 +4,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { useTheme } from '@/contexts/ThemeContext'
 import { useScrollAnimation } from '@/hooks/useScrollAnimation'
+import './WorkSection.css'
 
 const allWork = [
   {
@@ -118,11 +119,7 @@ function WorkItem({ work, index }: { work: typeof allWork[0], index: number }) {
           {/* Project Tag - Upper Right */}
           {work.projectTag && (
             <div className="absolute top-5 right-5 md:top-6 md:right-6 z-10">
-              <span className={`px-3 py-1 text-xs font-medium rounded-full border ${
-                theme === 'light'
-                  ? 'text-gray-900 bg-white/95 border-gray-300/70'
-                  : 'text-gray-300 bg-gray-800/90 border-gray-600/70'
-              }`}>
+              <span className="work-pill">
                 {work.projectTag}
               </span>
             </div>

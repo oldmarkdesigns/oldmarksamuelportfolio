@@ -10,6 +10,8 @@ export const TOOLS = {
   framer: { name: 'Framer', src: '/Portfolio Assets/Tool Icons/framer.png' },
   notion: { name: 'Notion', src: '/Portfolio Assets/Tool Icons/notion.png' },
   miro: { name: 'Miro', src: '/Portfolio Assets/Tool Icons/miro.svg' },
+  storybook: { name: 'Storybook', src: '/Portfolio Assets/Tool Icons/storybook.svg', contain: true },
+  posthog: { name: 'PostHog', src: '/Portfolio Assets/Tool Icons/posthog.svg', contain: true },
   goldfish: { name: 'Goldfish', src: '/Portfolio Assets/Tool Icons/goldfish_logo.png', contain: true },
 } as const
 

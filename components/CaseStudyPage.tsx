@@ -6,6 +6,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { useTheme } from '@/contexts/ThemeContext'
 import { SkillsAndToolsGrid } from '@/components/ToolBadges'
 import { CompactSkills, Row, RowList } from '@/components/CompactRows'
+import { scrollToPosition } from '@/lib/smoothScroll'
 import type { SkillCard } from '@/lib/tools'
 
 interface CaseStudyImage {
@@ -216,10 +217,7 @@ export default function CaseStudyPage({ caseStudy }: CaseStudyPageProps) {
     const offset = 92
     const top = element.getBoundingClientRect().top + window.pageYOffset - offset
 
-    window.scrollTo({
-      top,
-      behavior: 'smooth',
-    })
+    scrollToPosition(top)
 
     setActiveSection(sectionId)
   }

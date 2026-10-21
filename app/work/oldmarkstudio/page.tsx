@@ -6,6 +6,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { TOOLS } from '@/lib/tools'
 import { ToolBadges } from '@/components/ToolBadges'
 import { CompactSkills, Row, RowCard } from '@/components/CompactRows'
+import { scrollToPosition } from '@/lib/smoothScroll'
 
 const responsibilities = [
   'Sole designer and developer on every engagement — brand identity, UX/UI, frontend build, and post-launch iteration.',
@@ -143,7 +144,7 @@ export default function OldmarkStudioPage() {
 
     const offset = 92
     const top = element.getBoundingClientRect().top + window.pageYOffset - offset
-    window.scrollTo({ top, behavior: 'smooth' })
+    scrollToPosition(top)
     setActiveSection(sectionId)
   }
 

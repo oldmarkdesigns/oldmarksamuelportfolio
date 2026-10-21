@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { TOOLS } from '@/lib/tools'
 import { CompactSkills, Row, RowCard } from '@/components/CompactRows'
+import { scrollToPosition } from '@/lib/smoothScroll'
 
 const SEB_GREEN = '#013823'
 const IMG = '/Portfolio Assets/Work/SEB_Case_Study'
@@ -333,7 +334,7 @@ export default function SebCaseStudyPage() {
 
     const offset = 92
     const top = element.getBoundingClientRect().top + window.pageYOffset - offset
-    window.scrollTo({ top, behavior: 'smooth' })
+    scrollToPosition(top)
     setActiveSection(sectionId)
   }
 

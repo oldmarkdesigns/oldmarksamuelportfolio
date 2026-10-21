@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { useTheme } from '@/contexts/ThemeContext'
+import { scrollToPosition } from '@/lib/smoothScroll'
 
 interface WorkPageNavProps {
   sections: { id: string; label: string }[]
@@ -41,16 +42,10 @@ export default function WorkPageNav({ sections }: WorkPageNavProps) {
       const mainElement = document.querySelector('main')
       if (mainElement) {
         const mainPosition = mainElement.getBoundingClientRect().top + window.pageYOffset
-        window.scrollTo({
-          top: mainPosition,
-          behavior: 'smooth',
-        })
+        scrollToPosition(mainPosition)
       } else {
         // Fallback to top of page
-        window.scrollTo({
-          top: 0,
-          behavior: 'smooth',
-        })
+        scrollToPosition(0)
       }
       setActiveSection(sectionId)
       return
@@ -62,10 +57,7 @@ export default function WorkPageNav({ sections }: WorkPageNavProps) {
     if (element) {
       const offset = 80 // Matches scroll-mt-20 (80px) to align sections at same position as Overview
       const elementPosition = element.getBoundingClientRect().top + window.pageYOffset
-      window.scrollTo({
-        top: elementPosition - offset,
-        behavior: 'smooth',
-      })
+      scrollToPosition(elementPosition - offset)
       setActiveSection(sectionId)
     }
   }

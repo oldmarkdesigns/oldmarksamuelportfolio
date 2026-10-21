@@ -1,0 +1,63 @@
+/* Project tag pill on the Selected work cards. Same size and bold text as the stage pills in My tech stack,
+   on a liquid-glass background (a web approximation: blur, layered highlights, a lit top edge), with the same
+   shine that sweeps across the tech stack pills. Kept next to the component. */
+.work-pill {
+  position: relative;
+  display: inline-block;
+  box-sizing: border-box;
+  overflow: hidden;
+  isolation: isolate;
+  padding: 4px 14px 5px;
+  border-radius: 999px;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.005em;
+  white-space: nowrap;
+  color: #ffffff;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.35);
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.26), rgba(255, 255, 255, 0.05) 55%, rgba(255, 255, 255, 0.14)),
+    rgba(18, 22, 30, 0.58);
+  -webkit-backdrop-filter: blur(14px) saturate(170%);
+  backdrop-filter: blur(14px) saturate(170%);
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.24),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.08),
+    0 8px 18px -8px rgba(0, 0, 0, 0.55);
+}
+/* soft light caught along the top of the glass */
+.work-pill::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background: radial-gradient(120% 90% at 18% 0%, rgba(255, 255, 255, 0.3), transparent 55%);
+  pointer-events: none;
+}
+/* the shine that sweeps across the pill */
+.work-pill::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(105deg, transparent 35%, rgba(255, 255, 255, 0.55) 50%, transparent 65%);
+  transform: translateX(-120%);
+  pointer-events: none;
+  animation: work-pill-glint 3.6s ease-in-out 1.2s infinite;
+}
+@keyframes work-pill-glint {
+  0% { transform: translateX(-120%); }
+  22%, 100% { transform: translateX(120%); }
+}
+@media (prefers-reduced-transparency: reduce) {
+  .work-pill {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    background: rgba(24, 28, 38, 0.92);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .work-pill::after { animation: none; }
+}

@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { Children, cloneElement, isValidElement, useEffect, useMemo, useState } from 'react'
 import { TOOLS } from '@/lib/tools'
 import { CompactSkills, Row, RowCard } from '@/components/CompactRows'
+import { scrollToPosition } from '@/lib/smoothScroll'
 
 const IMG = '/Portfolio Assets/Work/LOA'
 
@@ -305,7 +306,7 @@ export default function OfficeRentalPlatformCaseStudyPage() {
     if (!element) return
     const offset = 92
     const top = element.getBoundingClientRect().top + window.pageYOffset - offset
-    window.scrollTo({ top, behavior: 'smooth' })
+    scrollToPosition(top)
     setActiveSection(sectionId)
   }
 

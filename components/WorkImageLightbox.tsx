@@ -2,6 +2,7 @@
 
 import { usePathname } from 'next/navigation'
 import { useEffect, useMemo, useState } from 'react'
+import { startSmoothScroll, stopSmoothScroll } from '@/lib/smoothScroll'
 
 type PreviewImage = {
   src: string
@@ -73,10 +74,12 @@ export default function WorkImageLightbox({ children }: { children: React.ReactN
 
     const previousOverflow = document.body.style.overflow
     document.body.style.overflow = 'hidden'
+    stopSmoothScroll()
     window.addEventListener('keydown', onKeyDown)
 
     return () => {
       document.body.style.overflow = previousOverflow
+      startSmoothScroll()
       window.removeEventListener('keydown', onKeyDown)
     }
   }, [preview])

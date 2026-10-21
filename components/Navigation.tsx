@@ -2,40 +2,94 @@
 
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
-import { useState, useEffect } from 'react'
-import Image from 'next/image'
+import { useState, useEffect, useLayoutEffect, useRef } from 'react'
+import { animate, motion, useMotionValue, useMotionValueEvent, useReducedMotion, useScroll, useTransform, type MotionValue } from 'framer-motion'
 import { useTheme } from '@/contexts/ThemeContext'
+import { scrollToElement } from '@/lib/smoothScroll'
+
+const CIRCLE = 48
+const BAR_H = 50
+// springs for opening, closing and the return to the top: lively, with a clear overshoot
+const X_SPRING = { type: 'spring', stiffness: 190, damping: 15, mass: 0.9 } as const
+const SIZE_SPRING = { type: 'spring', stiffness: 300, damping: 15, mass: 0.8 } as const
+// the last step of the collapse, once the bar has swallowed the portrait: very elastic
+const SETTLE_SPRING = { type: 'spring', stiffness: 320, damping: 10, mass: 0.9 } as const
+const EASE_SLOW = [0.45, 0, 0.25, 1] as const
+const EASE_DASH = [0.12, 0.9, 0.18, 1] as const // fast start, long deceleration
+
+interface Tween {
+  duration: number
+  ease: readonly [number, number, number, number]
+}
+
+/** Animates a motion value and resolves when it finishes. */
+const wait = (mv: MotionValue<number>, to: number, tween: Tween) =>
+  new Promise<void>((resolve) => {
+    animate(mv, to, { duration: tween.duration, ease: [...tween.ease], onComplete: () => resolve() })
+  })
 
 export default function Navigation() {
   const pathname = usePathname()
   const router = useRouter()
   const { theme, toggleTheme } = useTheme()
-  const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const [isMenuClosing, setIsMenuClosing] = useState(false)
-  const [isScrolled, setIsScrolled] = useState(false)
+  const reduce = useReducedMotion()
+  const pillRef = useRef<HTMLDivElement>(null)
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50)
-    }
+  // scrolled away from the very top: the bar contracts into a circle in the top-left corner,
+  // and the portrait becomes that circle
+  const { scrollY } = useScroll()
+  const [compact, setCompact] = useState(false)
+  useMotionValueEvent(scrollY, 'change', (y) => setCompact((prev) => (prev ? y > 8 : y > 24)))
+  useEffect(() => setCompact(window.scrollY > 24), [])
 
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
+  const [open, setOpen] = useState(false)
+  // true once the collapse has finished: only then does the portrait appear
+  const [landed, setLanded] = useState(false)
+  const [vw, setVw] = useState(1024)
+  const [coarse, setCoarse] = useState(false)
+  const [contentW, setContentW] = useState(190)
+  const [measured, setMeasured] = useState(false)
+  const contentRef = useRef<HTMLDivElement>(null)
+  const desktop = vw >= 768
+
+  useLayoutEffect(() => {
+    const onResize = () => setVw(window.innerWidth)
+    onResize()
+    window.addEventListener('resize', onResize)
+    setCoarse(window.matchMedia('(hover: none)').matches)
+    return () => window.removeEventListener('resize', onResize)
   }, [])
+
+  // natural width of the row of links, so the bar can hug them
+  useLayoutEffect(() => {
+    const el = contentRef.current
+    if (!el) return
+    const measure = () => {
+      setContentW(el.offsetWidth)
+      setMeasured(true)
+    }
+    measure()
+    const ro = new ResizeObserver(measure)
+    ro.observe(el)
+    return () => ro.disconnect()
+  }, [pathname])
+
+  // on touch screens the bar opens with a tap and closes with a tap elsewhere
+  useEffect(() => {
+    if (!coarse || !open) return
+    const onDown = (e: PointerEvent) => {
+      if (!pillRef.current?.contains(e.target as Node)) setOpen(false)
+    }
+    document.addEventListener('pointerdown', onDown)
+    return () => document.removeEventListener('pointerdown', onDown)
+  }, [coarse, open])
 
   useEffect(() => {
     if (pathname !== '/') return
     const hash = window.location.hash
     if (!hash) return
 
-    const scrollToHashTarget = () => {
-      const element = document.querySelector(hash)
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth', block: 'start' })
-      }
-    }
-
-    const raf = window.requestAnimationFrame(scrollToHashTarget)
+    const raf = window.requestAnimationFrame(() => scrollToElement(hash))
     return () => window.cancelAnimationFrame(raf)
   }, [pathname])
 
@@ -44,39 +98,143 @@ export default function Navigation() {
     { href: '#about', label: 'About me' },
     { href: '#contact', label: 'Contact' },
   ]
-  const glassBlur = isScrolled ? 'blur(56px) saturate(185%)' : 'blur(46px) saturate(175%)'
-  const glassSurfaceColor =
-    theme === 'dark'
-      ? isScrolled
-        ? 'rgba(8, 10, 18, 0.78)'
-        : 'rgba(8, 10, 18, 0.68)'
-      : isScrolled
-        ? 'rgba(248, 250, 252, 0.9)'
-        : 'rgba(248, 250, 252, 0.82)'
+  // same fill, edge and blur as the tech stack cards
+  const glassBlur = 'blur(18px) saturate(150%)'
+  const glassSurfaceColor = theme === 'dark' ? 'rgba(31, 41, 55, 0.2)' : 'rgba(255, 255, 255, 0.95)'
 
   const navigateToSection = (href: string) => {
+    if (coarse) setOpen(false)
     if (pathname === '/') {
-      const element = document.querySelector(href)
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth', block: 'start' })
-      }
+      scrollToElement(href)
       return
     }
 
     router.push(`/${href}`)
   }
 
+  const goHome = () => {
+    if (pathname === '/') scrollToElement('#home')
+    else router.push('/')
+  }
+
+  // links show at the top of the page on wide screens, and whenever the circle is open
+  const expanded = open || (!compact && desktop)
+  const width = !expanded ? CIRCLE : compact ? contentW + 88 : contentW + 64
+  const height = compact || !desktop ? CIRCLE : BAR_H
+  const margin = desktop ? 30 : 14
+  const x = compact ? margin : (vw - width) / 2
+  const y = 12 + (BAR_H - height) / 2
+  const showIcon = !compact && !desktop && !expanded
+
+  // position and size are motion values so the collapse can be choreographed in steps
+  const mx = useMotionValue(x)
+  const my = useMotionValue(y)
+  const mw = useMotionValue(width)
+  const mh = useMotionValue(height)
+  // The portrait is never bigger than the bar's inner circle, so it cannot be cropped whatever the spring
+  // is doing. At the end of the collapse it springs back up to the full circle: `pop` runs 0.8 to 1.
+  const pop = useMotionValue(1)
+  const avatarSize = useTransform([mh, pop], (v: number[]) => Math.max(v[0] - 2, 0) * Math.min(1, v[1]))
+  const avatarOffset = useTransform([mh, avatarSize], (v: number[]) => (Math.max(v[0] - 2, 0) - v[1]) / 2)
+  const runId = useRef(0)
+  const initialised = useRef(false)
+  const prevCompact = useRef(compact)
+
+  useEffect(() => {
+    const token = ++runId.current
+    const alive = () => runId.current === token
+    pop.set(1)
+    if (!compact) setLanded(false)
+    const snap = () => {
+      mx.set(x)
+      my.set(y)
+      mw.set(width)
+      mh.set(height)
+    }
+    if (!measured || !initialised.current || reduce) {
+      snap()
+      if (compact) setLanded(true)
+      initialised.current = measured
+      prevCompact.current = compact
+      return
+    }
+    const justCollapsed = compact && !prevCompact.current
+    prevCompact.current = compact
+
+    if (!justCollapsed) {
+      // opening, closing and the return to the top: springs
+      if (compact) setLanded(true)
+      const controls = [
+        animate(mx, x, X_SPRING),
+        animate(my, y, X_SPRING),
+        animate(mw, width, SIZE_SPRING),
+        animate(mh, height, SIZE_SPRING),
+      ]
+      return () => controls.forEach((c) => c.stop())
+    }
+
+    // The collapse, in three steps. The bar stays plain until it has landed.
+    setLanded(false)
+    const all = (...ps: Promise<void>[]) => Promise.all(ps)
+    ;(async () => {
+      // 1. slowly shrink and change shape, still in the middle of the screen
+      const midW = 124
+      const midH = 40
+      const slow = { duration: 0.46, ease: EASE_SLOW }
+      await all(
+        wait(mx, (vw - midW) / 2, slow),
+        wait(my, 12 + (BAR_H - midH) / 2, slow),
+        wait(mw, midW, slow),
+        wait(mh, midH, slow)
+      )
+      if (!alive()) return
+      // 2. shoot to the left and slow down as it reaches the portrait, rounding off on the way
+      const reach = 58
+      const dash = { duration: 0.5, ease: EASE_DASH }
+      await all(
+        wait(mx, margin - (reach - CIRCLE) / 2, dash),
+        wait(my, 12 + (BAR_H - reach) / 2, dash),
+        wait(mw, reach, dash),
+        wait(mh, reach, dash)
+      )
+      if (!alive()) return
+      // 3. it now covers the portrait; settle into the collapsed circle with a springy wobble,
+      //    and the portrait springs into it
+      setLanded(true)
+      pop.set(0.8)
+      animate(pop, 1, SETTLE_SPRING)
+      animate(mx, margin, SETTLE_SPRING)
+      animate(my, 12 + (BAR_H - CIRCLE) / 2, SETTLE_SPRING)
+      animate(mw, CIRCLE, SETTLE_SPRING)
+      animate(mh, CIRCLE, SETTLE_SPRING)
+    })()
+    return () => {
+      runId.current++
+    }
+  }, [x, y, width, height, compact, measured, reduce, vw, margin, mx, my, mw, mh, pop])
+
+  // the hero's own portrait steps aside once the bar has landed, and comes back on the way up
+  useEffect(() => {
+    const root = document.documentElement
+    if (compact && landed) root.dataset.navCompact = 'true'
+    else delete root.dataset.navCompact
+  }, [compact, landed])
+
   return (
     <>
-    <nav className="site-nav fixed inset-x-0 top-3 z-[9999]">
-      <div className="site-nav-shell mx-auto w-full max-w-4xl px-4">
-      {/* Rounded navigation bar */}
-      <div 
-        className={`site-nav-pill relative overflow-hidden border rounded-full px-3 py-1.5 flex items-center justify-between transition-[border-color,box-shadow] duration-500 ease-out ${
-          theme === 'dark'
-            ? 'border-gray-700/40'
-            : 'border-[rgba(209,213,219,0.72)]'
+    <nav className="site-nav pointer-events-none fixed inset-x-0 top-0 z-[9999]" aria-label="Main">
+      <motion.div
+        ref={pillRef}
+        className={`site-nav-pill pointer-events-auto absolute left-0 top-0 overflow-hidden border rounded-full ${
+          theme === 'dark' ? 'border-[rgba(55,65,81,0.3)]' : 'border-[#d1d5db]'
         }`}
+        style={{ x: mx, y: my, width: mw, height: mh }}
+        onHoverStart={() => !coarse && setOpen(true)}
+        onHoverEnd={() => !coarse && setOpen(false)}
+        onFocus={() => setOpen(true)}
+        onBlur={(e) => {
+          if (!e.currentTarget.contains(e.relatedTarget as Node | null)) setOpen(false)
+        }}
       >
         <div
           className="site-nav-glass pointer-events-none absolute inset-0"
@@ -87,188 +245,98 @@ export default function Navigation() {
           }}
           aria-hidden
         />
-        <div className="relative flex w-full items-center justify-between">
-        {/* Left side: Profile picture and name */}
-        <a 
-          href="#home"
-          onClick={(e) => {
-            e.preventDefault()
-            if (pathname === '/') {
-              const element = document.querySelector('#home')
-              if (element) {
-                element.scrollIntoView({ behavior: 'smooth', block: 'start' })
-              }
-            } else {
-              router.push('/')
-            }
-          }}
-          className="flex items-center space-x-2 hover:opacity-80 transition-opacity flex-shrink-0 cursor-pointer"
+
+        {/* the links, shown while the bar is open */}
+        <motion.div
+          className="absolute left-0 top-0 flex h-full items-center whitespace-nowrap"
+          initial={false}
+          animate={{ opacity: expanded ? 1 : 0, paddingLeft: compact ? 56 : 32 }}
+          transition={{ duration: reduce ? 0 : 0.18, delay: expanded && !reduce ? 0.12 : 0 }}
+          style={{ paddingRight: 32, pointerEvents: expanded ? 'auto' : 'none' }}
         >
-          <div className="relative w-8 h-8 rounded-full overflow-hidden border border-gray-700/30">
-            <Image
-              src="/Portfolio Assets/ProfilePic-2026.jpg"
-              alt="Samuel Oldmark"
-              fill
-              className="object-cover"
-              sizes="32px"
-            />
+          <div ref={contentRef} className="flex items-center gap-7">
+            {navItems.map((item) => (
+              <a
+                key={item.href}
+                href={item.href}
+                tabIndex={expanded ? 0 : -1}
+                onClick={(e) => {
+                  e.preventDefault()
+                  navigateToSection(item.href)
+                }}
+                className={`text-sm font-medium transition-colors whitespace-nowrap cursor-pointer ${
+                  pathname === item.href || (typeof window !== 'undefined' && window.location.hash === item.href)
+                    ? 'text-white'
+                    : 'text-gray-300 hover:text-white'
+                }`}
+              >
+                {item.label}
+              </a>
+            ))}
+            {/* On the home page the light / dark switch lives in the hero; other pages keep it here */}
+            {pathname !== '/' && (
+              <button
+                onClick={toggleTheme}
+                tabIndex={expanded ? 0 : -1}
+                className="-ml-2 p-1.5 text-gray-300 hover:text-white transition-colors"
+                aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+              >
+                {theme === 'dark' ? (
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+                  </svg>
+                ) : (
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                  </svg>
+                )}
+              </button>
+            )}
           </div>
-          <span className="text-white font-medium text-xs md:text-sm whitespace-nowrap">Samuel Oldmark</span>
-        </a>
+        </motion.div>
 
-        {/* Center: Navigation links */}
-        <div className="hidden md:flex items-center space-x-5 flex-1 justify-center">
-          {navItems.map((item) => (
-            <a
-              key={item.href}
-              href={item.href}
-              onClick={(e) => {
-                e.preventDefault()
-                navigateToSection(item.href)
-              }}
-              className={`text-sm font-medium transition-colors whitespace-nowrap cursor-pointer ${
-                pathname === item.href || (typeof window !== 'undefined' && window.location.hash === item.href)
-                  ? 'text-white'
-                  : 'text-gray-300 hover:text-white'
-              }`}
-            >
-              {item.label}
-            </a>
-          ))}
-        </div>
+        {/* the portrait: it becomes the collapsed circle, and is a home button */}
+        <motion.button
+          type="button"
+          className="nav-avatar absolute left-0 top-0"
+          aria-label="Home, back to the top"
+          tabIndex={compact && landed ? 0 : -1}
+          onClick={() => {
+            if (coarse && !expanded) setOpen(true)
+            else goHome()
+          }}
+          initial={false}
+          animate={{ opacity: compact && landed ? 1 : 0 }}
+          transition={{ duration: reduce ? 0 : compact ? 0.12 : 0.1 }}
+          style={{
+            width: avatarSize,
+            height: avatarSize,
+            x: avatarOffset,
+            y: avatarOffset,
+            pointerEvents: compact && landed ? 'auto' : 'none',
+          }}
+        />
 
-        {/* Right side: Theme toggle, separator, and LinkedIn */}
-        <div className="flex items-center space-x-3 flex-shrink-0">
-          {/* Theme toggle - Sun icon when dark mode, Moon icon when light mode */}
-          <button
-            onClick={toggleTheme}
-            className="p-1.5 text-gray-300 hover:text-white transition-colors"
-            aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
-          >
-            {theme === 'dark' ? (
-              // Sun icon (clicking switches to light mode)
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
-              </svg>
-            ) : (
-              // Moon icon (clicking switches to dark mode)
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
-              </svg>
-            )}
-          </button>
-
-          {/* Separator */}
-          <div className="h-4 w-px bg-gray-700/30"></div>
-
-          {/* LinkedIn button */}
-          <a
-            href="https://www.linkedin.com/in/samuel-oldmark-31055a1a8/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center space-x-1.5 border border-gray-600 hover:border-gray-500 rounded-full px-3 py-1 transition-colors"
-          >
-            <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-            </svg>
-            <span className="text-white text-xs font-medium hidden sm:inline">LinkedIn</span>
-          </a>
-
-          {/* Mobile menu button */}
-          <button
-            className="md:hidden p-1.5 text-gray-300 hover:text-white"
-            onClick={() => {
-              if (isMenuOpen) {
-                setIsMenuClosing(true)
-                setTimeout(() => {
-                  setIsMenuOpen(false)
-                  setIsMenuClosing(false)
-                }, 300)
-              } else {
-                setIsMenuOpen(true)
-              }
-            }}
-            aria-label={isMenuOpen ? "Close menu" : "Toggle menu"}
-          >
-            {isMenuOpen ? (
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            ) : (
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-              </svg>
-            )}
-          </button>
-        </div>
-        </div>
-      </div>
-      </div>
-
+        {/* mobile, at the top of the page: a two-line menu icon that opens the links */}
+        <motion.button
+          type="button"
+          className="absolute left-0 top-0 grid h-full w-12 place-items-center text-gray-300 hover:text-white"
+          aria-label="Open menu"
+          aria-expanded={expanded}
+          tabIndex={showIcon ? 0 : -1}
+          onClick={() => setOpen(true)}
+          initial={false}
+          animate={{ opacity: showIcon ? 1 : 0, scale: showIcon ? 1 : 0.6 }}
+          transition={{ duration: reduce ? 0 : 0.16 }}
+          style={{ pointerEvents: showIcon ? 'auto' : 'none' }}
+        >
+          <span className="relative block h-3 w-4" aria-hidden>
+            <span className="absolute left-0 top-[1px] block h-[2px] w-4 rounded-full bg-current" />
+            <span className="absolute left-0 top-[9px] block h-[2px] w-4 rounded-full bg-current" />
+          </span>
+        </motion.button>
+      </motion.div>
     </nav>
-      {/* Mobile Menu Overlay - Outside nav to ensure proper click handling */}
-      {(isMenuOpen || isMenuClosing) && (
-        <>
-          <div 
-            className={`md:hidden fixed inset-0 bg-black/20 z-[10000] transition-opacity duration-300 ${
-              isMenuClosing ? 'opacity-0' : 'opacity-100 animate-fade-in-overlay'
-            }`}
-            onClick={() => {
-              setIsMenuClosing(true)
-              setTimeout(() => {
-                setIsMenuOpen(false)
-                setIsMenuClosing(false)
-              }, 300)
-            }}
-          />
-          <div 
-            className={`md:hidden fixed top-16 left-1/2 transform -translate-x-1/2 w-full max-w-4xl px-4 z-[10001] border rounded-2xl p-3 transition-all duration-300 ease-out ${
-              theme === 'dark' 
-                ? 'bg-[rgba(8,10,18,0.68)] border-gray-700/40' 
-                : 'bg-[rgba(248,250,252,0.82)] border-[rgba(209,213,219,0.72)]'
-            } ${
-              isMenuClosing 
-                ? 'opacity-0 translate-y-[-20px]' 
-                : 'opacity-100 translate-y-0 animate-slide-down-menu'
-            }`}
-            style={{
-              backdropFilter: glassBlur,
-              WebkitBackdropFilter: glassBlur,
-            }}
-            onClick={(e) => e.stopPropagation()}
-          >
-          {navItems.map((item) => (
-            <a
-              key={item.href}
-              href={item.href}
-              onClick={(e) => {
-                e.preventDefault()
-                setIsMenuClosing(true)
-                setTimeout(() => {
-                  setIsMenuOpen(false)
-                  setIsMenuClosing(false)
-                  if (pathname === '/') {
-                    const element = document.querySelector(item.href)
-                    if (element) {
-                      element.scrollIntoView({ behavior: 'smooth', block: 'start' })
-                    }
-                  } else {
-                    router.push(`/${item.href}`)
-                  }
-                }, 300)
-              }}
-              className={`block py-3 text-base font-medium transition-colors cursor-pointer ${
-                pathname === item.href || (typeof window !== 'undefined' && window.location.hash === item.href)
-                  ? 'text-white'
-                  : 'text-gray-300'
-              }`}
-            >
-              {item.label}
-            </a>
-          ))}
-          </div>
-        </>
-      )}
     </>
   )
 }

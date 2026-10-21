@@ -35,21 +35,14 @@ function applyThemeClass(theme: Theme) {
 }
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  // Initialize theme - read from localStorage or default to dark
-  const [theme, setTheme] = useState<Theme>(() => {
-    if (typeof window !== 'undefined') {
-      const stored = getStoredTheme()
-      const initialTheme = stored || 'dark'
-      // Apply immediately
-      applyThemeClass(initialTheme)
-      return initialTheme
-    }
-    return 'dark'
-  })
+  // Start from the same value the server renders, so hydration matches. The saved choice is
+  // read right after mount (the inline script in layout.tsx has already applied its class).
+  const [theme, setTheme] = useState<Theme>('dark')
+  const [mounted, setMounted] = useState(false)
 
   // Sync theme with document and localStorage whenever it changes
   useEffect(() => {
-    if (typeof window === 'undefined') return
+    if (typeof window === 'undefined' || !mounted) return
     
     applyThemeClass(theme)
     localStorage.setItem('theme', theme)
@@ -67,7 +60,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
       document.head.appendChild(themeColorMeta)
     }
     themeColorMeta.setAttribute('content', bgColor)
-  }, [theme])
+  }, [theme, mounted])
 
   // Listen for storage changes (in case theme is changed in another tab)
   useEffect(() => {
@@ -86,20 +79,11 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     return () => window.removeEventListener('storage', handleStorageChange)
   }, [])
 
-  // Ensure theme is correct on mount (double-check)
+  // Read the saved theme once on mount
   useEffect(() => {
-    if (typeof window === 'undefined') return
-    
     const stored = getStoredTheme()
-    if (stored && stored !== theme) {
-      setTheme(stored)
-    } else {
-      // Ensure document class matches state
-      applyThemeClass(theme)
-      // Set initial background colors
-      document.documentElement.style.backgroundColor = theme === 'dark' ? '#0a0a0a' : '#fafafa'
-      document.body.style.backgroundColor = theme === 'dark' ? '#0a0a0a' : '#fafafa'
-    }
+    if (stored) setTheme(stored)
+    setMounted(true)
   }, [])
 
   const toggleTheme = useCallback(() => {

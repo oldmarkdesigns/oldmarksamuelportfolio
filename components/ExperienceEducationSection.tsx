@@ -4,6 +4,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import { useScrollAnimation } from '@/hooks/useScrollAnimation'
+import { startSmoothScroll, stopSmoothScroll } from '@/lib/smoothScroll'
 
 const LOGO_SIZE_CLASS = 'w-10 h-10 md:w-12 md:h-12 flex-shrink-0'
 const LOGO_RADIUS_CLASS = 'rounded-[21.25%]'
@@ -25,10 +26,12 @@ export default function ExperienceEducationSection() {
 
     const previousOverflow = document.body.style.overflow
     document.body.style.overflow = 'hidden'
+    stopSmoothScroll()
     window.addEventListener('keydown', onKeyDown)
 
     return () => {
       document.body.style.overflow = previousOverflow
+      startSmoothScroll()
       window.removeEventListener('keydown', onKeyDown)
     }
   }, [showCertificate])

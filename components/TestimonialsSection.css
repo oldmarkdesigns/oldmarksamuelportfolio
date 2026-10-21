@@ -1,0 +1,28 @@
+/* Testimonials: one quote at a time. Every quote sits in the same grid cell, so the section
+   is as tall as the longest quote. Only the active one is visible; the incoming quote clears
+   from dark and blurred. Kept next to the component so edits elsewhere cannot drop it. */
+.quote-item {
+  grid-area: 1 / 1;
+  visibility: hidden;
+  pointer-events: none;
+  opacity: 0;
+  filter: blur(12px) brightness(0.3);
+  transform: translateY(8px);
+  transition: opacity 0.45s ease-out, filter 0.45s ease-out, transform 0.45s ease-out, visibility 0s linear 0.45s;
+}
+.quote-item[data-on='true'] {
+  visibility: visible;
+  pointer-events: auto;
+  opacity: 1;
+  filter: blur(0px) brightness(1);
+  transform: none;
+  transition: opacity 0.8s ease-out 0.2s, filter 0.8s ease-out 0.2s, transform 0.8s ease-out 0.2s, visibility 0s;
+}
+@media (prefers-reduced-motion: reduce) {
+  .quote-item,
+  .quote-item[data-on='true'] {
+    transition: none;
+    filter: none;
+    transform: none;
+  }
+}
