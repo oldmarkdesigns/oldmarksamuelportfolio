@@ -43,7 +43,7 @@ const allWork = [
     year: '2026',
     tags: ['Fintech', 'UX Analysis', 'Product Design', 'Mobile App'],
     projectTag: 'Case study',
-    coverImage: '/Portfolio Assets/Work/SEB_Case_Study/seb_logo.png',
+    coverImage: '/Portfolio Assets/Work/SEB_Case_Study/seb-cover.png',
     href: '/work/seb',
   },
   {
@@ -210,8 +210,11 @@ const visibleWork = allWork.filter(
 )
 
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1]
-const EASE_IN_OUT: [number, number, number, number] = [0.65, 0, 0.35, 1]
+const EASE_IN_OUT_QUART: [number, number, number, number] = [0.76, 0, 0.24, 1]
+const EASE_OUT_EXPO: [number, number, number, number] = [0.16, 1, 0.3, 1]
 const DARK_COVER = ['bontouch', 'moments', 'hemma']
+// how far past a slice boundary (in projects) the scroll has to go before the next one takes the stage
+const BOUNDARY_SLACK = 0.06
 
 type IntroState = 'idle' | 'playing' | 'done'
 
@@ -222,21 +225,21 @@ const isTyping = (target: EventTarget | null) =>
   (target.isContentEditable || ['INPUT', 'TEXTAREA', 'SELECT'].includes(target.tagName))
 
 /** Desktop Selected work: the section pins and page scroll steps through the projects sideways.
-    The first time it pins, the hero orb comes back, flattens into a horizon line, and the line
-    opens like an aperture onto project 01 (Space skips it). Each project owns an equal slice of
-    the section's scroll, so the arrows and ← / → keys just scroll to the middle of a slice. */
+    The first time it pins, the grid draws itself and project 01 glides in from the right
+    (Space skips it). Each project owns an equal slice of the section's scroll, so the arrows and
+    ← / → keys just scroll to the middle of a slice. Every project stays mounted and moves between
+    three resting places (passed, on stage, still to come), so a quick swipe just retargets the
+    motion that's already running instead of queueing mounts and image loads. */
 function WorkStage({ works }: { works: Work[] }) {
   const reduce = useReducedMotion()
   const trackRef = useRef<HTMLDivElement>(null)
   const [scope, animate] = useAnimate<HTMLDivElement>()
   const [index, setIndex] = useState(0)
-  const [dir, setDir] = useState(1)
   const [intro, setIntro] = useState<IntroState>('idle')
   const indexRef = useRef(0)
   const introRef = useRef<IntroState>('idle')
   const runs = useRef<AnimationPlaybackControls[]>([])
   const n = works.length
-  const work = works[index]
 
   const { scrollY } = useScroll()
   const { scrollYProgress } = useScroll({ target: trackRef, offset: ['start start', 'end end'] })
@@ -265,31 +268,25 @@ function WorkStage({ works }: { works: Work[] }) {
     )
   }, [scope])
 
-  const playIntro = useCallback(() => {
-    setIntroState('playing')
+  const runIntro = useCallback(() => {
+    // 0–0.9s the grid draws out from the image's edges · 0.1–1.6s project 01 fades up and glides in
+    // from the right while its window opens leftward, settling as it lands · 0.55s on the copy
+    // rises line by line · ~1.05s the counter and navigation follow
     runs.current = [
-      // the orb drifts down, holds, then squashes into a hairline
+      animate('.work-x-grid', { opacity: [0, 1] }, { duration: 0.3, ease: 'easeOut' }),
+      animate('.work-x-gl-h', { scaleX: [0, 1] }, { duration: 1.1, delay: stagger(0.08), ease: EASE_OUT_EXPO }),
+      animate('.work-x-gl-v', { scaleY: [0, 1] }, { duration: 1.1, delay: stagger(0.08, { startDelay: 0.1 }), ease: EASE_OUT_EXPO }),
+      animate('.work-x-plus', { opacity: [0, 1], scale: [0.4, 1], rotate: [-90, 0] }, { duration: 0.6, delay: stagger(0.05, { startDelay: 0.4 }), ease: EASE }),
       animate(
-        '.work-x-orb',
-        { opacity: [0, 1, 1, 1, 0], y: [-120, 0, 0, 0, 0], scaleX: [0.55, 1, 1, 2.8, 3.4], scaleY: [0.55, 1, 1, 0.006, 0.003] },
-        { duration: 1.4, times: [0, 0.3, 0.42, 0.92, 1], ease: 'easeInOut' }
+        '.work-x-window',
+        { clipPath: ['inset(0% 0% 0% 100% round 14px)', 'inset(0% 0% 0% 0% round 14px)'] },
+        { duration: 1.2, delay: 0.1, ease: EASE_IN_OUT_QUART }
       ),
-      // the hairline takes over, then drops away toward the rail
-      animate(
-        '.work-x-line',
-        { opacity: [0, 1, 1, 0], scaleX: [0.3, 1, 1, 1], y: [0, 0, 0, 140] },
-        { duration: 1.25, delay: 1.15, times: [0, 0.32, 0.44, 1], ease: EASE_IN_OUT }
-      ),
-      // the aperture: project 01 opens out from the line
-      animate(
-        '.work-x-reveal',
-        { clipPath: ['inset(50% -20% 50% -20%)', 'inset(-20% -20% -20% -20%)'] },
-        { duration: 0.75, delay: 1.3, ease: EASE_IN_OUT }
-      ),
-      animate('.work-x-media-scale', { scale: [1.08, 1] }, { duration: 1.1, delay: 1.3, ease: EASE }),
-      animate('.work-x-grid', { opacity: [0, 1] }, { duration: 0.9, delay: 1.4, ease: 'easeOut' }),
-      animate('.work-x-ln', { opacity: [0, 1], y: [22, 0] }, { duration: 0.7, delay: stagger(0.09, { startDelay: 1.9 }), ease: EASE }),
-      animate('.work-x-chrome', { opacity: [0, 1], y: [8, 0] }, { duration: 0.5, delay: stagger(0.08, { startDelay: 2.3 }), ease: EASE }),
+      animate('.work-x-media-scale', { opacity: [0, 1] }, { duration: 0.8, delay: 0.1, ease: 'easeOut' }),
+      animate('.work-x-media-scale', { x: ['8%', '0%'], scale: [1.04, 1] }, { duration: 1.5, delay: 0.1, ease: EASE_OUT_EXPO }),
+      animate('.work-x-shadow', { opacity: [0, 1] }, { duration: 0.9, delay: 0.55, ease: 'easeOut' }),
+      animate('.work-x-copy-item[data-active="true"] .work-x-ln', { opacity: [0, 1], y: [20, 0] }, { duration: 0.8, delay: stagger(0.08, { startDelay: 0.55 }), ease: EASE }),
+      animate('.work-x-chrome', { opacity: [0, 1], y: [8, 0] }, { duration: 0.5, delay: stagger(0.08, { startDelay: 1.05 }), ease: EASE }),
     ]
     const current = runs.current
     Promise.all(current).then(() => {
@@ -297,14 +294,26 @@ function WorkStage({ works }: { works: Work[] }) {
     })
   }, [animate, finishIntro])
 
-  // start the intro once the section reaches the top of the screen; skip it when there is
+  // hold the entrance until project 01's image has decoded (at most a beat), so it never fades in
+  // as an empty panel and then pops
+  const playIntro = useCallback(() => {
+    setIntroState('playing')
+    const img = scope.current?.querySelector<HTMLImageElement>('.work-x-slide[data-active="true"] img')
+    const ready = img ? Promise.race([img.decode().catch(() => {}), new Promise((r) => setTimeout(r, 700))]) : Promise.resolve()
+    ready.then(() => {
+      if (introRef.current === 'playing' && runs.current.length === 0) runIntro()
+    })
+  }, [scope, runIntro])
+
+  // start the intro as the section comes up through the middle of the screen, so it's arriving
+  // while the stage settles into place instead of leaving an empty stage on the way; skip it when there is
   // nothing to introduce (reduced motion, or the page loaded already past project 01)
   const checkIntro = useCallback(() => {
     const track = trackRef.current
     if (introRef.current !== 'idle' || !track) return
     if (!window.matchMedia('(min-width: 768px)').matches) return
     const rect = track.getBoundingClientRect()
-    if (rect.top > window.innerHeight * 0.2) return
+    if (rect.top > window.innerHeight * 0.5) return
     if (reduce || rect.bottom < window.innerHeight || indexRef.current > 0) finishIntro()
     else playIntro()
   }, [reduce, finishIntro, playIntro])
@@ -314,10 +323,15 @@ function WorkStage({ works }: { works: Work[] }) {
   }, [checkIntro])
   useMotionValueEvent(scrollY, 'change', checkIntro)
 
+  // a little hysteresis around each slice boundary, so stopping a swipe right on the line can't
+  // flick the project back and forth
   useMotionValueEvent(scrollYProgress, 'change', (p) => {
-    const next = Math.min(n - 1, Math.max(0, Math.floor(p * n)))
-    if (next === indexRef.current) return
-    setDir(next > indexRef.current ? 1 : -1)
+    const at = p * n
+    const current = indexRef.current
+    let next = current
+    if (at >= current + 1 + BOUNDARY_SLACK) next = Math.min(n - 1, Math.floor(at - BOUNDARY_SLACK))
+    else if (at < current - BOUNDARY_SLACK) next = Math.max(0, Math.floor(at + BOUNDARY_SLACK))
+    if (next === current) return
     indexRef.current = next
     setIndex(next)
     if (introRef.current === 'playing') finishIntro()
@@ -354,17 +368,14 @@ function WorkStage({ works }: { works: Work[] }) {
     return () => window.removeEventListener('keydown', onKey)
   }, [finishIntro, goTo, n])
 
-  const shift = reduce ? 0 : 1
-  const copyVariants = {
-    enter: (d: number) => ({ opacity: 0, x: 32 * d * shift }),
-    center: { opacity: 1, x: 0, transition: { duration: 0.5, ease: EASE } },
-    exit: (d: number) => ({ opacity: 0, x: -24 * d * shift, transition: { duration: 0.2, ease: 'easeIn' as const } }),
-  }
-  const slideVariants = {
-    enter: (d: number) => ({ opacity: 0, x: `${55 * d * shift}%`, scale: reduce ? 1 : 0.96 }),
-    center: { opacity: 1, x: '0%', scale: 1, transition: { duration: 0.8, ease: EASE } },
-    exit: (d: number) => ({ opacity: 0, x: `${-55 * d * shift}%`, scale: reduce ? 1 : 0.96, transition: { duration: 0.6, ease: EASE } }),
-  }
+  // where a project rests relative to the one on stage: -1 passed (off to the left), 1 still to come
+  const place = (i: number) => Math.sign(i - index)
+  const glide = reduce ? { duration: 0 } : { type: 'spring' as const, duration: 0.9, bounce: 0 }
+  const fade = (onStage: boolean) =>
+    onStage ? { duration: 0.5, delay: 0.1, ease: EASE } : { duration: 0.3, ease: 'easeOut' as const }
+  // text hands over without overlapping: two titles on top of each other read as a smudge
+  const textFade = (onStage: boolean) =>
+    onStage ? { duration: 0.45, delay: 0.2, ease: EASE } : { duration: 0.18, ease: 'easeOut' as const }
 
   return (
     <div ref={trackRef} className="work-x-track" style={{ '--work-x-count': n } as React.CSSProperties}>
@@ -373,58 +384,78 @@ function WorkStage({ works }: { works: Work[] }) {
           <h2 className="work-x-label">Selected work</h2>
 
           <div className="work-x-copy">
-            <AnimatePresence mode="wait" initial={false} custom={dir}>
-              <motion.div key={work.id} custom={dir} variants={copyVariants} initial="enter" animate="center" exit="exit">
-                <p className="work-x-eyebrow work-x-ln" data-intro-el>
-                  <span>{work.projectTag}</span>
-                  <i aria-hidden="true" />
-                  <span>{work.year}</span>
-                </p>
-                <h3 className="work-x-title">
-                  <span className="work-x-ln" data-intro-el>{work.headline[0]}</span>
-                  <span className="work-x-ln work-x-title-soft" data-intro-el>{work.headline[1]}</span>
-                </h3>
-                <p className="work-x-desc work-x-ln" data-intro-el>{work.description}</p>
-                <Link href={work.href} className="work-x-cta work-x-ln" data-intro-el>
-                  View case study
-                  <ArrowUpRight size={14} weight="bold" aria-hidden="true" />
-                </Link>
-              </motion.div>
-            </AnimatePresence>
+            {works.map((work, i) => {
+              const onStage = i === index
+              return (
+                <motion.div
+                  key={work.id}
+                  className="work-x-copy-item"
+                  data-active={onStage}
+                  aria-hidden={!onStage}
+                  initial={false}
+                  animate={{ opacity: onStage ? 1 : 0, x: reduce ? 0 : place(i) * 28 }}
+                  transition={{ x: glide, opacity: textFade(onStage) }}
+                >
+                  <p className="work-x-eyebrow work-x-ln" data-intro-el>
+                    <span>{work.projectTag}</span>
+                    <i aria-hidden="true" />
+                    <span>{work.year}</span>
+                  </p>
+                  <h3 className="work-x-title">
+                    <span className="work-x-ln" data-intro-el>{work.headline[0]}</span>
+                    <span className="work-x-ln work-x-title-soft" data-intro-el>{work.headline[1]}</span>
+                  </h3>
+                  <p className="work-x-desc work-x-ln" data-intro-el>{work.description}</p>
+                  <Link href={work.href} className="work-x-cta work-x-ln" data-intro-el tabIndex={onStage ? undefined : -1}>
+                    View case study
+                    <ArrowUpRight size={14} weight="bold" aria-hidden="true" />
+                  </Link>
+                </motion.div>
+              )
+            })}
           </div>
 
           <div className="work-x-frame">
             <div className="work-x-grid" data-intro-el aria-hidden="true">
-              <span className="work-x-gl work-x-gl-top" />
-              <span className="work-x-gl work-x-gl-bottom" />
-              <span className="work-x-gl work-x-gl-left" />
-              <span className="work-x-gl work-x-gl-right" />
-              <span className="work-x-plus" style={{ left: 0, top: 0 }} />
-              <span className="work-x-plus" style={{ left: '100%', top: 0 }} />
-              <span className="work-x-plus" style={{ left: 0, top: '100%' }} />
-              <span className="work-x-plus" style={{ left: '100%', top: '100%' }} />
+              <span className="work-x-gl work-x-gl-h work-x-gl-top" data-intro-el />
+              <span className="work-x-gl work-x-gl-h work-x-gl-bottom" data-intro-el />
+              <span className="work-x-gl work-x-gl-v work-x-gl-left" data-intro-el />
+              <span className="work-x-gl work-x-gl-v work-x-gl-right" data-intro-el />
+              <span className="work-x-plus" style={{ left: 0, top: 0 }} data-intro-el />
+              <span className="work-x-plus" style={{ left: '100%', top: 0 }} data-intro-el />
+              <span className="work-x-plus" style={{ left: 0, top: '100%' }} data-intro-el />
+              <span className="work-x-plus" style={{ left: '100%', top: '100%' }} data-intro-el />
             </div>
             <p className="work-x-counter work-x-chrome" data-intro-el>
               <b>{pad(index + 1)}</b> / {pad(n)}
             </p>
-            <div className="work-x-reveal" data-intro-el>
-              <div className="work-x-tilt">
+            <div className="work-x-tilt">
+              <div className="work-x-shadow" data-intro-el aria-hidden="true" />
+              {/* every slide is clipped to this window, so the ones waiting either side never show */}
+              <div className="work-x-window" data-intro-el>
                 <div className="work-x-media-scale" data-intro-el>
-                  <AnimatePresence initial={false} custom={dir}>
-                    <motion.div
-                      key={work.id}
-                      className={`work-x-slide ${DARK_COVER.includes(work.id) ? 'bg-gray-950' : 'bg-gray-900'}`}
-                      custom={dir}
-                      variants={slideVariants}
-                      initial="enter"
-                      animate="center"
-                      exit="exit"
-                    >
-                      <Link href={work.href} tabIndex={-1} aria-hidden="true" className="absolute inset-0">
-                        <Image src={work.coverImage} alt="" fill sizes="(min-width: 768px) 55vw, 100vw" className="object-cover" />
-                      </Link>
-                    </motion.div>
-                  </AnimatePresence>
+                  {works.map((work, i) => {
+                    const onStage = i === index
+                    return (
+                      <motion.div
+                        key={work.id}
+                        className={`work-x-slide ${DARK_COVER.includes(work.id) ? 'bg-gray-950' : 'bg-gray-900'}`}
+                        data-active={onStage}
+                        initial={false}
+                        animate={{
+                          opacity: onStage ? 1 : 0,
+                          x: reduce ? '0%' : `${place(i) * 42}%`,
+                          scale: onStage || reduce ? 1 : 0.94,
+                          zIndex: onStage ? 2 : 1,
+                        }}
+                        transition={{ x: glide, scale: glide, opacity: fade(onStage), zIndex: { duration: 0 } }}
+                      >
+                        <Link href={work.href} tabIndex={-1} aria-hidden="true" className="absolute inset-0">
+                          <Image src={work.coverImage} alt="" fill priority={i === 0} sizes="(min-width: 768px) 55vw, 100vw" className="object-cover" />
+                        </Link>
+                      </motion.div>
+                    )
+                  })}
                 </div>
               </div>
             </div>
@@ -444,12 +475,6 @@ function WorkStage({ works }: { works: Work[] }) {
           </div>
         </div>
 
-        {intro !== 'done' && (
-          <div className="work-x-intro" aria-hidden="true">
-            <div className="work-x-orb" />
-            <div className="work-x-line" />
-          </div>
-        )}
         <AnimatePresence>
           {intro === 'playing' && (
             <motion.button

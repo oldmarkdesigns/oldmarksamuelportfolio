@@ -64,7 +64,7 @@
 
 /* ---------------------------------------------------------------
    Selected work, desktop: a pinned stage that steps sideways
-   through the projects. Same ink and orb gradient as the hero.
+   through the projects. Same ink and gradient as the hero.
 ---------------------------------------------------------------- */
 .work-x-pin {
   --wx-ink: #ffffff;
@@ -74,7 +74,6 @@
   --wx-line-strong: rgba(255, 255, 255, 0.26);
   --wx-grad-a: #3cc3f0;
   --wx-grad-b: #52e39a;
-  --wx-orb-filter: saturate(0.9) brightness(0.82);
   --wx-shadow: rgba(0, 0, 0, 0.85);
   --wx-gutter: 2rem;
 }
@@ -86,7 +85,6 @@
   --wx-line-strong: rgba(17, 24, 39, 0.24);
   --wx-grad-a: #139fd0;
   --wx-grad-b: #14b87a;
-  --wx-orb-filter: saturate(0.9);
   --wx-shadow: rgba(15, 23, 42, 0.28);
 }
 @media (min-width: 1024px) {
@@ -102,7 +100,10 @@
   position: sticky;
   top: 0;
   height: 100svh;
+  /* clip, not hidden: a hidden box is still a scroll container, and the grid lines that run past
+     the stage gave the wheel (via Lenis) something to scroll the whole stage up by */
   overflow: hidden;
+  overflow: clip;
   color: var(--wx-ink);
 }
 .work-x-inner {
@@ -147,6 +148,15 @@
 
 .work-x-copy {
   padding-left: 1.5rem;
+  /* every project's copy sits in the same cell, so the column keeps one height as they swap */
+  display: grid;
+}
+.work-x-copy-item {
+  grid-area: 1 / 1;
+  align-self: center;
+}
+.work-x-copy-item[data-active='false'] {
+  pointer-events: none;
 }
 .work-x-eyebrow {
   display: flex;
@@ -252,8 +262,9 @@
   color: var(--wx-ink);
   font-weight: 500;
 }
-.work-x-reveal,
 .work-x-tilt,
+.work-x-shadow,
+.work-x-window,
 .work-x-media-scale {
   position: absolute;
   inset: 0;
@@ -263,14 +274,24 @@
   transform: perspective(1600px) rotateY(-14deg) rotateX(3deg);
   transform-origin: 30% 50%;
 }
-.work-x-slide {
-  position: absolute;
-  inset: 0;
+.work-x-slide[data-active='false'] {
+  pointer-events: none;
+}
+/* the shadow and hairline edge sit on their own layer behind the window, so clipping the slides
+   never cuts them off */
+.work-x-shadow {
   border-radius: 14px;
-  overflow: hidden;
   box-shadow:
     0 40px 80px -32px var(--wx-shadow),
     0 0 0 1px var(--wx-line);
+}
+.work-x-window {
+  clip-path: inset(0% 0% 0% 0% round 14px);
+}
+.work-x-slide {
+  position: absolute;
+  inset: 0;
+  will-change: transform, opacity;
 }
 
 .work-x-nav {
@@ -322,35 +343,6 @@
   background: linear-gradient(90deg, var(--wx-grad-a), var(--wx-grad-b));
 }
 
-/* intro: the hero orb returns, flattens into a horizon line, and the line opens onto project 01 */
-.work-x-intro {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-}
-.work-x-orb {
-  position: absolute;
-  inset: 0;
-  margin: auto;
-  width: min(30vw, 44vh);
-  height: min(30vw, 44vh);
-  border-radius: 50%;
-  background: radial-gradient(
-    circle at 34% 30%,
-    var(--wx-grad-a),
-    color-mix(in srgb, var(--wx-grad-a) 45%, var(--wx-grad-b)) 48%,
-    var(--wx-grad-b) 88%
-  );
-  filter: var(--wx-orb-filter) blur(1px);
-}
-.work-x-line {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 50%;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, var(--wx-grad-a) 20%, var(--wx-grad-b) 80%, transparent);
-}
 .work-x-skip {
   position: absolute;
   right: var(--wx-gutter);
@@ -378,15 +370,16 @@
   color: var(--wx-ink);
 }
 
-/* before and during the intro everything it animates starts hidden; the intro writes inline
-   styles over these, and clears them when it finishes or is skipped */
-.work-x-pin:not([data-intro='done']) .work-x-orb,
-.work-x-pin:not([data-intro='done']) .work-x-line,
+/* before and during the intro everything it animates starts hidden (project 01 behind a closed
+   window at its right edge); the intro writes inline styles over these, and clears them when it
+   finishes or is skipped */
+.work-x-pin:not([data-intro='done']) .work-x-shadow,
+.work-x-pin:not([data-intro='done']) .work-x-media-scale,
 .work-x-pin:not([data-intro='done']) .work-x-grid,
 .work-x-pin:not([data-intro='done']) .work-x-ln,
 .work-x-pin:not([data-intro='done']) .work-x-chrome {
   opacity: 0;
 }
-.work-x-pin:not([data-intro='done']) .work-x-reveal {
-  clip-path: inset(50% -20% 50% -20%);
+.work-x-pin:not([data-intro='done']) .work-x-window {
+  clip-path: inset(0% 0% 0% 100% round 14px);
 }

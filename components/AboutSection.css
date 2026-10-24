@@ -1,0 +1,355 @@
+/* ---------------------------------------------------------------
+   About me: an opening stage in the same language as Selected work
+   (Inter, hairline guides, crosshairs, the hero gradient), then the
+   story beside a focus index. Kept next to the component.
+---------------------------------------------------------------- */
+.about-x {
+  --ax-ink: #ffffff;
+  --ax-soft: rgba(255, 255, 255, 0.5);
+  --ax-body: #9ca3af;
+  --ax-line: rgba(255, 255, 255, 0.1);
+  --ax-line-strong: rgba(255, 255, 255, 0.26);
+  --ax-matte: #141414;
+  --ax-shadow: rgba(0, 0, 0, 0.8);
+  --ax-gutter: 2rem;
+  /* the orb reads these, same values as the hero */
+  --hero-grad-a: #3cc3f0;
+  --hero-grad-b: #52e39a;
+  color: var(--ax-ink);
+}
+.light .about-x {
+  --ax-ink: #111827;
+  --ax-soft: rgba(17, 24, 39, 0.5);
+  --ax-body: #6b7280;
+  --ax-line: rgba(17, 24, 39, 0.1);
+  --ax-line-strong: rgba(17, 24, 39, 0.24);
+  --ax-matte: #ffffff;
+  --ax-shadow: rgba(15, 23, 42, 0.22);
+  --hero-grad-a: #139fd0;
+  --hero-grad-b: #14b87a;
+}
+@media (min-width: 1024px) {
+  .about-x { --ax-gutter: 1rem; }
+}
+
+.about-x-label,
+.about-x-eyebrow,
+.about-x-caption,
+.about-x-col-label {
+  margin: 0;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ax-soft);
+}
+
+/* the stage: copy low on the left, portrait over the orb on the right */
+.about-x-stage {
+  position: relative;
+  max-width: 72rem;
+  min-height: min(100svh, 60rem);
+  margin: 0 auto;
+  padding: clamp(7rem, 16vh, 9rem) var(--ax-gutter) clamp(3rem, 9vh, 5rem);
+  display: grid;
+  grid-template-columns: minmax(0, 11fr) minmax(0, 13fr);
+  column-gap: clamp(2.5rem, 5vw, 4.5rem);
+  align-items: end;
+}
+/* the left hairline the copy hangs from, continuing the one in Selected work */
+.about-x-stage::before,
+.about-x-story::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: var(--ax-gutter);
+  width: 1px;
+  background: var(--ax-line);
+}
+.about-x-label {
+  position: absolute;
+  top: clamp(3rem, 8vh, 4.5rem);
+  left: calc(var(--ax-gutter) + 1.5rem);
+}
+
+.about-x-copy {
+  padding-left: 1.5rem;
+  padding-bottom: clamp(0rem, 3vh, 2rem);
+}
+.about-x-eyebrow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem 0.75rem;
+}
+.about-x-eyebrow i {
+  width: 1.25rem;
+  height: 1px;
+  background: currentColor;
+}
+.about-x-title {
+  margin: 1.25rem 0 0;
+  font-size: clamp(2.25rem, 3.6vw, 3.5rem);
+  font-weight: 500;
+  line-height: 1.04;
+  letter-spacing: -0.04em;
+  text-wrap: balance;
+}
+.about-x-title > span {
+  display: block;
+}
+.about-x-title > span > span {
+  display: inline;
+}
+.about-x-title-soft {
+  font-weight: 300;
+  background: linear-gradient(90deg, var(--hero-grad-a), var(--hero-grad-b));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  padding-bottom: 0.08em;
+}
+.about-x-summary {
+  margin: 1.5rem 0 0;
+  max-width: 38ch;
+  color: var(--ax-body);
+  font-size: 1rem;
+  line-height: 1.65;
+}
+
+.about-x-visual {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 7 / 6;
+  align-self: center;
+}
+.about-x-orb-box {
+  position: absolute;
+  right: 2%;
+  top: 4%;
+  width: 64%;
+  aspect-ratio: 1;
+  border: 1px solid var(--ax-line);
+}
+.about-x-orb {
+  position: absolute;
+  /* the blob only fills the middle of its canvas; oversize the canvas so the blob fills the box
+     and runs in behind the portrait */
+  inset: -34%;
+  pointer-events: none;
+}
+.about-x-orb .hero-orb {
+  width: 100%;
+  height: 100%;
+}
+.about-x-photo {
+  position: absolute;
+  z-index: 1;
+  left: 6%;
+  top: 14%;
+  width: 40%;
+  aspect-ratio: 4 / 5;
+  margin: 0;
+  padding: 0.5rem;
+  background: var(--ax-matte);
+  border: 1px solid var(--ax-line-strong);
+  box-shadow: 0 40px 80px -36px var(--ax-shadow);
+}
+/* faint guides running off to the left from the photo's top and bottom edges */
+.about-x-photo::before,
+.about-x-photo::after {
+  content: '';
+  position: absolute;
+  right: 100%;
+  width: 40vw;
+  height: 1px;
+  background: linear-gradient(270deg, var(--ax-line), transparent);
+  pointer-events: none;
+}
+.about-x-photo::before { top: -1px; }
+.about-x-photo::after { bottom: -1px; }
+.about-x-caption {
+  position: absolute;
+  top: calc(100% + 0.9rem);
+  left: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  white-space: nowrap;
+  font-size: 0.6875rem;
+}
+.about-x-caption i {
+  width: 0.9rem;
+  height: 1px;
+  background: currentColor;
+}
+.about-x-photo-crop {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+/* the photo is wide and he stands low left in it; lean in on him without losing the sea */
+.about-x-photo-img {
+  object-fit: cover;
+  object-position: 24% 80%;
+  transform: scale(1.28);
+  transform-origin: 26% 78%;
+}
+
+.about-x-plus {
+  position: absolute;
+  width: 11px;
+  height: 11px;
+  margin: -5px 0 0 -5px;
+  pointer-events: none;
+}
+.about-x-plus::before,
+.about-x-plus::after {
+  content: '';
+  position: absolute;
+  background: var(--ax-line-strong);
+}
+.about-x-plus::before { left: 5px; top: 0; width: 1px; height: 11px; }
+.about-x-plus::after { top: 5px; left: 0; width: 11px; height: 1px; }
+
+/* the story: a focus index on the left, the reading column on the right */
+.about-x-story {
+  position: relative;
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: clamp(3rem, 8vh, 5rem) var(--ax-gutter) 0;
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  column-gap: clamp(2.5rem, 6vw, 5.5rem);
+  align-items: start;
+}
+.about-x-story::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: var(--ax-gutter);
+  right: var(--ax-gutter);
+  height: 1px;
+  background: var(--ax-line);
+}
+.about-x-focus {
+  padding-left: 1.5rem;
+}
+.about-x-col-label {
+  margin-bottom: 1.25rem;
+}
+.about-x-focus-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--ax-line);
+}
+.about-x-focus-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.7rem 0;
+  border-bottom: 1px solid var(--ax-line);
+  font-size: 0.9375rem;
+  color: var(--ax-ink);
+}
+.about-x-focus-item svg {
+  flex: none;
+  color: var(--hero-grad-a);
+}
+.about-x-read {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  max-width: 62ch;
+}
+.about-x-read .about-x-col-label {
+  margin-bottom: 0;
+}
+.about-x-lead {
+  margin: 0;
+  font-size: clamp(1.125rem, 1.6vw, 1.375rem);
+  line-height: 1.5;
+  letter-spacing: -0.01em;
+  color: var(--ax-ink);
+  text-wrap: pretty;
+}
+.about-x-text {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--ax-body);
+  text-wrap: pretty;
+}
+
+/* arrival: copy rises line by line, the portrait and orb settle in, the index ticks down */
+.about-x-rise,
+.about-x-visual,
+.about-x-focus-item,
+.about-x-read > * {
+  transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1), transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.about-x-stage[data-in='false'] .about-x-rise,
+.about-x-story[data-in='false'] .about-x-focus-item,
+.about-x-story[data-in='false'] .about-x-read > * {
+  opacity: 0;
+  transform: translateY(18px);
+}
+.about-x-stage[data-in='false'] .about-x-visual {
+  opacity: 0;
+  transform: translateY(28px);
+}
+.about-x-rise { transition-delay: calc(var(--i, 0) * 90ms + 150ms); }
+.about-x-visual { transition-duration: 1.1s; }
+.about-x-focus-item { transition-delay: calc(var(--i, 0) * 40ms); }
+.about-x-read > :nth-child(2) { transition-delay: 120ms; }
+.about-x-read > :nth-child(3) { transition-delay: 200ms; }
+.about-x-read > :nth-child(4) { transition-delay: 280ms; }
+
+@media (prefers-reduced-motion: reduce) {
+  .about-x-rise,
+  .about-x-visual,
+  .about-x-focus-item,
+  .about-x-read > * {
+    transition: none;
+  }
+}
+
+/* tablets and phones: portrait first, then the copy; the story stacks */
+@media (max-width: 900px) {
+  .about-x { --ax-gutter: 1.5rem; }
+  .about-x-stage,
+  .about-x-story {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 2.5rem;
+  }
+  .about-x-stage {
+    min-height: 0;
+    padding-top: 5.5rem;
+  }
+  .about-x-stage::before,
+  .about-x-story::before {
+    display: none;
+  }
+  .about-x-label {
+    top: 2.5rem;
+    left: var(--ax-gutter);
+  }
+  .about-x-copy,
+  .about-x-focus {
+    padding-left: 0;
+  }
+  .about-x-visual {
+    order: -1;
+    max-width: 34rem;
+  }
+  .about-x-photo {
+    width: 46%;
+  }
+  /* on a narrow screen the story comes before the long focus index */
+  .about-x-read {
+    order: -1;
+  }
+}

@@ -1,0 +1,385 @@
+/* ---------------------------------------------------------------
+   Experience as a dossier (an index of roles, one open at a time)
+   and Education as certificates. Same hairlines, crosshairs, labels
+   and gradient as the sections above. Kept next to the component.
+---------------------------------------------------------------- */
+.xp {
+  --xp-ink: #ffffff;
+  --xp-soft: rgba(255, 255, 255, 0.5);
+  --xp-body: #9ca3af;
+  --xp-line: rgba(255, 255, 255, 0.1);
+  --xp-line-strong: rgba(255, 255, 255, 0.26);
+  --xp-paper: rgba(255, 255, 255, 0.02);
+  --xp-grad-a: #3cc3f0;
+  --xp-grad-b: #52e39a;
+  --xp-gutter: 2rem;
+  color: var(--xp-ink);
+}
+.light .xp {
+  --xp-ink: #111827;
+  --xp-soft: rgba(17, 24, 39, 0.5);
+  --xp-body: #6b7280;
+  --xp-line: rgba(17, 24, 39, 0.1);
+  --xp-line-strong: rgba(17, 24, 39, 0.24);
+  --xp-paper: rgba(255, 255, 255, 0.7);
+  --xp-grad-a: #139fd0;
+  --xp-grad-b: #14b87a;
+}
+@media (min-width: 1024px) {
+  .xp { --xp-gutter: 1rem; }
+}
+
+/* each block hangs from the shared left hairline under a rule, like the sections above */
+.xp-block {
+  position: relative;
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: clamp(3rem, 8vh, 5rem) var(--xp-gutter) clamp(3rem, 8vh, 5rem) calc(var(--xp-gutter) + 1.5rem);
+}
+.xp-block::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: var(--xp-gutter);
+  width: 1px;
+  background: var(--xp-line);
+}
+.xp-block::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: var(--xp-gutter);
+  right: var(--xp-gutter);
+  height: 1px;
+  background: var(--xp-line);
+}
+
+.xp-label {
+  margin: 0;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--xp-soft);
+}
+.xp-tabular {
+  font-variant-numeric: tabular-nums;
+}
+.xp-logo {
+  flex: none;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 21.25%;
+  object-fit: cover;
+}
+.xp-logo-contain {
+  object-fit: contain;
+}
+.xp-plus {
+  position: absolute;
+  width: 11px;
+  height: 11px;
+  margin: -5px 0 0 -5px;
+  pointer-events: none;
+}
+.xp-plus::before,
+.xp-plus::after {
+  content: '';
+  position: absolute;
+  background: var(--xp-line-strong);
+  transition: background-color 0.3s ease;
+}
+.xp-plus::before { left: 5px; top: 0; width: 1px; height: 11px; }
+.xp-plus::after { top: 5px; left: 0; width: 11px; height: 1px; }
+
+/* Experience: the index */
+.xp-exp {
+  display: grid;
+  grid-template-columns: minmax(15rem, 20rem) minmax(0, 1fr);
+  column-gap: clamp(2.5rem, 6vw, 5rem);
+  align-items: start;
+}
+.xp-tabs {
+  margin-top: 1.25rem;
+  border-top: 1px solid var(--xp-line);
+}
+.xp-tab {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  width: 100%;
+  padding: 1rem 0 1rem 1.4rem;
+  border: 0;
+  border-bottom: 1px solid var(--xp-line);
+  background: none;
+  color: var(--xp-ink);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  opacity: 0.45;
+  transition: opacity 0.3s ease;
+}
+.xp-tab:hover,
+.xp-tab[aria-selected='true'] {
+  opacity: 1;
+}
+.xp-tab:focus-visible,
+.xp-link:focus-visible,
+.xp-btn:focus-visible {
+  outline: 2px solid var(--xp-grad-a);
+  outline-offset: 3px;
+}
+/* the crosshair marks the open role */
+.xp-tab-mark {
+  left: 5px;
+  top: 50%;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.xp-tab[aria-selected='true'] .xp-tab-mark {
+  opacity: 1;
+}
+.xp-tab[aria-selected='true'] .xp-tab-mark::before,
+.xp-tab[aria-selected='true'] .xp-tab-mark::after {
+  background: var(--xp-grad-b);
+}
+.xp-tab-text {
+  min-width: 0;
+}
+.xp-tab-company {
+  display: block;
+  font-size: 0.9375rem;
+  font-weight: 500;
+}
+.xp-tab-dates {
+  display: block;
+  margin-top: 0.15rem;
+  font-size: 0.8125rem;
+  color: var(--xp-body);
+}
+
+/* Experience: the open role */
+.xp-panels {
+  display: grid;
+}
+.xp-panel {
+  grid-area: 1 / 1;
+}
+.xp-panel[data-on='false'] {
+  visibility: hidden;
+}
+.xp-panel[data-on='true'] {
+  animation: xp-panel-in 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+@keyframes xp-panel-in {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: none; }
+}
+.xp-count {
+  font-variant-numeric: tabular-nums;
+}
+.xp-count b {
+  color: var(--xp-ink);
+  font-weight: 500;
+}
+.xp-title {
+  margin: 0.9rem 0 0;
+  font-size: clamp(2rem, 3.4vw, 3rem);
+  font-weight: 500;
+  line-height: 1.06;
+  letter-spacing: -0.04em;
+  text-wrap: balance;
+}
+.xp-title span {
+  display: block;
+}
+.xp-title-soft {
+  font-weight: 300;
+  background: linear-gradient(90deg, var(--xp-grad-a), var(--xp-grad-b));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  padding-bottom: 0.08em;
+}
+.xp-dates {
+  margin: 0.9rem 0 0;
+  font-size: 0.875rem;
+  color: var(--xp-body);
+}
+.xp-text {
+  margin: 1.25rem 0 0;
+  max-width: 62ch;
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--xp-body);
+  white-space: pre-line;
+  text-wrap: pretty;
+}
+.xp-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin-top: 1.5rem;
+  padding-bottom: 0.3rem;
+  border-bottom: 1px solid var(--xp-line-strong);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--xp-ink);
+  transition: border-color 0.2s ease, gap 0.2s ease;
+}
+.xp-link:hover {
+  border-color: var(--xp-ink);
+  gap: 0.65rem;
+}
+
+/* Education: certificates */
+.xp-docs {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+  gap: clamp(1.5rem, 3vw, 2rem);
+  margin-top: 1.5rem;
+  align-items: start;
+}
+.xp-doc {
+  position: relative;
+  padding: clamp(1.5rem, 2.5vw, 2rem);
+  border: 1px solid var(--xp-line-strong);
+  outline: 1px solid var(--xp-line);
+  outline-offset: -8px;
+  background: var(--xp-paper);
+}
+.xp-doc-head {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+.xp-doc-school {
+  margin: 0;
+  font-weight: 500;
+}
+.xp-doc-city {
+  margin: 0.1rem 0 0;
+  font-size: 0.8125rem;
+  color: var(--xp-body);
+}
+.xp-doc-program {
+  margin: 1.4rem 0 0;
+  font-size: clamp(1.5rem, 2.2vw, 1.875rem);
+  font-weight: 500;
+  line-height: 1.12;
+  letter-spacing: -0.03em;
+  text-wrap: balance;
+}
+.xp-doc-text {
+  margin: 1rem 0 0;
+  font-size: 0.9375rem;
+  line-height: 1.65;
+  color: var(--xp-body);
+  text-wrap: pretty;
+}
+.xp-doc-sub {
+  margin-top: 1.4rem;
+}
+.xp-modules {
+  margin: 0.75rem 0 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 1.25rem;
+}
+.xp-modules li {
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--xp-line);
+  font-size: 0.875rem;
+}
+.xp-doc-foot {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 1rem;
+  margin-top: 1.5rem;
+  padding-top: 1.1rem;
+  border-top: 1px dashed var(--xp-line-strong);
+}
+.xp-doc-facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.25rem 2rem;
+  margin: 0;
+}
+.xp-doc-facts dd {
+  margin: 0.3rem 0 0;
+  font-size: 0.9375rem;
+}
+.xp-doc-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.xp-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1.1rem;
+  border: 1px solid var(--xp-line-strong);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--xp-ink);
+  font: inherit;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+.xp-btn:hover {
+  border-color: var(--xp-ink);
+  background: color-mix(in srgb, var(--xp-ink) 6%, transparent);
+}
+/* a small seal stamped with the certificate year */
+.xp-seal {
+  display: grid;
+  place-items: center;
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 50%;
+  border: 1px solid color-mix(in srgb, var(--xp-grad-b) 55%, transparent);
+  font-size: 0.5625rem;
+  font-weight: 500;
+  line-height: 1.25;
+  letter-spacing: 0.1em;
+  text-align: center;
+  text-transform: uppercase;
+  color: var(--xp-grad-b);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .xp-panel { animation: none; }
+  .xp-tab, .xp-tab-mark, .xp-link, .xp-btn { transition: none; }
+}
+
+/* tablets and phones: the index sits above the open role, certificates stack */
+@media (max-width: 900px) {
+  .xp { --xp-gutter: 1.5rem; }
+  .xp-block {
+    padding-left: var(--xp-gutter);
+  }
+  .xp-block::before {
+    display: none;
+  }
+  .xp-exp,
+  .xp-docs {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .xp-panels {
+    margin-top: 2rem;
+  }
+  .xp-modules {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

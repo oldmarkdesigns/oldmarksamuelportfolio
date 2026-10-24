@@ -31,7 +31,7 @@ const allWork = [
     title: 'SEB',
     description: 'Fintech UX analysis - transaction search & filtering',
     projectTag: 'Case study',
-    coverImage: '/Portfolio Assets/Work/SEB_Case_Study/seb_logo.png',
+    coverImage: '/Portfolio Assets/Work/SEB_Case_Study/seb-cover.png',
     href: '/work/seb',
   },
   {
