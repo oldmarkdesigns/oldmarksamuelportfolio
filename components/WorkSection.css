@@ -61,3 +61,332 @@
 @media (prefers-reduced-motion: reduce) {
   .work-pill::after { animation: none; }
 }
+
+/* ---------------------------------------------------------------
+   Selected work, desktop: a pinned stage that steps sideways
+   through the projects. Same ink and orb gradient as the hero.
+---------------------------------------------------------------- */
+.work-x-pin {
+  --wx-ink: #ffffff;
+  --wx-soft: rgba(255, 255, 255, 0.5);
+  --wx-body: #9ca3af;
+  --wx-line: rgba(255, 255, 255, 0.1);
+  --wx-line-strong: rgba(255, 255, 255, 0.26);
+  --wx-grad-a: #3cc3f0;
+  --wx-grad-b: #52e39a;
+  --wx-orb-filter: saturate(0.9) brightness(0.82);
+  --wx-shadow: rgba(0, 0, 0, 0.85);
+  --wx-gutter: 2rem;
+}
+.light .work-x-pin {
+  --wx-ink: #111827;
+  --wx-soft: rgba(17, 24, 39, 0.5);
+  --wx-body: #6b7280;
+  --wx-line: rgba(17, 24, 39, 0.1);
+  --wx-line-strong: rgba(17, 24, 39, 0.24);
+  --wx-grad-a: #139fd0;
+  --wx-grad-b: #14b87a;
+  --wx-orb-filter: saturate(0.9);
+  --wx-shadow: rgba(15, 23, 42, 0.28);
+}
+@media (min-width: 1024px) {
+  .work-x-pin { --wx-gutter: 1rem; }
+}
+
+/* each project owns 80svh of scroll while the stage is pinned */
+.work-x-track {
+  position: relative;
+  height: calc(100svh + var(--work-x-count) * 80svh);
+}
+.work-x-pin {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  overflow: hidden;
+  color: var(--wx-ink);
+}
+.work-x-inner {
+  position: relative;
+  height: 100%;
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: 0 var(--wx-gutter);
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  column-gap: clamp(2.5rem, 6vw, 5.5rem);
+  align-items: center;
+}
+/* the left hairline the copy hangs from */
+.work-x-inner::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: var(--wx-gutter);
+  width: 1px;
+  background: var(--wx-line);
+}
+
+.work-x-label,
+.work-x-eyebrow,
+.work-x-cta,
+.work-x-counter,
+.work-x-nav {
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.work-x-label {
+  position: absolute;
+  top: clamp(5.5rem, 13vh, 7.5rem);
+  left: calc(var(--wx-gutter) + 1.5rem);
+  margin: 0;
+  color: var(--wx-soft);
+}
+
+.work-x-copy {
+  padding-left: 1.5rem;
+}
+.work-x-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 0;
+  color: var(--wx-soft);
+}
+.work-x-eyebrow i {
+  width: 1.25rem;
+  height: 1px;
+  background: currentColor;
+}
+.work-x-title {
+  margin: 1.25rem 0 0;
+  font-size: clamp(2.25rem, 4vw, 3.75rem);
+  font-weight: 500;
+  line-height: 1.02;
+  letter-spacing: -0.04em;
+  text-wrap: balance;
+}
+.work-x-title span {
+  display: block;
+}
+.work-x-title-soft {
+  font-weight: 300;
+  background: linear-gradient(90deg, var(--wx-grad-a), var(--wx-grad-b));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  padding-bottom: 0.08em;
+}
+.work-x-desc {
+  margin: 1.25rem 0 0;
+  max-width: 36ch;
+  color: var(--wx-body);
+  font-size: 1rem;
+  line-height: 1.6;
+}
+.work-x-cta {
+  margin-top: 1.75rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding-bottom: 0.35rem;
+  color: var(--wx-ink);
+  border-bottom: 1px solid var(--wx-line-strong);
+  transition: border-color 0.2s ease, gap 0.2s ease;
+}
+.work-x-cta:hover {
+  border-color: var(--wx-ink);
+  gap: 0.75rem;
+}
+
+.work-x-frame {
+  position: relative;
+  aspect-ratio: 16 / 10;
+}
+.work-x-gl {
+  position: absolute;
+  background: var(--wx-line);
+}
+.work-x-gl-top,
+.work-x-gl-bottom {
+  left: -100vw;
+  right: -100vw;
+  height: 1px;
+}
+.work-x-gl-top { top: 0; }
+.work-x-gl-bottom { bottom: 0; }
+.work-x-gl-left,
+.work-x-gl-right {
+  top: -100vh;
+  bottom: -100vh;
+  width: 1px;
+}
+.work-x-gl-left { left: 0; }
+.work-x-gl-right { right: 0; }
+.work-x-plus {
+  position: absolute;
+  width: 11px;
+  height: 11px;
+  margin: -5px 0 0 -5px;
+}
+.work-x-plus::before,
+.work-x-plus::after {
+  content: '';
+  position: absolute;
+  background: var(--wx-line-strong);
+}
+.work-x-plus::before { left: 5px; top: 0; width: 1px; height: 11px; }
+.work-x-plus::after { top: 5px; left: 0; width: 11px; height: 1px; }
+
+.work-x-counter {
+  position: absolute;
+  bottom: 100%;
+  left: 0;
+  margin: 0 0 0.85rem;
+  color: var(--wx-soft);
+  font-variant-numeric: tabular-nums;
+}
+.work-x-counter b {
+  color: var(--wx-ink);
+  font-weight: 500;
+}
+.work-x-reveal,
+.work-x-tilt,
+.work-x-media-scale {
+  position: absolute;
+  inset: 0;
+}
+/* the image leans back into the page, like a screen on a desk */
+.work-x-tilt {
+  transform: perspective(1600px) rotateY(-14deg) rotateX(3deg);
+  transform-origin: 30% 50%;
+}
+.work-x-slide {
+  position: absolute;
+  inset: 0;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow:
+    0 40px 80px -32px var(--wx-shadow),
+    0 0 0 1px var(--wx-line);
+}
+
+.work-x-nav {
+  position: absolute;
+  left: calc(var(--wx-gutter) + 1.5rem);
+  right: var(--wx-gutter);
+  bottom: clamp(1.5rem, 5vh, 2.5rem);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: var(--wx-soft);
+}
+.work-x-arrow {
+  display: grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 0.5rem;
+  border: 1px solid var(--wx-line-strong);
+  color: var(--wx-ink);
+  transition: background-color 0.2s ease, border-color 0.2s ease, opacity 0.2s ease;
+}
+.work-x-arrow:hover:not(:disabled) {
+  border-color: var(--wx-ink);
+}
+.work-x-arrow:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+.work-x-arrow:focus-visible,
+.work-x-cta:focus-visible,
+.work-x-skip:focus-visible {
+  outline: 2px solid var(--wx-grad-a);
+  outline-offset: 3px;
+}
+.work-x-rail {
+  position: relative;
+  flex: 1;
+  height: 1px;
+  margin-left: 1rem;
+  background: var(--wx-line);
+}
+.work-x-rail i {
+  position: absolute;
+  left: 0;
+  top: -0.5px;
+  height: 2px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, var(--wx-grad-a), var(--wx-grad-b));
+}
+
+/* intro: the hero orb returns, flattens into a horizon line, and the line opens onto project 01 */
+.work-x-intro {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.work-x-orb {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: min(30vw, 44vh);
+  height: min(30vw, 44vh);
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 34% 30%,
+    var(--wx-grad-a),
+    color-mix(in srgb, var(--wx-grad-a) 45%, var(--wx-grad-b)) 48%,
+    var(--wx-grad-b) 88%
+  );
+  filter: var(--wx-orb-filter) blur(1px);
+}
+.work-x-line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--wx-grad-a) 20%, var(--wx-grad-b) 80%, transparent);
+}
+.work-x-skip {
+  position: absolute;
+  right: var(--wx-gutter);
+  bottom: clamp(1.5rem, 5vh, 2.5rem);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.45rem 0.85rem;
+  border-radius: 999px;
+  border: 1px solid var(--wx-line);
+  font-size: 0.75rem;
+  color: var(--wx-soft);
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+.work-x-skip:hover {
+  color: var(--wx-ink);
+  border-color: var(--wx-line-strong);
+}
+.work-x-skip kbd {
+  font: inherit;
+  font-size: 0.6875rem;
+  padding: 0.05rem 0.4rem;
+  border-radius: 0.35rem;
+  border: 1px solid var(--wx-line-strong);
+  color: var(--wx-ink);
+}
+
+/* before and during the intro everything it animates starts hidden; the intro writes inline
+   styles over these, and clears them when it finishes or is skipped */
+.work-x-pin:not([data-intro='done']) .work-x-orb,
+.work-x-pin:not([data-intro='done']) .work-x-line,
+.work-x-pin:not([data-intro='done']) .work-x-grid,
+.work-x-pin:not([data-intro='done']) .work-x-ln,
+.work-x-pin:not([data-intro='done']) .work-x-chrome {
+  opacity: 0;
+}
+.work-x-pin:not([data-intro='done']) .work-x-reveal {
+  clip-path: inset(50% -20% 50% -20%);
+}

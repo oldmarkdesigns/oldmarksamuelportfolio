@@ -1,14 +1,32 @@
 'use client'
 
+import { useCallback, useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
+import { Inter } from 'next/font/google'
+import {
+  AnimatePresence,
+  motion,
+  stagger,
+  useAnimate,
+  useMotionValueEvent,
+  useReducedMotion,
+  useScroll,
+  useTransform,
+  type AnimationPlaybackControls,
+} from 'framer-motion'
+import { ArrowLeft, ArrowRight, ArrowUpRight } from '@phosphor-icons/react'
 import { useTheme } from '@/contexts/ThemeContext'
 import { useScrollAnimation } from '@/hooks/useScrollAnimation'
+import { scrollToPosition } from '@/lib/smoothScroll'
 import './WorkSection.css'
+
+const inter = Inter({ subsets: ['latin'], display: 'swap' })
 
 const allWork = [
   {
     id: 'office-rental-platform',
+    headline: ['Office rental', 'platform'],
     title: 'Office rental platform',
     description: 'Building a self-serve marketplace for renting commercial space in Stockholm — owning the business case, product design, React frontend and Convex backend.',
     year: '2026',
@@ -19,6 +37,7 @@ const allWork = [
   },
   {
     id: 'seb',
+    headline: ['SEB', 'transaction search'],
     title: 'SEB',
     description: 'A self-directed fintech UX analysis of transaction search and filtering in SEB’s mobile banking app, benchmarked against Klarna.',
     year: '2026',
@@ -29,6 +48,7 @@ const allWork = [
   },
   {
     id: 'bontouch',
+    headline: ['Framna', 'design internship'],
     title: 'Framna (earlier Bontouch)',
     description: 'UI Design Internship working on product design and design systems for various client projects.',
     year: '2024',
@@ -39,6 +59,7 @@ const allWork = [
   },
   {
     id: 'mymedicaldata',
+    headline: ['Hälsa+', 'health app'],
     title: 'Hälsa+',
     description: 'Designing Hälsa+, a health-focused mobile app, as the sole product designer on the team.',
     year: '2025',
@@ -49,6 +70,7 @@ const allWork = [
   },
   {
     id: 'zanlugproperties',
+    headline: ['Zanlüg', 'Properties'],
     title: 'Zanlüg Properties',
     description: 'Designing a luxury property showcase website connecting travelers with exclusive retreats.',
     year: '2026',
@@ -59,6 +81,7 @@ const allWork = [
   },
   {
     id: 'hemma',
+    headline: ['Hemma', 'home log for iPhone'],
     title: 'Hemma',
     description: 'A Swedish-first iPhone app that keeps a home’s log, documents and costs in one place. Designed and built in SwiftUI, still in development.',
     year: '2026',
@@ -69,6 +92,7 @@ const allWork = [
   },
   {
     id: 'oldmarkstudio',
+    headline: ['Oldmark', 'Studio'],
     title: 'Oldmark Studio',
     description: 'My own design & development agency for founders and product teams who need digital work done well.',
     year: '2024',
@@ -79,6 +103,7 @@ const allWork = [
   },
   {
     id: 'moments',
+    headline: ['Moments', 'plugin and pricing'],
     title: 'Moments',
     description: 'Designing plugin interfaces and pricing pages with focus on clarity and conversion.',
     year: '2024',
@@ -89,6 +114,7 @@ const allWork = [
   },
   {
     id: 'djungelbyran',
+    headline: ['Djungelbyrån', 'brand and web'],
     title: 'Djungelbyrån',
     description: 'Brand identity and web design project creating a cohesive visual language.',
     year: '2022',
@@ -174,26 +200,292 @@ function WorkItem({ work, index }: { work: typeof allWork[0], index: number }) {
   )
 }
 
+type Work = (typeof allWork)[number]
+
+const visibleWork = allWork.filter(
+  (work) =>
+    work.id !== 'zanlugproperties' &&
+    work.id !== 'moments' &&
+    work.id !== 'djungelbyran'
+)
+
+const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1]
+const EASE_IN_OUT: [number, number, number, number] = [0.65, 0, 0.35, 1]
+const DARK_COVER = ['bontouch', 'moments', 'hemma']
+
+type IntroState = 'idle' | 'playing' | 'done'
+
+const pad = (n: number) => String(n).padStart(2, '0')
+
+const isTyping = (target: EventTarget | null) =>
+  target instanceof HTMLElement &&
+  (target.isContentEditable || ['INPUT', 'TEXTAREA', 'SELECT'].includes(target.tagName))
+
+/** Desktop Selected work: the section pins and page scroll steps through the projects sideways.
+    The first time it pins, the hero orb comes back, flattens into a horizon line, and the line
+    opens like an aperture onto project 01 (Space skips it). Each project owns an equal slice of
+    the section's scroll, so the arrows and ← / → keys just scroll to the middle of a slice. */
+function WorkStage({ works }: { works: Work[] }) {
+  const reduce = useReducedMotion()
+  const trackRef = useRef<HTMLDivElement>(null)
+  const [scope, animate] = useAnimate<HTMLDivElement>()
+  const [index, setIndex] = useState(0)
+  const [dir, setDir] = useState(1)
+  const [intro, setIntro] = useState<IntroState>('idle')
+  const indexRef = useRef(0)
+  const introRef = useRef<IntroState>('idle')
+  const runs = useRef<AnimationPlaybackControls[]>([])
+  const n = works.length
+  const work = works[index]
+
+  const { scrollY } = useScroll()
+  const { scrollYProgress } = useScroll({ target: trackRef, offset: ['start start', 'end end'] })
+  const railX = useTransform(scrollYProgress, [0, 1], ['0%', `${(n - 1) * 100}%`])
+
+  const setIntroState = (next: IntroState) => {
+    introRef.current = next
+    setIntro(next)
+  }
+
+  // jump to the settled first project: run everything to its last frame, then, once framer has
+  // flushed that frame, drop the inline styles so the elements fall back to their resting CSS
+  const finishIntro = useCallback(() => {
+    const current = runs.current
+    runs.current = []
+    current.forEach((run) => run.complete())
+    setIntroState('done')
+    requestAnimationFrame(() =>
+      requestAnimationFrame(() => {
+        scope.current?.querySelectorAll<HTMLElement>('[data-intro-el]').forEach((el) => {
+          el.style.removeProperty('opacity')
+          el.style.removeProperty('transform')
+          el.style.removeProperty('clip-path')
+        })
+      })
+    )
+  }, [scope])
+
+  const playIntro = useCallback(() => {
+    setIntroState('playing')
+    runs.current = [
+      // the orb drifts down, holds, then squashes into a hairline
+      animate(
+        '.work-x-orb',
+        { opacity: [0, 1, 1, 1, 0], y: [-120, 0, 0, 0, 0], scaleX: [0.55, 1, 1, 2.8, 3.4], scaleY: [0.55, 1, 1, 0.006, 0.003] },
+        { duration: 1.4, times: [0, 0.3, 0.42, 0.92, 1], ease: 'easeInOut' }
+      ),
+      // the hairline takes over, then drops away toward the rail
+      animate(
+        '.work-x-line',
+        { opacity: [0, 1, 1, 0], scaleX: [0.3, 1, 1, 1], y: [0, 0, 0, 140] },
+        { duration: 1.25, delay: 1.15, times: [0, 0.32, 0.44, 1], ease: EASE_IN_OUT }
+      ),
+      // the aperture: project 01 opens out from the line
+      animate(
+        '.work-x-reveal',
+        { clipPath: ['inset(50% -20% 50% -20%)', 'inset(-20% -20% -20% -20%)'] },
+        { duration: 0.75, delay: 1.3, ease: EASE_IN_OUT }
+      ),
+      animate('.work-x-media-scale', { scale: [1.08, 1] }, { duration: 1.1, delay: 1.3, ease: EASE }),
+      animate('.work-x-grid', { opacity: [0, 1] }, { duration: 0.9, delay: 1.4, ease: 'easeOut' }),
+      animate('.work-x-ln', { opacity: [0, 1], y: [22, 0] }, { duration: 0.7, delay: stagger(0.09, { startDelay: 1.9 }), ease: EASE }),
+      animate('.work-x-chrome', { opacity: [0, 1], y: [8, 0] }, { duration: 0.5, delay: stagger(0.08, { startDelay: 2.3 }), ease: EASE }),
+    ]
+    const current = runs.current
+    Promise.all(current).then(() => {
+      if (runs.current === current) finishIntro()
+    })
+  }, [animate, finishIntro])
+
+  // start the intro once the section reaches the top of the screen; skip it when there is
+  // nothing to introduce (reduced motion, or the page loaded already past project 01)
+  const checkIntro = useCallback(() => {
+    const track = trackRef.current
+    if (introRef.current !== 'idle' || !track) return
+    if (!window.matchMedia('(min-width: 768px)').matches) return
+    const rect = track.getBoundingClientRect()
+    if (rect.top > window.innerHeight * 0.2) return
+    if (reduce || rect.bottom < window.innerHeight || indexRef.current > 0) finishIntro()
+    else playIntro()
+  }, [reduce, finishIntro, playIntro])
+
+  useEffect(() => {
+    checkIntro()
+  }, [checkIntro])
+  useMotionValueEvent(scrollY, 'change', checkIntro)
+
+  useMotionValueEvent(scrollYProgress, 'change', (p) => {
+    const next = Math.min(n - 1, Math.max(0, Math.floor(p * n)))
+    if (next === indexRef.current) return
+    setDir(next > indexRef.current ? 1 : -1)
+    indexRef.current = next
+    setIndex(next)
+    if (introRef.current === 'playing') finishIntro()
+  })
+
+  const goTo = useCallback(
+    (i: number) => {
+      const track = trackRef.current
+      if (!track || i < 0 || i >= n) return
+      const top = track.getBoundingClientRect().top + window.scrollY
+      const distance = track.offsetHeight - window.innerHeight
+      scrollToPosition(top + ((i + 0.5) / n) * distance)
+    },
+    [n]
+  )
+
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (isTyping(e.target) || e.metaKey || e.ctrlKey || e.altKey) return
+      if (e.code === 'Space' && introRef.current === 'playing') {
+        e.preventDefault()
+        finishIntro()
+        return
+      }
+      if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return
+      const rect = trackRef.current?.getBoundingClientRect()
+      if (!rect || rect.top > 1 || rect.bottom < window.innerHeight - 1) return
+      const next = indexRef.current + (e.key === 'ArrowRight' ? 1 : -1)
+      if (next < 0 || next >= n) return
+      e.preventDefault()
+      goTo(next)
+    }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [finishIntro, goTo, n])
+
+  const shift = reduce ? 0 : 1
+  const copyVariants = {
+    enter: (d: number) => ({ opacity: 0, x: 32 * d * shift }),
+    center: { opacity: 1, x: 0, transition: { duration: 0.5, ease: EASE } },
+    exit: (d: number) => ({ opacity: 0, x: -24 * d * shift, transition: { duration: 0.2, ease: 'easeIn' as const } }),
+  }
+  const slideVariants = {
+    enter: (d: number) => ({ opacity: 0, x: `${55 * d * shift}%`, scale: reduce ? 1 : 0.96 }),
+    center: { opacity: 1, x: '0%', scale: 1, transition: { duration: 0.8, ease: EASE } },
+    exit: (d: number) => ({ opacity: 0, x: `${-55 * d * shift}%`, scale: reduce ? 1 : 0.96, transition: { duration: 0.6, ease: EASE } }),
+  }
+
+  return (
+    <div ref={trackRef} className="work-x-track" style={{ '--work-x-count': n } as React.CSSProperties}>
+      <div ref={scope} className={`work-x-pin ${inter.className}`} data-intro={intro}>
+        <div className="work-x-inner">
+          <h2 className="work-x-label">Selected work</h2>
+
+          <div className="work-x-copy">
+            <AnimatePresence mode="wait" initial={false} custom={dir}>
+              <motion.div key={work.id} custom={dir} variants={copyVariants} initial="enter" animate="center" exit="exit">
+                <p className="work-x-eyebrow work-x-ln" data-intro-el>
+                  <span>{work.projectTag}</span>
+                  <i aria-hidden="true" />
+                  <span>{work.year}</span>
+                </p>
+                <h3 className="work-x-title">
+                  <span className="work-x-ln" data-intro-el>{work.headline[0]}</span>
+                  <span className="work-x-ln work-x-title-soft" data-intro-el>{work.headline[1]}</span>
+                </h3>
+                <p className="work-x-desc work-x-ln" data-intro-el>{work.description}</p>
+                <Link href={work.href} className="work-x-cta work-x-ln" data-intro-el>
+                  View case study
+                  <ArrowUpRight size={14} weight="bold" aria-hidden="true" />
+                </Link>
+              </motion.div>
+            </AnimatePresence>
+          </div>
+
+          <div className="work-x-frame">
+            <div className="work-x-grid" data-intro-el aria-hidden="true">
+              <span className="work-x-gl work-x-gl-top" />
+              <span className="work-x-gl work-x-gl-bottom" />
+              <span className="work-x-gl work-x-gl-left" />
+              <span className="work-x-gl work-x-gl-right" />
+              <span className="work-x-plus" style={{ left: 0, top: 0 }} />
+              <span className="work-x-plus" style={{ left: '100%', top: 0 }} />
+              <span className="work-x-plus" style={{ left: 0, top: '100%' }} />
+              <span className="work-x-plus" style={{ left: '100%', top: '100%' }} />
+            </div>
+            <p className="work-x-counter work-x-chrome" data-intro-el>
+              <b>{pad(index + 1)}</b> / {pad(n)}
+            </p>
+            <div className="work-x-reveal" data-intro-el>
+              <div className="work-x-tilt">
+                <div className="work-x-media-scale" data-intro-el>
+                  <AnimatePresence initial={false} custom={dir}>
+                    <motion.div
+                      key={work.id}
+                      className={`work-x-slide ${DARK_COVER.includes(work.id) ? 'bg-gray-950' : 'bg-gray-900'}`}
+                      custom={dir}
+                      variants={slideVariants}
+                      initial="enter"
+                      animate="center"
+                      exit="exit"
+                    >
+                      <Link href={work.href} tabIndex={-1} aria-hidden="true" className="absolute inset-0">
+                        <Image src={work.coverImage} alt="" fill sizes="(min-width: 768px) 55vw, 100vw" className="object-cover" />
+                      </Link>
+                    </motion.div>
+                  </AnimatePresence>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="work-x-nav work-x-chrome" data-intro-el>
+            <span>Scroll or use</span>
+            <button type="button" className="work-x-arrow" onClick={() => goTo(index - 1)} disabled={index === 0} aria-label="Previous project">
+              <ArrowLeft size={14} weight="bold" />
+            </button>
+            <button type="button" className="work-x-arrow" onClick={() => goTo(index + 1)} disabled={index === n - 1} aria-label="Next project">
+              <ArrowRight size={14} weight="bold" />
+            </button>
+            <div className="work-x-rail" aria-hidden="true">
+              <motion.i style={{ x: railX, width: `${100 / n}%` }} />
+            </div>
+          </div>
+        </div>
+
+        {intro !== 'done' && (
+          <div className="work-x-intro" aria-hidden="true">
+            <div className="work-x-orb" />
+            <div className="work-x-line" />
+          </div>
+        )}
+        <AnimatePresence>
+          {intro === 'playing' && (
+            <motion.button
+              type="button"
+              className="work-x-skip"
+              onClick={finishIntro}
+              initial={{ opacity: 0, y: 6 }}
+              animate={{ opacity: 1, y: 0, transition: { delay: 0.3 } }}
+              exit={{ opacity: 0 }}
+            >
+              <kbd>Space</kbd> Skip intro
+            </motion.button>
+          )}
+        </AnimatePresence>
+      </div>
+    </div>
+  )
+}
+
 export default function WorkSection() {
   const { ref: sectionRef, isVisible: sectionVisible } = useScrollAnimation({ threshold: 0.1, triggerOnce: true })
 
-  const visibleWork = allWork.filter(
-    (work) =>
-      work.id !== 'zanlugproperties' &&
-      work.id !== 'moments' &&
-      work.id !== 'djungelbyran'
-  )
-
   return (
-    <section id="work" className="py-12 md:py-16 bg-transparent relative scroll-mt-12">
-      <div ref={sectionRef} className="max-w-6xl mx-auto px-6 sm:px-8 lg:px-4">
-        <h2 className={`text-xl md:text-2xl font-serif font-medium mb-8 text-white transition-all duration-700 ${sectionVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>Selected work</h2>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">
+    <section id="work" className="bg-transparent relative">
+      {/* phones: the plain card list */}
+      <div ref={sectionRef} className="md:hidden py-12 max-w-6xl mx-auto px-6 sm:px-8">
+        <h2 className={`text-xl font-serif font-medium mb-8 text-white transition-all duration-700 ${sectionVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>Selected work</h2>
+        <div className="grid grid-cols-1 gap-4">
           {visibleWork.map((work, index) => (
             <WorkItem key={work.id} work={work} index={index} />
           ))}
         </div>
+      </div>
+
+      <div className="hidden md:block">
+        <WorkStage works={visibleWork} />
       </div>
     </section>
   )
