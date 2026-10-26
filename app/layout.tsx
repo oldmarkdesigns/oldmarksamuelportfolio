@@ -3,6 +3,7 @@ import './globals.css'
 import Navigation from '@/components/Navigation'
 import Background from '@/components/Background'
 import SmoothScroll from '@/components/SmoothScroll'
+import CustomCursor from '@/components/CustomCursor'
 import { ThemeProvider } from '@/contexts/ThemeContext'
 
 export const metadata: Metadata = {
@@ -69,6 +70,7 @@ export default function RootLayout({
         />
         <ThemeProvider>
           <SmoothScroll />
+          <CustomCursor />
           <Background />
           <Navigation />
           {children}

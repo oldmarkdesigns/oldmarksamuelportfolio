@@ -2,10 +2,11 @@
 
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
-import { useState, useEffect, useLayoutEffect, useRef } from 'react'
+import { useCallback, useState, useEffect, useLayoutEffect, useRef } from 'react'
 import { animate, motion, useMotionValue, useMotionValueEvent, useReducedMotion, useScroll, useTransform, type MotionValue } from 'framer-motion'
 import { useTheme } from '@/contexts/ThemeContext'
 import { scrollToElement } from '@/lib/smoothScroll'
+import ContactOverlay from './ContactOverlay'
 
 const CIRCLE = 48
 const BAR_H = 50
@@ -43,6 +44,8 @@ export default function Navigation() {
   useEffect(() => setCompact(window.scrollY > 24), [])
 
   const [open, setOpen] = useState(false)
+  const [contactOpen, setContactOpen] = useState(false)
+  const closeContact = useCallback(() => setContactOpen(false), [])
   // true once the collapse has finished: only then does the portrait appear
   const [landed, setLanded] = useState(false)
   const [vw, setVw] = useState(1024)
@@ -104,6 +107,11 @@ export default function Navigation() {
 
   const navigateToSection = (href: string) => {
     if (coarse) setOpen(false)
+    // Contact opens the contact overlay on every page instead of scrolling to the footer
+    if (href === '#contact') {
+      setContactOpen(true)
+      return
+    }
     if (pathname === '/') {
       scrollToElement(href)
       return
@@ -122,7 +130,8 @@ export default function Navigation() {
   const width = !expanded ? CIRCLE : compact ? contentW + 88 : contentW + 64
   const height = compact || !desktop ? CIRCLE : BAR_H
   const margin = desktop ? 30 : 14
-  const x = compact ? margin : (vw - width) / 2
+  // on mobile the menu sits in the top-left corner; on wide screens it starts centred
+  const x = compact || !desktop ? margin : (vw - width) / 2
   const y = 12 + (BAR_H - height) / 2
   const showIcon = !compact && !desktop && !expanded
 
@@ -161,8 +170,9 @@ export default function Navigation() {
     const justCollapsed = compact && !prevCompact.current
     prevCompact.current = compact
 
-    if (!justCollapsed) {
-      // opening, closing and the return to the top: springs
+    if (!justCollapsed || !desktop) {
+      // opening, closing and the return to the top: springs (mobile is already in the corner, so it
+      // skips the choreographed collapse too)
       if (compact) setLanded(true)
       const controls = [
         animate(mx, x, X_SPRING),
@@ -211,7 +221,7 @@ export default function Navigation() {
     return () => {
       runId.current++
     }
-  }, [x, y, width, height, compact, measured, reduce, vw, margin, mx, my, mw, mh, pop])
+  }, [x, y, width, height, compact, measured, reduce, vw, desktop, margin, mx, my, mw, mh, pop])
 
   // the hero's own portrait steps aside once the bar has landed, and comes back on the way up
   useEffect(() => {
@@ -337,6 +347,7 @@ export default function Navigation() {
         </motion.button>
       </motion.div>
     </nav>
+    <ContactOverlay open={contactOpen} onClose={closeContact} />
     </>
   )
 }

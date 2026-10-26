@@ -341,22 +341,6 @@
   border-color: var(--xp-ink);
   background: color-mix(in srgb, var(--xp-ink) 6%, transparent);
 }
-/* a small seal stamped with the certificate year */
-.xp-seal {
-  display: grid;
-  place-items: center;
-  width: 3.5rem;
-  height: 3.5rem;
-  border-radius: 50%;
-  border: 1px solid color-mix(in srgb, var(--xp-grad-b) 55%, transparent);
-  font-size: 0.5625rem;
-  font-weight: 500;
-  line-height: 1.25;
-  letter-spacing: 0.1em;
-  text-align: center;
-  text-transform: uppercase;
-  color: var(--xp-grad-b);
-}
 
 @media (prefers-reduced-motion: reduce) {
   .xp-panel { animation: none; }

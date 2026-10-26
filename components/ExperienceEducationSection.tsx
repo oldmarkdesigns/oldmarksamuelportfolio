@@ -191,11 +191,6 @@ function Education({ onViewCertificate }: { onViewCertificate: () => void }) {
                 View certificate
                 <Eye size={15} weight="bold" aria-hidden />
               </button>
-              <span className="xp-seal" aria-hidden="true">
-                Certified
-                <br />
-                2024
-              </span>
             </div>
           </footer>
           <Crosshairs />
@@ -225,13 +220,6 @@ function Education({ onViewCertificate }: { onViewCertificate: () => void }) {
                 <dd className="xp-tabular">2020-09-14</dd>
               </div>
             </dl>
-            <div className="xp-doc-actions">
-              <span className="xp-seal" aria-hidden="true">
-                Certified
-                <br />
-                2020
-              </span>
-            </div>
           </footer>
           <Crosshairs />
         </article>

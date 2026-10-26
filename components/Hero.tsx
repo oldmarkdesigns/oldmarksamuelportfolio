@@ -1,11 +1,13 @@
 'use client'
 
-import { useLayoutEffect, useRef, useState } from 'react'
+import { useCallback, useLayoutEffect, useRef, useState } from 'react'
 import { Inter } from 'next/font/google'
 import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion'
 import { ArrowRight, DownloadSimple, EnvelopeSimple, LinkedinLogo, Moon, Sun, type Icon } from '@phosphor-icons/react'
 import { useTheme } from '@/contexts/ThemeContext'
 import { scrollToElement } from '@/lib/smoothScroll'
+import HeroOrb from './HeroOrb'
+import ContactOverlay from './ContactOverlay'
 
 const inter = Inter({ subsets: ['latin'], display: 'swap' })
 
@@ -158,8 +160,10 @@ function PillButton({ label, Icon, fx, anchor, primary, href, download, external
 export default function Hero() {
   const reduce = useReducedMotion()
   const sectionRef = useRef<HTMLElement>(null)
+  const [contactOpen, setContactOpen] = useState(false)
+  const closeContact = useCallback(() => setContactOpen(false), [])
 
-  // the two headline lines drift apart and fade as the hero scrolls away
+  // the name and role drift apart and fade as the hero scrolls away
   const { scrollYProgress } = useScroll({ target: sectionRef, offset: ['start start', 'end start'] })
   const line1X = useTransform(scrollYProgress, (v) => v * -70)
   const line2X = useTransform(scrollYProgress, (v) => v * 70)
@@ -168,10 +172,10 @@ export default function Hero() {
   return (
     <section
       ref={sectionRef}
-      className="hero-root relative min-h-[100dvh] flex flex-col overflow-hidden px-14 md:px-20 lg:px-24 pt-24 pb-8 md:pb-10"
+      className="hero-root relative min-h-[100dvh] flex flex-col overflow-hidden px-6 sm:px-14 md:px-20 lg:px-24 pt-24 pb-8 md:pb-10"
     >
-      <div className="hero-glows" aria-hidden>
-        <span className="hero-glow hero-glow-a" />
+      <div className="hero-orb-wrap hero-reveal" style={{ '--d': '0ms' } as React.CSSProperties} aria-hidden>
+        <HeroOrb />
       </div>
 
       {/* top-left corner */}
@@ -206,10 +210,12 @@ export default function Hero() {
           href="#contact"
           onClick={(e) => {
             e.preventDefault()
-            scrollToElement('#contact')
+            setContactOpen(true)
           }}
         />
       </div>
+
+      <ContactOverlay open={contactOpen} onClose={closeContact} />
 
       {/* left edge: light / dark */}
       <div className="hero-edge hero-edge-left hero-reveal" style={{ '--d': '500ms' } as React.CSSProperties}>
@@ -237,16 +243,16 @@ export default function Hero() {
             <span className="hero-dot" aria-hidden />
             Available for work
           </div>
-          <h1 aria-label="Product Designer & Builder" className={`hero-title ${inter.className}`}>
-            <div className="hero-reveal" style={{ '--d': '180ms' } as React.CSSProperties} aria-hidden>
-              <motion.div style={reduce ? undefined : { x: line1X }}>Product Designer</motion.div>
-            </div>
-            <div className="hero-reveal hero-title-soft" style={{ '--d': '320ms' } as React.CSSProperties} aria-hidden>
-              <motion.div className="hero-gradient" style={reduce ? undefined : { x: line2X }}>
-                &amp; Builder
-              </motion.div>
+          <h1 className={`hero-title ${inter.className}`}>
+            <div className="hero-reveal" style={{ '--d': '180ms' } as React.CSSProperties}>
+              <motion.div style={reduce ? undefined : { x: line1X }}>Samuel Oldmark</motion.div>
             </div>
           </h1>
+          <div className="hero-reveal" style={{ '--d': '320ms' } as React.CSSProperties}>
+            <motion.p className="hero-role" style={reduce ? undefined : { x: line2X }}>
+              Product Designer &amp; Builder
+            </motion.p>
+          </div>
         </motion.div>
 
         {/* bottom row: the intro */}

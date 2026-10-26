@@ -2557,7 +2557,7 @@ html[data-nav-compact='true'] .pj-rail {
   --hero-btn-bg: #f5f5f5;
   --hero-btn-fg: #0a0a0a;
   --hero-btn-hover: #ffffff;
-  --hero-glow: rgba(255, 255, 255, 0.06);
+  /* the orb's gradient: the ice blue of the availability dot, easing into a light green */
   --hero-grad-a: #3cc3f0;
   --hero-grad-b: #52e39a;
 }
@@ -2570,7 +2570,6 @@ html[data-nav-compact='true'] .pj-rail {
   --hero-btn-bg: #111827;
   --hero-btn-fg: #fafafa;
   --hero-btn-hover: #000000;
-  --hero-glow: rgba(15, 23, 42, 0.06);
   --hero-grad-a: #139fd0;
   --hero-grad-b: #14b87a;
 }
@@ -2586,16 +2585,15 @@ html[data-nav-compact='true'] .pj-rail {
 .hero-title-soft {
   font-weight: 300;
 }
-/* "& Builder": the ice blue of the availability dot, easing into a light green */
-.hero-gradient {
-  display: inline-block;
-  color: var(--hero-grad-a);
-  background-image: linear-gradient(90deg, var(--hero-grad-a), var(--hero-grad-b));
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
+/* the role under the name, small and spaced out */
+.hero-role {
+  margin: 1.25rem 0 0;
+  font-size: clamp(0.75rem, 1vw, 0.9rem);
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--hero-ink);
 }
-
 /* load: each block clears from dark and blurred, one after another */
 .hero-reveal {
   animation: hero-clear 0.95s cubic-bezier(0.22, 1, 0.36, 1) var(--d, 0ms) backwards;
@@ -2735,34 +2733,27 @@ html[data-nav-compact='true'] .pj-rail {
 .hero-more-arrow { transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1); }
 .hero-more:hover .hero-more-arrow { transform: translateX(5px); }
 
-/* one very soft neutral glow behind the headline */
-.hero-glows {
+/* the interactive orb sits behind the headline (see HeroOrb.tsx) */
+.hero-orb-wrap {
   position: absolute;
   inset: 0;
-  overflow: clip;
+  display: grid;
+  place-items: center;
   pointer-events: none;
-  /* the glow fades out before the hero ends, so there is no edge where the next section starts */
-  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 45%, transparent 92%);
-  mask-image: linear-gradient(to bottom, #000 0%, #000 45%, transparent 92%);
 }
-.hero-glow {
-  position: absolute;
-  top: 16%;
-  left: 50%;
-  width: 640px;
-  height: 640px;
-  margin-left: -320px;
+.hero-orb {
+  width: min(100vw, 100dvh, 980px);
+  aspect-ratio: 1;
+}
+/* without WebGL: a still gradient circle */
+.hero-orb[data-fallback] {
+  background: radial-gradient(circle at 38% 32%, var(--hero-grad-b), var(--hero-grad-a) 45%, transparent 62%);
   border-radius: 50%;
-  background: radial-gradient(circle, var(--hero-glow), transparent 68%);
-  filter: blur(80px);
-  animation: hero-drift 20s ease-in-out infinite alternate;
-}
-@keyframes hero-drift {
-  to { transform: translate3d(40px, 50px, 0); }
+  opacity: 0.7;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .hero-reveal, .hero-glow, .hero-dot::after { animation: none; }
+  .hero-reveal, .hero-dot::after { animation: none; }
   .hero-more-arrow, .hero-switch-btn, .hero-pill-label { transition: none; }
 }
 
@@ -2856,6 +2847,27 @@ html[data-nav-compact='true'] .hero-avatar {
 .hero-pill[data-open='true'][data-fx='download'] .hero-pill-icon svg { transform: translateY(2px); }
 .hero-pill[data-open='true'][data-fx='linkedin'] .hero-pill-icon svg { transform: scale(1.14); }
 .hero-pill[data-open='true'][data-fx='mail'] .hero-pill-icon svg { transform: rotate(-10deg) translateX(1px); }
+/* Mobile: a simpler hero. The menu takes the top-left corner (the navbar's circle carries the
+   portrait once scrolled), the vertical location goes, the name stays on one line, and the theme
+   switch lies flat in the bottom-right corner of the hero instead of following the page. */
+@media (max-width: 767px) {
+  .hero-corner-left,
+  .hero-edge-right { display: none; }
+  .hero-title {
+    font-size: clamp(2.25rem, 11.5vw, 3.5rem);
+    white-space: nowrap;
+  }
+  .hero-role { letter-spacing: 0.14em; }
+  .hero-edge-left {
+    position: absolute;
+    top: auto;
+    bottom: 26px;
+    left: auto;
+    right: 24px;
+    translate: none;
+  }
+  .hero-switch { flex-direction: row; }
+}
 .hero-pill-label {
   flex: none;
   font-size: 14px;
@@ -2883,3 +2895,150 @@ html[data-nav-compact='true'] .hero-avatar {
   box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.18);
 }
 .light .flag-se { box-shadow: 0 0 0 1px rgba(17, 24, 39, 0.16); }
+
+/* Custom cursor: a white circle that inverts what is under it (see CustomCursor.tsx) */
+.custom-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  /* above every overlay (contact overlay, lightboxes sit at 12000) */
+  z-index: 2147483647;
+  display: none;
+  width: 20px;
+  height: 20px;
+  margin: -10px 0 0 -10px;
+  border-radius: 50%;
+  background: #fff;
+  mix-blend-mode: difference;
+  pointer-events: none;
+  will-change: transform;
+  transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1), height 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+    margin 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s;
+}
+.has-custom-cursor .custom-cursor { display: block; }
+.custom-cursor[data-grow='true'] { width: 56px; height: 56px; margin: -28px 0 0 -28px; }
+.custom-cursor[data-press='true'] { width: 14px; height: 14px; margin: -7px 0 0 -7px; }
+.custom-cursor[data-hidden='true'] { opacity: 0; }
+.has-custom-cursor, .has-custom-cursor * { cursor: none !important; }
+.has-custom-cursor.cursor-text-field, .has-custom-cursor.cursor-text-field * { cursor: auto !important; }
+
+/* ----------------------------------------------------------------
+   Contact overlay: opened from the hero's "Let's connect" button
+---------------------------------------------------------------- */
+.contact-overlay {
+  --contact-ink: #ffffff;
+  --contact-body: #9ca3af;
+  --contact-line: rgba(255, 255, 255, 0.14);
+  --contact-card: #111111;
+  --contact-chip: rgba(255, 255, 255, 0.06);
+  --contact-scrim: rgba(0, 0, 0, 0.7);
+  position: fixed;
+  inset: 0;
+  z-index: 12000;
+  display: grid;
+  place-items: center;
+  padding: 16px;
+  background: var(--contact-scrim);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+}
+.light .contact-overlay {
+  --contact-ink: #111827;
+  --contact-body: #6b7280;
+  --contact-line: rgba(17, 24, 39, 0.12);
+  --contact-card: #ffffff;
+  --contact-chip: rgba(17, 24, 39, 0.04);
+  --contact-scrim: rgba(17, 24, 39, 0.35);
+}
+.contact-card {
+  position: relative;
+  width: min(100%, 440px);
+  padding: 40px 32px 32px;
+  border: 1px solid var(--contact-line);
+  border-radius: 24px;
+  background: var(--contact-card);
+  color: var(--contact-ink);
+  text-align: center;
+  box-shadow: 0 28px 60px rgba(0, 0, 0, 0.35);
+}
+.contact-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  display: grid;
+  width: 36px;
+  height: 36px;
+  place-items: center;
+  border-radius: 999px;
+  color: var(--contact-body);
+  transition: color 0.2s, background-color 0.2s;
+}
+.contact-close:hover { color: var(--contact-ink); background: var(--contact-chip); }
+.contact-title {
+  margin-bottom: 12px;
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+.contact-lead {
+  margin: 0 auto 28px;
+  max-width: 22rem;
+  color: var(--contact-body);
+  font-size: 15px;
+  line-height: 1.6;
+}
+.contact-label {
+  margin-bottom: 8px;
+  color: var(--contact-body);
+  font-size: 13px;
+}
+.contact-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  margin: 0 auto 20px;
+  padding: 8px 8px 8px 18px;
+  width: fit-content;
+  max-width: 100%;
+  border: 1px solid var(--contact-line);
+  border-radius: 999px;
+  background: var(--contact-chip);
+}
+.contact-email {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--contact-ink);
+}
+.contact-email:hover { text-decoration: underline; text-underline-offset: 3px; }
+.contact-copy {
+  display: grid;
+  flex: none;
+  width: 34px;
+  height: 34px;
+  place-items: center;
+  border-radius: 999px;
+  color: var(--contact-body);
+  transition: color 0.2s, background-color 0.2s;
+}
+.contact-copy:hover { color: var(--contact-ink); background: var(--contact-chip); }
+.contact-linkedin {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  border-radius: 999px;
+  color: var(--contact-ink);
+  font-size: 14px;
+  font-weight: 500;
+  transition: background-color 0.2s;
+}
+.contact-linkedin:hover { background: var(--contact-chip); }
+.contact-linkedin-arrow { transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1); }
+.contact-linkedin:hover .contact-linkedin-arrow { transform: translate(2px, -2px); }
+.contact-close:focus-visible,
+.contact-copy:focus-visible,
+.contact-email:focus-visible,
+.contact-linkedin:focus-visible { outline: 2px solid var(--contact-ink); outline-offset: 2px; }
