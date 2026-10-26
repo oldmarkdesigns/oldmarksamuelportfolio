@@ -16,7 +16,12 @@ const myMedicalDataCaseStudy: CaseStudyData = {
     width: 1200,
     height: 800,
   },
-  heroCaption: 'Primary product surfaces for the Halsa+ experience.',
+  meta: [
+    { label: 'Role', value: 'Product designer' },
+    { label: 'Timeline', value: 'Jan 2025 – present' },
+    { label: 'Team', value: 'Founder, developers, me' },
+    { label: 'Focus', value: 'Onboarding, emergency access, AI' },
+  ],
   snapshot: {
     role: 'Product Designer (UX/UI) with frontend collaboration',
     timeline: 'January 2025 - Present',

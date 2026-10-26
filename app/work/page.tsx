@@ -35,21 +35,6 @@ const allWork = [
     href: '/work/seb',
   },
   {
-    id: 'zanlugproperties',
-    title: 'Zanlüg Properties',
-    description: 'Luxury property website design',
-    projectTag: 'Contract',
-    coverImage: '/Portfolio Assets/Work/Zanlug Properties/zanlug-work-thumbnail.png',
-    href: '/work/zanlugproperties',
-  },
-  {
-    id: 'uigoodies',
-    title: 'UI Goodies',
-    description: 'Daily UI Design Challenges',
-    coverImage: '/Portfolio Assets/Work/UIGoodies/PortfolioUIGoodiesCover.png',
-    href: '/work/uigoodies',
-  },
-  {
     id: 'hemma',
     title: 'Hemma',
     description: 'Swedish-first iPhone home manager, in development',
@@ -64,22 +49,6 @@ const allWork = [
     projectTag: 'Agency',
     coverImage: '/Portfolio Assets/Work/Oldmark Studio/oldmark-studio-thumbnail-photo.jpg',
     href: '/work/oldmarkstudio',
-  },
-  {
-    id: 'moments',
-    title: 'Moments',
-    description: 'Plugin and pricing design',
-    projectTag: 'Concept',
-    coverImage: '/Portfolio Assets/Work/Moments/Landing.png',
-    href: '/work/moments',
-  },
-  {
-    id: 'djungelbyran',
-    title: 'Djungelbyrån',
-    description: 'Brand and web design',
-    projectTag: 'Contract',
-    coverImage: '/Portfolio Assets/Work/Djungelbyran/Work Cover.png',
-    href: '/work/djungelbyran',
   },
 ]
 

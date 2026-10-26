@@ -3,8 +3,8 @@ import type { SkillCard } from '@/lib/tools'
 
 export default function WorkPageSkills({ skills, id = 'skills' }: { skills: readonly SkillCard[]; id?: string }) {
   return (
-    <section id={id} className="scroll-mt-20 mb-16">
-      <h2 className="text-2xl md:text-3xl font-bold mb-6 text-white text-gray-900">Skills & Tools</h2>
+    <section id={id} className="cs-section cs-section-divider">
+      <h2 className="cs-section-title">Skills & Tools</h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         {skills.map((skill) => (
           <div

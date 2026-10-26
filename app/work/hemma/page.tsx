@@ -16,8 +16,12 @@ const hemmaCaseStudy: CaseStudyData = {
     width: 2400,
     height: 1700,
   },
-  heroCaption:
-    'Documents, Home and Log, the app’s three tabs today (Dokument, Hem and Logg in Swedish, the source language). Screens are from the iOS Simulator set to English, with sample data and placeholder photographs.',
+  meta: [
+    { label: 'Role', value: 'Product designer, iOS builder' },
+    { label: 'Timeline', value: 'Oct 2026 – present' },
+    { label: 'Team', value: 'Solo, self-initiated' },
+    { label: 'Status', value: 'In development' },
+  ],
   snapshot: {
     role: 'Product designer and iOS builder. I wrote the scope, designed the app, and direct the SwiftUI build one step at a time with Claude Code.',
     timeline: 'October 2026 – present. Still in Phase 1: the first twelve build steps are done.',

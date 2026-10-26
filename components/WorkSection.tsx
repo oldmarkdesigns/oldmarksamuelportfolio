@@ -69,17 +69,6 @@ const allWork = [
     href: '/work/mymedicaldata',
   },
   {
-    id: 'zanlugproperties',
-    headline: ['Zanlüg', 'Properties'],
-    title: 'Zanlüg Properties',
-    description: 'Designing a luxury property showcase website connecting travelers with exclusive retreats.',
-    year: '2026',
-    tags: ['Web Design', 'Luxury Branding', 'Property Showcase'],
-    projectTag: 'Contract',
-    coverImage: '/Portfolio Assets/Work/Zanlug Properties/zanlug-work-thumbnail.png',
-    href: '/work/zanlugproperties',
-  },
-  {
     id: 'hemma',
     headline: ['Hemma', 'home log for iPhone'],
     title: 'Hemma',
@@ -100,28 +89,6 @@ const allWork = [
     projectTag: 'Agency',
     coverImage: '/Portfolio Assets/Work/Oldmark Studio/oldmark-studio-thumbnail-photo.jpg',
     href: '/work/oldmarkstudio',
-  },
-  {
-    id: 'moments',
-    headline: ['Moments', 'plugin and pricing'],
-    title: 'Moments',
-    description: 'Designing plugin interfaces and pricing pages with focus on clarity and conversion.',
-    year: '2024',
-    tags: ['Plugin Design', 'Pricing', 'UI Design'],
-    projectTag: 'Concept',
-    coverImage: '/Portfolio Assets/Work/Moments/Plugin.png',
-    href: '/work/moments',
-  },
-  {
-    id: 'djungelbyran',
-    headline: ['Djungelbyrån', 'brand and web'],
-    title: 'Djungelbyrån',
-    description: 'Brand identity and web design project creating a cohesive visual language.',
-    year: '2022',
-    tags: ['Branding', 'Web Design', 'Identity'],
-    projectTag: 'Contract',
-    coverImage: '/Portfolio Assets/Work/Djungelbyran/Work Cover.png',
-    href: '/work/djungelbyran',
   },
 ]
 
@@ -154,7 +121,7 @@ function WorkItem({ work, index }: { work: typeof allWork[0], index: number }) {
           {/* Image */}
           <div
             className={`relative w-full aspect-[16/10] min-h-[160px] overflow-hidden rounded-xl ${
-              work.id === 'bontouch' || work.id === 'moments' || work.id === 'hemma'
+              work.id === 'bontouch' || work.id === 'hemma'
                 ? 'bg-gray-950'
                 : 'bg-gray-900'
             }`}
@@ -202,17 +169,12 @@ function WorkItem({ work, index }: { work: typeof allWork[0], index: number }) {
 
 type Work = (typeof allWork)[number]
 
-const visibleWork = allWork.filter(
-  (work) =>
-    work.id !== 'zanlugproperties' &&
-    work.id !== 'moments' &&
-    work.id !== 'djungelbyran'
-)
+const visibleWork = allWork
 
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1]
 const EASE_IN_OUT_QUART: [number, number, number, number] = [0.76, 0, 0.24, 1]
 const EASE_OUT_EXPO: [number, number, number, number] = [0.16, 1, 0.3, 1]
-const DARK_COVER = ['bontouch', 'moments', 'hemma']
+const DARK_COVER = ['bontouch', 'hemma']
 // how far past a slice boundary (in projects) the scroll has to go before the next one takes the stage
 const BOUNDARY_SLACK = 0.06
 

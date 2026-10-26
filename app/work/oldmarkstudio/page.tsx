@@ -2,11 +2,11 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
-import { useEffect, useMemo, useState } from 'react'
+import { useMemo } from 'react'
 import { TOOLS } from '@/lib/tools'
 import { ToolBadges } from '@/components/ToolBadges'
 import { CompactSkills, Row, RowCard } from '@/components/CompactRows'
-import { scrollToPosition } from '@/lib/smoothScroll'
+import { ProjectMeta, ProjectShell } from '@/components/ProjectLayout'
 
 const responsibilities = [
   'Sole designer and developer on every engagement — brand identity, UX/UI, frontend build, and post-launch iteration.',
@@ -110,221 +110,165 @@ export default function OldmarkStudioPage() {
     []
   )
 
-  const [activeSection, setActiveSection] = useState(sections[0].id)
-
-  useEffect(() => {
-    const updateActiveSection = () => {
-      const scrollPosition = window.scrollY + 180
-      let currentSection = sections[0].id
-
-      for (const section of sections) {
-        const element = document.getElementById(section.id)
-        if (element && scrollPosition >= element.offsetTop) {
-          currentSection = section.id
-        }
-      }
-
-      setActiveSection(currentSection)
-    }
-
-    window.addEventListener('scroll', updateActiveSection, { passive: true })
-    window.addEventListener('resize', updateActiveSection)
-    updateActiveSection()
-
-    return () => {
-      window.removeEventListener('scroll', updateActiveSection)
-      window.removeEventListener('resize', updateActiveSection)
-    }
-  }, [sections])
-
-  const handleNavClick = (event: React.MouseEvent<HTMLAnchorElement>, sectionId: string) => {
-    event.preventDefault()
-    const element = document.getElementById(sectionId)
-    if (!element) return
-
-    const offset = 92
-    const top = element.getBoundingClientRect().top + window.pageYOffset - offset
-    scrollToPosition(top)
-    setActiveSection(sectionId)
-  }
-
   return (
-    <main className="cs-page">
-      <div className="cs-shell">
-        <div className="cs-grid">
-          <aside className="cs-toc" aria-label="On this page">
-            <div className="cs-toc-card">
-              <nav>
-                {sections.map((section) => (
-                  <a
-                    key={section.id}
-                    href={`#${section.id}`}
-                    className={`cs-toc-link ${activeSection === section.id ? 'is-active' : ''}`}
-                    onClick={(event) => handleNavClick(event, section.id)}
-                  >
-                    {section.label}
-                  </a>
-                ))}
-              </nav>
-            </div>
-          </aside>
+    <ProjectShell
+      sections={sections}
+      cover={{
+        src: '/Portfolio Assets/Work/Oldmark Studio/hero-image.jpg',
+        alt: 'Samuel Oldmark, founder of Oldmark Studio.',
+        width: 3024,
+        height: 4032,
+      }}
+    >
+      <header className="cs-hero" id="overview">
+        <p className="cs-eyebrow">Independent Practice</p>
+        <h1 className="cs-title">Oldmark Studio</h1>
+        <p className="cs-subtitle">
+          My own design & development practice, running alongside my product design work. As the sole
+          designer and developer, I take on end-to-end web and product projects for early-stage founders —
+          from brand identity through to a shipped, maintainable product.
+        </p>
+        <ProjectMeta
+          items={[
+            { label: 'Role', value: 'Founder, sole designer + developer' },
+            { label: 'Clients', value: 'Early-stage founders' },
+            { label: 'Delivery', value: 'Two to three weeks' },
+            { label: 'Scope', value: 'Brand, UX/UI, build' },
+          ]}
+        />
 
-          <article className="cs-main">
-            <header className="cs-hero" id="overview">
-              <p className="cs-eyebrow">Independent Practice</p>
-              <h1 className="cs-title">Oldmark Studio</h1>
-              <p className="cs-subtitle">
-                My own design & development practice, running alongside my product design work. As the sole
-                designer and developer, I take on end-to-end web and product projects for early-stage founders —
-                from brand identity through to a shipped, maintainable product.
-              </p>
-              <div className="cs-actions">
-                <Link href="/#work" className="cs-button cs-button-secondary">
-                  Back to Work
-                </Link>
-                <a
-                  href="https://oldmarkstudio.vercel.app/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="cs-button cs-button-secondary"
-                >
-                  Visit oldmarkstudio.vercel.app ↗
-                </a>
-              </div>
-
-              <div className="cs-media-frame" style={{ maxWidth: '300px' }}>
-                <Image
-                  src="/Portfolio Assets/Work/Oldmark Studio/hero-image.jpg"
-                  alt="Samuel Oldmark, founder of Oldmark Studio."
-                  width={3024}
-                  height={4032}
-                  className="cs-media-image"
-                  sizes="(max-width: 640px) 60vw, 300px"
-                  priority
-                />
-              </div>
-            </header>
-
-            <section id="role" className="cs-section cs-section-divider">
-              <h2 className="cs-section-title">My role</h2>
-              <ul className="cs-list">
-                {responsibilities.map((item) => (
-                  <li key={item}>{item}</li>
-                ))}
-              </ul>
-            </section>
-
-            <section id="process" className="cs-section cs-section-divider">
-              <h2 className="cs-section-title">Process</h2>
-              <RowCard>
-                {process.map((item) => (
-                  <Row key={item.step} title={item.title} kicker={item.step}>
-                    <p>{item.description}</p>
-                  </Row>
-                ))}
-              </RowCard>
-            </section>
-
-            <section id="skills" className="cs-section cs-section-divider">
-              <h2 className="cs-section-title">Skills & tools</h2>
-              <CompactSkills skills={skills} />
-
-              <p className="cs-label mt-6 mb-3">Tools I use most</p>
-              <div className="flex flex-wrap gap-2">
-                {toolsUsedMost.map((tool) => (
-                  <span
-                    key={tool.name}
-                    className="about-chip inline-flex items-center gap-2 pl-2.5 pr-4 py-2 rounded-full text-sm font-medium"
-                  >
-                    <span
-                      className={`w-6 h-6 rounded-full overflow-hidden flex items-center justify-center bg-white flex-shrink-0 ${
-                        'contain' in tool && tool.contain ? 'p-1' : ''
-                      }`}
-                    >
-                      <Image
-                        src={tool.src}
-                        alt=""
-                        width={24}
-                        height={24}
-                        className={`w-full h-full ${'contain' in tool && tool.contain ? 'object-contain' : 'object-cover'}`}
-                      />
-                    </span>
-                    {tool.name}
-                  </span>
-                ))}
-              </div>
-            </section>
-
-            <section id="projects" className="cs-section">
-              <h2 className="cs-section-title">Selected projects</h2>
-              <div className="flex flex-col">
-                {projects.map((project, index) => (
-                  <article
-                    key={project.name}
-                    className={index > 0 ? 'mt-14 pt-14 border-t border-[var(--cs-divider)]' : ''}
-                  >
-                    <div className="flex flex-col gap-5">
-                      <div className="relative cs-media-frame overflow-hidden" style={{ maxWidth: '480px' }}>
-                        <Image
-                          src={project.image.src}
-                          alt={project.image.alt}
-                          width={project.image.width}
-                          height={project.image.height}
-                          className="cs-media-image"
-                          sizes="(max-width: 640px) 100vw, 480px"
-                          data-lightbox-ignore="true"
-                        />
-                        <ToolBadges items={project.tools} />
-                        <div className="absolute inset-x-0 bottom-0 p-4 md:p-5 bg-gradient-to-t from-black/75 via-black/30 to-transparent">
-                          <a
-                            href={project.liveHref}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="cs-button cs-button-live"
-                            data-lightbox-ignore="true"
-                          >
-                            Visit live site ↗
-                          </a>
-                        </div>
-                      </div>
-
-                      <div>
-                        <p className="cs-label">
-                          0{index + 1} · {project.tag}
-                        </p>
-                        <h3 className="font-serif text-2xl md:text-3xl font-medium text-white mt-2 mb-2">
-                          {project.name}
-                        </h3>
-                        <p className="cs-copy mb-4">{project.context}</p>
-
-                        <div className="flex flex-wrap gap-2 mb-5">
-                          {project.role.map((item) => (
-                            <span key={item} className="about-chip px-3 py-1 rounded-full text-xs font-medium">
-                              {item}
-                            </span>
-                          ))}
-                        </div>
-
-                        <p className="cs-label mb-2">Key decisions</p>
-                        <ul className="cs-list cs-list-compact mb-4">
-                          {project.decisions.map((item) => (
-                            <li key={item}>{item}</li>
-                          ))}
-                        </ul>
-
-                        <p className="cs-copy">
-                          <span className="cs-label">Outcome — </span>
-                          {project.outcome}
-                        </p>
-                      </div>
-                    </div>
-                  </article>
-                ))}
-              </div>
-            </section>
-          </article>
+        <div className="cs-actions">
+          <Link href="/#work" className="cs-button cs-button-secondary">
+            Back to Work
+          </Link>
+          <a
+            href="https://oldmarkstudio.vercel.app/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="cs-button cs-button-secondary"
+          >
+            Visit oldmarkstudio.vercel.app ↗
+          </a>
         </div>
-      </div>
-    </main>
+      </header>
+
+      <section id="role" className="cs-section cs-section-divider">
+        <h2 className="cs-section-title">My role</h2>
+        <ul className="cs-list">
+          {responsibilities.map((item) => (
+            <li key={item}>{item}</li>
+          ))}
+        </ul>
+      </section>
+
+      <section id="process" className="cs-section cs-section-divider">
+        <h2 className="cs-section-title">Process</h2>
+        <RowCard>
+          {process.map((item) => (
+            <Row key={item.step} title={item.title} kicker={item.step}>
+              <p>{item.description}</p>
+            </Row>
+          ))}
+        </RowCard>
+      </section>
+
+      <section id="skills" className="cs-section cs-section-divider">
+        <h2 className="cs-section-title">Skills & tools</h2>
+        <CompactSkills skills={skills} />
+
+        <p className="cs-label mt-6 mb-3">Tools I use most</p>
+        <div className="flex flex-wrap gap-2">
+          {toolsUsedMost.map((tool) => (
+            <span
+              key={tool.name}
+              className="about-chip inline-flex items-center gap-2 pl-2.5 pr-4 py-2 rounded-full text-sm font-medium"
+            >
+              <span
+                className={`w-6 h-6 rounded-full overflow-hidden flex items-center justify-center bg-white flex-shrink-0 ${
+                  'contain' in tool && tool.contain ? 'p-1' : ''
+                }`}
+              >
+                <Image
+                  src={tool.src}
+                  alt=""
+                  width={24}
+                  height={24}
+                  className={`w-full h-full ${'contain' in tool && tool.contain ? 'object-contain' : 'object-cover'}`}
+                />
+              </span>
+              {tool.name}
+            </span>
+          ))}
+        </div>
+      </section>
+
+      <section id="projects" className="cs-section">
+        <h2 className="cs-section-title">Selected projects</h2>
+        <div className="flex flex-col">
+          {projects.map((project, index) => (
+            <article
+              key={project.name}
+              className={index > 0 ? 'mt-14 pt-14 border-t border-[var(--cs-divider)]' : ''}
+            >
+              <div className="flex flex-col gap-5">
+                <div className="relative cs-media-frame overflow-hidden" style={{ maxWidth: '480px' }}>
+                  <Image
+                    src={project.image.src}
+                    alt={project.image.alt}
+                    width={project.image.width}
+                    height={project.image.height}
+                    className="cs-media-image"
+                    sizes="(max-width: 640px) 100vw, 480px"
+                    data-lightbox-ignore="true"
+                  />
+                  <ToolBadges items={project.tools} />
+                  <div className="absolute inset-x-0 bottom-0 p-4 md:p-5 bg-gradient-to-t from-black/75 via-black/30 to-transparent">
+                    <a
+                      href={project.liveHref}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="cs-button cs-button-live"
+                      data-lightbox-ignore="true"
+                    >
+                      Visit live site ↗
+                    </a>
+                  </div>
+                </div>
+
+                <div>
+                  <p className="cs-label">
+                    0{index + 1} · {project.tag}
+                  </p>
+                  <h3 className="font-serif text-2xl md:text-3xl font-medium text-white mt-2 mb-2">
+                    {project.name}
+                  </h3>
+                  <p className="cs-copy mb-4">{project.context}</p>
+
+                  <div className="flex flex-wrap gap-2 mb-5">
+                    {project.role.map((item) => (
+                      <span key={item} className="about-chip px-3 py-1 rounded-full text-xs font-medium">
+                        {item}
+                      </span>
+                    ))}
+                  </div>
+
+                  <p className="cs-label mb-2">Key decisions</p>
+                  <ul className="cs-list cs-list-compact mb-4">
+                    {project.decisions.map((item) => (
+                      <li key={item}>{item}</li>
+                    ))}
+                  </ul>
+
+                  <p className="cs-copy">
+                    <span className="cs-label">Outcome — </span>
+                    {project.outcome}
+                  </p>
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+    </ProjectShell>
   )
 }

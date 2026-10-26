@@ -15,7 +15,12 @@ const bontouchCaseStudy: CaseStudyData = {
     width: 1200,
     height: 800,
   },
-  heroCaption: 'Selected project work from my internship period, November 2023-May 2024.',
+  meta: [
+    { label: 'Role', value: 'UX/UI design intern' },
+    { label: 'Timeline', value: 'Nov 2023 – May 2024' },
+    { label: 'Company', value: 'Bontouch, now Framna' },
+    { label: 'Focus', value: 'Onboarding, design system' },
+  ],
   snapshot: {
     role: 'UX/UI Design Intern',
     timeline: 'November 2023 - May 2024 (5 months)',

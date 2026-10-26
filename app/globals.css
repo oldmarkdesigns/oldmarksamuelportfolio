@@ -922,8 +922,8 @@ a {
   --cs-type-eyebrow: 0.75rem;
   --cs-type-body: 1rem;
   --cs-type-h3: 1.125rem;
-  --cs-type-h2: clamp(1.5rem, 2.8vw, 2rem);
-  --cs-type-h1: clamp(2rem, 4.8vw, 3.5rem);
+  --cs-type-h2: clamp(1.75rem, 3vw, 2.25rem);
+  --cs-type-h1: clamp(2.25rem, 4.8vw, 3.5rem);
   --cs-weight-medium: 500;
   --cs-weight-semibold: 600;
   --cs-weight-bold: 700;
@@ -960,44 +960,27 @@ a {
 
 .cs-page {
   min-height: 100vh;
-  padding-top: 5.5rem;
   /* safety net: a wide child (diagram / table) scrolls inside its own box,
-     never the page. `clip` (not `hidden`) keeps the sticky TOC working. */
+     never the page. `clip` (not `hidden`) keeps sticky children working. */
   overflow-x: clip;
 }
 
 .cs-shell {
   margin: 0 auto;
-  max-width: var(--cs-max-width);
-  padding: var(--cs-space-6) var(--cs-space-5) var(--cs-space-9);
+  max-width: calc(var(--cs-content-width) + 2 * var(--cs-space-5));
+  padding: 8.5rem var(--cs-space-5) var(--cs-space-9);
 }
 
 @media (min-width: 640px) {
   .cs-shell {
+    max-width: calc(var(--cs-content-width) + 2 * var(--cs-space-6));
     padding-left: var(--cs-space-6);
     padding-right: var(--cs-space-6);
   }
 }
 
-@media (min-width: 1024px) {
-  .cs-shell {
-    padding-top: var(--cs-space-7);
-  }
-}
-
-.cs-grid {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  gap: var(--cs-space-6);
-}
-
-@media (min-width: 1024px) {
-  .cs-grid {
-    grid-template-columns: minmax(180px, 232px) minmax(0, var(--cs-content-width)) minmax(180px, 232px);
-    justify-content: center;
-    align-items: start;
-    column-gap: var(--cs-space-6);
-  }
+.cs-page.has-cover .cs-shell {
+  padding-top: var(--cs-space-8);
 }
 
 .cs-main {
@@ -1005,60 +988,266 @@ a {
   width: 100%;
 }
 
-.cs-toc {
-  display: none;
+/* Project cover: full-bleed band, the image whole over a blurred wash of itself */
+.pj-cover {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+  padding: 6.5rem var(--cs-space-5) var(--cs-space-7);
 }
 
-@media (min-width: 1024px) {
-  .cs-toc {
-    display: block;
-    grid-column: 1;
-    position: sticky;
-    top: 6.5rem;
-    align-self: start;
-  }
-
-  .cs-main {
-    grid-column: 2;
+@media (min-width: 768px) {
+  .pj-cover {
+    padding: 7.5rem var(--cs-space-6) var(--cs-space-8);
   }
 }
 
-.cs-toc-card {
-  border: 1px solid var(--cs-border);
-  border-radius: var(--cs-radius-md);
-  background: var(--cs-surface-2);
-  backdrop-filter: var(--cs-glass-blur);
-  -webkit-backdrop-filter: var(--cs-glass-blur);
-  box-shadow: var(--cs-glass-highlight), var(--cs-shadow-sm);
-  padding: var(--cs-space-5);
-  transition: background-color 0.28s ease, border-color 0.28s ease, box-shadow 0.28s ease;
+.pj-cover-wash {
+  object-fit: cover;
+  filter: blur(56px) saturate(1.25);
+  opacity: 0.45;
+  transform: scale(1.2);
+  -webkit-mask-image: linear-gradient(#000 55%, transparent);
+  mask-image: linear-gradient(#000 55%, transparent);
 }
 
-.cs-toc-title {
-  color: var(--cs-text-primary);
-  font-size: 0.8rem;
+.light .pj-cover-wash {
+  opacity: 0.3;
+}
+
+.pj-cover-image {
+  position: relative;
+  display: block;
+  width: auto;
+  max-width: min(1280px, 100%);
+  height: auto;
+  max-height: min(72vh, 760px);
+  border-radius: var(--cs-radius-lg);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.35);
+}
+
+.light .pj-cover-image {
+  box-shadow: 0 24px 60px rgba(15, 23, 42, 0.14);
+}
+
+/* Short facts under the title */
+.pj-meta {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--cs-space-5) var(--cs-space-6);
+  padding-top: var(--cs-space-6);
+  margin-top: var(--cs-space-2);
+  border-top: 1px solid var(--cs-divider);
+}
+
+@media (min-width: 768px) {
+  .pj-meta {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+.pj-meta dt {
+  color: var(--cs-text-muted);
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.7rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  font-weight: var(--cs-weight-semibold);
-  margin-bottom: var(--cs-space-4);
 }
 
-.cs-toc-link {
+.pj-meta dd {
+  color: var(--cs-text-primary);
+  font-size: 0.95rem;
+  line-height: 1.45;
+  margin-top: var(--cs-space-2);
+}
+
+/* Previous / next project at the bottom of every project page */
+.pj-pager {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--cs-space-4);
+  margin-top: var(--cs-space-9);
+  padding-top: var(--cs-space-7);
+  border-top: 1px solid var(--cs-divider);
+}
+
+@media (min-width: 640px) {
+  .pj-pager {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .pj-pager-link.is-next {
+    text-align: right;
+  }
+}
+
+.pj-pager-link {
+  display: flex;
+  flex-direction: column;
+  gap: var(--cs-space-2);
+  color: var(--cs-text-primary);
+}
+
+.pj-pager-thumb {
+  position: relative;
   display: block;
+  aspect-ratio: 16 / 10;
+  margin-bottom: var(--cs-space-2);
+  overflow: hidden;
+  border: 1px solid var(--cs-border);
+  border-radius: var(--cs-radius-md);
+  background: var(--cs-surface-1);
+}
+
+.pj-pager-image {
+  object-fit: cover;
+  transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.pj-pager-link:hover .pj-pager-image,
+.pj-pager-link:focus-visible .pj-pager-image {
+  transform: scale(1.04);
+}
+
+.pj-pager-dir {
   color: var(--cs-text-muted);
-  font-size: 0.92rem;
-  line-height: 1.35;
-  font-weight: var(--cs-weight-medium);
-  padding: var(--cs-space-2) 0;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.pj-pager-title {
+  font-size: 1.25rem;
+  font-weight: var(--cs-weight-semibold);
+  letter-spacing: -0.01em;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pj-pager-image {
+    transition: none;
+  }
+}
+
+/* "On this page" rail. It hangs from the nav portrait (48px circle at 30px/13px, see
+   Navigation.tsx) and only shows once the nav has collapsed into that circle. */
+.pj-rail {
+  --pj-rail-row: 2.125rem;
+  position: fixed;
+  left: 30px;
+  top: 5.25rem;
+  z-index: 40;
+  display: none;
+  flex-direction: column;
+  opacity: 0;
+  transform: translateY(-0.5rem);
+  pointer-events: none;
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+
+@media (min-width: 1280px) {
+  .pj-rail {
+    display: flex;
+  }
+}
+
+html[data-nav-compact='true'] .pj-rail {
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
+}
+
+.pj-rail-track,
+.pj-rail-stem {
+  position: absolute;
+  left: 23.5px;
+  top: -1.5rem;
+  width: 1px;
+}
+
+.pj-rail-track {
+  background: var(--cs-divider);
+}
+
+.pj-rail-stem {
+  background: var(--cs-text-secondary);
+  transition: height 0.45s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.pj-rail a {
+  display: flex;
+  align-items: center;
+  height: var(--pj-rail-row);
+  color: var(--cs-text-muted);
+  font-size: 0.8125rem;
   transition: color 0.2s ease;
 }
 
-.cs-toc-link:hover {
+.pj-rail a:hover,
+.pj-rail a.is-active {
   color: var(--cs-text-primary);
 }
 
-.cs-toc-link.is-active {
-  color: var(--cs-text-primary);
+.pj-rail-dot {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 100%;
+  flex-shrink: 0;
+}
+
+.pj-rail-dot::before {
+  content: '';
+  width: 5px;
+  height: 5px;
+  border-radius: 999px;
+  background: var(--cs-text-muted);
+  transition: transform 0.25s ease, background-color 0.25s ease;
+}
+
+.pj-rail a:hover .pj-rail-dot::before {
+  background: var(--cs-text-secondary);
+}
+
+.pj-rail a.is-active .pj-rail-dot::before {
+  background: var(--cs-text-primary);
+  transform: scale(1.6);
+}
+
+.pj-rail-num {
+  width: 1.75rem;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.6875rem;
+  letter-spacing: 0.06em;
+}
+
+.pj-rail-label {
+  max-width: 9rem;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  opacity: 0;
+  transform: translateX(-0.25rem);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.pj-rail:hover .pj-rail-label,
+.pj-rail:focus-within .pj-rail-label,
+.pj-rail a.is-active .pj-rail-label {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pj-rail,
+  .pj-rail-stem,
+  .pj-rail-dot::before,
+  .pj-rail-label {
+    transition: none;
+  }
 }
 
 .cs-hero,
@@ -1074,18 +1263,19 @@ a {
 
 .cs-eyebrow {
   color: var(--cs-text-muted);
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
   text-transform: uppercase;
-  letter-spacing: 0.12em;
-  font-size: var(--cs-type-eyebrow);
-  font-weight: var(--cs-weight-semibold);
+  letter-spacing: 0.08em;
+  font-size: 0.7rem;
 }
 
 .cs-title {
   color: var(--cs-text-primary);
   font-size: var(--cs-type-h1);
-  line-height: 1.08;
-  font-weight: var(--cs-weight-bold);
-  max-width: 18ch;
+  line-height: 1.06;
+  letter-spacing: -0.02em;
+  font-weight: var(--cs-weight-semibold);
+  max-width: 20ch;
 }
 
 .cs-title-logo-wrap {
@@ -1180,14 +1370,14 @@ a {
 }
 
 .cs-section-divider {
-  border-top: 1px solid var(--cs-divider);
-  padding-top: var(--cs-space-7);
+  padding-top: var(--cs-space-8);
 }
 
 .cs-section-title {
   color: var(--cs-text-primary);
   font-size: var(--cs-type-h2);
-  line-height: 1.2;
+  line-height: 1.15;
+  letter-spacing: -0.015em;
   margin-bottom: var(--cs-space-6);
   font-weight: var(--cs-weight-semibold);
 }
@@ -1740,7 +1930,6 @@ a {
 }
 
 /* Light mode: keep card surfaces flat (no shadows) across main + project pages */
-.light .cs-toc-card,
 .light .cs-media-frame,
 .light .cs-callout,
 .light .cs-surface-card,
